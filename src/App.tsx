@@ -1,14 +1,11 @@
-import { useState } from "react";
-import AddButton from "./components/AddButton";
-import AddNodeForm from "./components/AddNodeForm";
+import AddButton from "./components/AddNodeForm/AddButton";
+import AddNodeForm from "./components/AddNodeForm/AddNodeForm";
 
 const App = () => {
-    const [isVisible, setIsVisible] = useState(true);
-
     return (
         <>
-            <AddNodeForm isVisible={isVisible} />
-            <AddButton setFormVisibility={() => setIsVisible(!isVisible)} />
+            <AddNodeForm />
+            <AddButton />
         </>
     );
 };
