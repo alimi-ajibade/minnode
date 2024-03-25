@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { TwitterPicker, ColorResult } from "react-color";
 
-const ColorPicker = () => {
+interface Props {
+    background: string;
+    setBackground: (color: ColorResult) => void;
+}
+
+const ColorPicker = ({ background, setBackground }: Props) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [background, setBackground] = useState({} as ColorResult);
 
     return (
         <div className="relative">
             <p className="block my-2">Select Color</p>
             <button
                 className={`w-10 h-10 border rounded-md`}
-                style={{ backgroundColor: background.hex }}
+                style={{ backgroundColor: background }}
                 onClick={() => setIsVisible(!isVisible)}
                 type="button"></button>
 
@@ -20,7 +24,7 @@ const ColorPicker = () => {
                         setBackground(color);
                         setIsVisible(!isVisible);
                     }}
-                    color={background.hex}
+                    color={background}
                 />
             </div>
         </div>
