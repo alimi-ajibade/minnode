@@ -1,10 +1,12 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CancelButton from "./CancelButton";
 import ColorPicker from "./ColorPicker";
 import FormContainer from "./FormContainer";
 import { useState } from "react";
+import useRFStore from "../MindMap/store";
+import useFormStore from "./store";
 
 const schema = z.object({
     label: z
@@ -22,13 +24,16 @@ const AddNodeForm = () => {
         formState: { errors, isValid },
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
-
     const [color, setColor] = useState("#ABB8C3");
+    const { setFormVisibility } = useFormStore();
 
-    const onSubmit = (data: FieldValues) => {
-        data["color"] = color;
-        console.log(data);
+    const addNodeUsingForm = useRFStore((s) => s.addNodeUsingForm);
+
+    const onSubmit = (data: FormData) => {
+        const { label, note } = data;
+        addNodeUsingForm(label, note, color);
         reset();
+        setFormVisibility();
     };
 
     return (

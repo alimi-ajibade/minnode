@@ -3,7 +3,7 @@ import useFormStore from "./store";
 const AddButton = () => {
     const { isVisible, setFormVisibility } = useFormStore();
     return (
-        <div className="fixed bottom-0 right-0 p-6">
+        <div className="fixed bottom-0 right-0 p-6 z-50">
             <button
                 className={`${
                     isVisible && "hidden"
