@@ -1,11 +1,22 @@
 import { Handle, NodeProps, Position } from "reactflow";
-
-interface NodeData {
-    label: string;
-    backgroundColor: string;
-}
+import useFormStore from "../AddNodeForm/store";
+import useRFStore, { NodeData } from "./store";
+import { useEffect } from "react";
 
 function CustomNode({ id, data }: NodeProps<NodeData>) {
+    const { setFormVisibility, setIsUpdateForm } = useFormStore();
+    const nodes = useRFStore((s) => s.nodes);
+    const updateNode = useRFStore((s) => s.updateNode);
+
+    const handleDoubleClick = () => {
+        setFormVisibility();
+        setIsUpdateForm(true);
+    };
+
+    useEffect(() => {
+        console.log(data);
+    }, [nodes, updateNode]);
+
     return (
         <>
             <input
@@ -15,6 +26,7 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
                     outlineColor: data.backgroundColor,
                 }}
                 className="p-2 border border-1 rounded text-center focus:outline outilne-2"
+                onDoubleClick={handleDoubleClick}
             />
 
             <Handle type="target" position={Position.Top} />

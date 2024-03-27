@@ -1,23 +1,15 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { schema } from "./AddNodeForm";
+import { FormData } from "./AddNodeForm";
 import CancelButton from "./CancelButton";
+import { useState } from "react";
+import useFormStore from "./store";
+import useRFStore from "../MindMap/store";
 import ColorPicker from "./ColorPicker";
 import FormContainer from "./FormContainer";
-import { useState } from "react";
-import useRFStore from "../MindMap/store";
-import useFormStore from "./store";
 
-export const schema = z.object({
-    label: z
-        .string()
-        .min(2, { message: "Label must be at least 3 characters" }),
-    note: z.string().optional(),
-});
-
-export type FormData = z.infer<typeof schema>;
-
-const AddNodeForm = () => {
+const UpdateNodeForm = () => {
     const {
         register,
         handleSubmit,
@@ -25,23 +17,29 @@ const AddNodeForm = () => {
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-    const [color, setColor] = useState("#ABB8C3");
+    const { nodes, selectedNode, updateNode, setSelectedNode } = useRFStore();
 
-    const { setFormVisibility } = useFormStore();
+    const [color, setColor] = useState(
+        selectedNode.data?.backgroundColor
+            ? selectedNode.data.backgroundColor
+            : "#ABB8C3"
+    );
 
-    const addNodeUsingForm = useRFStore((s) => s.addNodeUsingForm);
+    const { setFormVisibility, setIsUpdateForm } = useFormStore();
 
     const onSubmit = (data: FormData) => {
         const { label, note } = data;
-        addNodeUsingForm(label, note, color);
+        updateNode({ label: label, note, backgroundColor: color });
+        setSelectedNode(nodes);
         reset();
         setFormVisibility();
+        setIsUpdateForm(false);
     };
 
     return (
         <FormContainer>
             <div className="flex flex-row justify-between w-full">
-                <h1 className="text-lg font-medium">Add Node</h1>
+                <h1 className="text-lg font-medium">Update Node</h1>
                 <CancelButton />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +53,11 @@ const AddNodeForm = () => {
                         name="label"
                         id="label"
                         className="px-3 py-1 w-full border border-2 rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                        defaultValue={
+                            selectedNode.data?.label
+                                ? selectedNode.data.label
+                                : ""
+                        }
                     />
 
                     {errors.label && (
@@ -73,6 +76,11 @@ const AddNodeForm = () => {
                         name="note"
                         id="note"
                         rows={5}
+                        defaultValue={
+                            selectedNode.data?.note
+                                ? selectedNode.data.note
+                                : ""
+                        }
                         className="px-3 py-1 w-full h-194 resize-none border border-2 rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"></textarea>
                 </div>
 
@@ -85,11 +93,11 @@ const AddNodeForm = () => {
                     type="submit"
                     disabled={!isValid}
                     className="py-2 px-4 mt-5 border border-3 rounded-md bg-sky-600 hover:bg-sky-700 active:bg-sky-900 text-gray-50 disabled:bg-sky-300 transition duration-500 ease-in-out">
-                    Add
+                    Update
                 </button>
             </form>
         </FormContainer>
     );
 };
 
-export default AddNodeForm;
+export default UpdateNodeForm;

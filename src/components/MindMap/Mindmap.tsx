@@ -1,4 +1,4 @@
-import ReactFlow, { Controls, Panel } from "reactflow";
+import ReactFlow, { Controls, Panel, useOnSelectionChange } from "reactflow";
 import useRFStore from "./store";
 import CustomNode from "./CustomNode";
 import "reactflow/dist/style.css";
@@ -8,8 +8,20 @@ const nodeTypes = {
 };
 
 const Mindmap = () => {
-    const { nodes, edges, onNodesChange, onEdgesChange, onConnect } =
-        useRFStore();
+    const {
+        nodes,
+        edges,
+        onNodesChange,
+        onEdgesChange,
+        onConnect,
+        setSelectedNode,
+    } = useRFStore();
+
+    useOnSelectionChange({
+        onChange: ({ nodes }) => {
+            setSelectedNode(nodes);
+        },
+    });
 
     return (
         <ReactFlow
