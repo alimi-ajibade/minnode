@@ -5,8 +5,12 @@ import { useEffect, useRef } from "react";
 
 function CustomNode({ id, data }: NodeProps<NodeData>) {
     const { setFormVisibility, setIsUpdateForm } = useFormStore();
-    const nodes = useRFStore((s) => s.nodes);
-    const updateNode = useRFStore((s) => s.updateNode);
+    const {
+        nodes,
+        updateNodeLabel,
+        updateNodeUsingForm: updateNode,
+        setSelectedNode,
+    } = useRFStore();
     const labelRef = useRef<HTMLInputElement>(null);
 
     const handleDoubleClick = () => {
@@ -33,6 +37,10 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
                 }}
                 className="p-2 border border-1 rounded text-center focus:outline outilne-2"
                 onDoubleClick={handleDoubleClick}
+                onChange={(event) => {
+                    updateNodeLabel(event.target.value);
+                    setSelectedNode(nodes);
+                }}
             />
 
             <Handle type="target" position={Position.Top} />

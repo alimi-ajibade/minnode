@@ -7,7 +7,6 @@ import { useState } from "react";
 import useFormStore from "./store";
 import useRFStore from "../MindMap/store";
 import ColorPicker from "./ColorPicker";
-import FormContainer from "./FormContainer";
 
 const UpdateNodeForm = () => {
     const {
@@ -17,7 +16,12 @@ const UpdateNodeForm = () => {
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-    const { nodes, selectedNode, updateNode, setSelectedNode } = useRFStore();
+    const {
+        nodes,
+        selectedNode,
+        updateNodeUsingForm: updateNode,
+        setSelectedNode,
+    } = useRFStore();
 
     const [color, setColor] = useState(
         selectedNode.data?.backgroundColor

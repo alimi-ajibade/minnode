@@ -29,7 +29,8 @@ export interface RFState {
     onConnect: OnConnect;
     setSelectedNode: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
-    updateNode: (data: NodeData) => void;
+    updateNodeUsingForm: (data: NodeData) => void;
+    updateNodeLabel: (label: string) => void;
 }
 
 const useRFStore = create<RFState>((set, get) => ({
@@ -79,7 +80,7 @@ const useRFStore = create<RFState>((set, get) => ({
         set({ nodes: [...currentNodes, newNode] });
     },
 
-    updateNode: (data) => {
+    updateNodeUsingForm: (data) => {
         const selectedNode = get().selectedNode;
 
         if (selectedNode)
@@ -99,6 +100,25 @@ const useRFStore = create<RFState>((set, get) => ({
                     }),
                 ],
             });
+    },
+
+    updateNodeLabel: (label) => {
+        const selectedNode = get().selectedNode;
+
+        set({
+            nodes: [
+                ...get().nodes.map((node) => {
+                    if (node.id === selectedNode.id) {
+                        node.data = {
+                            ...node.data,
+                            label: label,
+                        };
+                    }
+
+                    return node;
+                }),
+            ],
+        });
     },
 }));
 
