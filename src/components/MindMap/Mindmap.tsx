@@ -38,8 +38,10 @@ const Mindmap = () => {
             fitView>
             <Controls showInteractive={false} />
             <Panel position="top-left">React Flow Mind Map</Panel>
-            <AddNodeButton />
-            <DeleteButton />
+            <Panel position="bottom-right">
+                <AddNodeButton />
+                <DeleteButton />
+            </Panel>
         </ReactFlow>
     );
 };

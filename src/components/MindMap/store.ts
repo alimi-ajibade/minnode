@@ -29,6 +29,7 @@ export interface RFState {
     onNodesChange: OnNodesChange;
     setSelectedNode: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
+    addNode: () => void;
     updateNodeUsingForm: (data: NodeData) => void;
     updateNodeLabel: (label: string) => void;
     deleteNode: () => void;
@@ -90,6 +91,23 @@ const useRFStore = create<RFState>((set, get) => ({
             id: nanoid(),
             type: "mindmap",
             data: { label: label, backgroundColor: color, note: note },
+            position: {
+                x: lastNodePosition.x + 50,
+                y: lastNodePosition.y + 50,
+            },
+        };
+
+        set({ nodes: [...currentNodes, newNode] });
+    },
+
+    addNode: () => {
+        const currentNodes = get().nodes;
+        const lastNodePosition = currentNodes[currentNodes.length - 1].position;
+
+        const newNode = {
+            id: nanoid(),
+            type: "mindmap",
+            data: { label: "New Node", backgroundColor: "E9EBEA", note: "" },
             position: {
                 x: lastNodePosition.x + 50,
                 y: lastNodePosition.y + 50,
