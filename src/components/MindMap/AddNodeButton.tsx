@@ -1,9 +1,9 @@
-import useFormStore from "./store";
+import useFormStore from "../AddNodeForm/store";
 
-const AddButton = () => {
+const AddNodeButton = () => {
     const { setFormVisibility, setIsUpdateForm } = useFormStore();
     return (
-        <div className="fixed bottom-0 right-0 p-6 z-10">
+        <div className="fixed bottom-12 right-0 m-4 z-10">
             <button
                 className={`border border-3 rounded-md py-2 px-4 bg-sky-600 hover:bg-sky-700 active:bg-sky-900 text-gray-50 transition duration-500 ease-in-out`}
                 onClick={() => {
@@ -16,4 +16,4 @@ const AddButton = () => {
     );
 };
 
-export default AddButton;
+export default AddNodeButton;

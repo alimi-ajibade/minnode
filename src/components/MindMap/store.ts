@@ -11,6 +11,10 @@ import {
     Connection,
     OnConnect,
     addEdge,
+    OnNodesDelete,
+    getIncomers,
+    getOutgoers,
+    getConnectedEdges,
 } from "reactflow";
 import { create } from "zustand";
 
@@ -21,16 +25,18 @@ export interface NodeData {
 }
 
 export interface RFState {
-    selectedNode: Node<NodeData>;
     nodes: Node<NodeData>[];
-    edges: Edge[];
+    selectedNode: Node<NodeData>;
     onNodesChange: OnNodesChange;
-    onEdgesChange: OnEdgesChange;
-    onConnect: OnConnect;
     setSelectedNode: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
     updateNodeUsingForm: (data: NodeData) => void;
     updateNodeLabel: (label: string) => void;
+    deleteNode: () => void;
+    edges: Edge[];
+    onEdgesChange: OnEdgesChange;
+    setEdges: (edges: Edge[]) => void;
+    onConnect: OnConnect;
 }
 
 const useRFStore = create<RFState>((set, get) => ({
@@ -44,6 +50,10 @@ const useRFStore = create<RFState>((set, get) => ({
         },
     ],
     edges: [],
+
+    setEdges: (edges: Edge[]) => {
+        set({ edges });
+    },
 
     onNodesChange: (changes: NodeChange[]) => {
         set({ nodes: applyNodeChanges(changes, get().nodes) });
@@ -119,6 +129,41 @@ const useRFStore = create<RFState>((set, get) => ({
                 }),
             ],
         });
+    },
+
+    deleteNode: () => {
+        const nodes = get().nodes;
+        const edges = get().edges;
+
+        set({
+            nodes: [
+                ...get().nodes.filter((node) => {
+                    return node.id !== get().selectedNode.id;
+                }),
+            ],
+        });
+
+        get().setEdges(
+            [get().selectedNode].reduce((acc, node) => {
+                const incomers = getIncomers(node, nodes, edges);
+                const outgoers = getOutgoers(node, nodes, edges);
+                const connectedEdges = getConnectedEdges([node], edges);
+
+                const remainingEdges = acc.filter(
+                    (edge) => !connectedEdges.includes(edge)
+                );
+
+                const createdEdges = incomers.flatMap(({ id: source }) =>
+                    outgoers.map(({ id: target }) => ({
+                        id: `${source}->${target}`,
+                        source,
+                        target,
+                    }))
+                );
+
+                return [...remainingEdges, ...createdEdges];
+            }, edges)
+        );
     },
 }));
 
