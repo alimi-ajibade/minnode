@@ -1,9 +1,15 @@
-import ReactFlow, { Controls, Panel, useOnSelectionChange } from "reactflow";
+import ReactFlow, {
+    Background,
+    Controls,
+    Panel,
+    useOnSelectionChange,
+} from "reactflow";
 import useRFStore from "./store";
 import CustomNode from "./CustomNode";
-import "reactflow/dist/style.css";
 import DeleteButton from "./DeleteButton";
 import AddNodeButton from "./AddNodeButton";
+import DownloadButton from "./DownloadButton";
+import "reactflow/dist/style.css";
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -36,11 +42,13 @@ const Mindmap = () => {
             onConnect={onConnect}
             nodeTypes={nodeTypes}
             fitView>
+            <Background gap={25} />
             <Controls showInteractive={false} />
-            <Panel position="top-left">React Flow Mind Map</Panel>
+            <Panel position="top-left">Mind Map</Panel>
             <Panel position="bottom-right">
                 <AddNodeButton />
                 <DeleteButton />
+                <DownloadButton />
             </Panel>
         </ReactFlow>
     );
