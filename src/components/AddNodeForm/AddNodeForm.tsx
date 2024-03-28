@@ -3,7 +3,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CancelButton from "./CancelButton";
 import ColorPicker from "./ColorPicker";
-import FormContainer from "./FormContainer";
 import { useState } from "react";
 import useRFStore from "../MindMap/store";
 import useFormStore from "./store";
