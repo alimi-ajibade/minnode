@@ -1,12 +1,13 @@
 import { Handle, NodeProps, Position } from "reactflow";
 import useFormStore from "../AddNodeForm/store";
 import useRFStore, { NodeData } from "./store";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function CustomNode({ id, data }: NodeProps<NodeData>) {
     const { setFormVisibility, setIsUpdateForm } = useFormStore();
     const nodes = useRFStore((s) => s.nodes);
     const updateNode = useRFStore((s) => s.updateNode);
+    const labelRef = useRef<HTMLInputElement>(null);
 
     const handleDoubleClick = () => {
         setFormVisibility();
@@ -14,12 +15,17 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
     };
 
     useEffect(() => {
-        console.log(data);
+        const node = nodes.find((node) => node.id === id);
+
+        if (labelRef.current !== null && node?.data.label) {
+            labelRef.current.value = node?.data.label;
+        }
     }, [nodes, updateNode]);
 
     return (
         <>
             <input
+                ref={labelRef}
                 defaultValue={data.label}
                 style={{
                     backgroundColor: data.backgroundColor,

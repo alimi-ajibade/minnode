@@ -1,17 +1,16 @@
 import AddButton from "./components/AddNodeForm/AddButton";
-import AddNodeForm from "./components/AddNodeForm/AddNodeForm";
+import FormContainer from "./components/AddNodeForm/FormContainer";
 import useFormStore from "./components/AddNodeForm/store";
-import UpdateNodeForm from "./components/AddNodeForm/UpdateNodeForm";
 import Mindmap from "./components/MindMap/Mindmap";
 
 const App = () => {
-    const { isVisible, isUpdateForm } = useFormStore();
+    const { isVisible } = useFormStore();
 
     return (
-        <div className="h-screen">
-            {isUpdateForm ? <UpdateNodeForm /> : <AddNodeForm />}
+        <div className="h-screen relative">
+            <FormContainer />
             <AddButton />
-            {!isVisible && <Mindmap />}
+            <Mindmap />
         </div>
     );
 };

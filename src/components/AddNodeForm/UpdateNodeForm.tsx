@@ -37,7 +37,7 @@ const UpdateNodeForm = () => {
     };
 
     return (
-        <FormContainer>
+        <>
             <div className="flex flex-row justify-between w-full">
                 <h1 className="text-lg font-medium">Update Node</h1>
                 <CancelButton />
@@ -96,7 +96,7 @@ const UpdateNodeForm = () => {
                     Update
                 </button>
             </form>
-        </FormContainer>
+        </>
     );
 };
 

@@ -39,7 +39,7 @@ const AddNodeForm = () => {
     };
 
     return (
-        <FormContainer>
+        <>
             <div className="flex flex-row justify-between w-full">
                 <h1 className="text-lg font-medium">Add Node</h1>
                 <CancelButton />
@@ -88,7 +88,7 @@ const AddNodeForm = () => {
                     Add
                 </button>
             </form>
-        </FormContainer>
+        </>
     );
 };
 
