@@ -2,7 +2,7 @@ import ReactFlow, { Controls, Panel, useOnSelectionChange } from "reactflow";
 import useRFStore from "./store";
 import CustomNode from "./CustomNode";
 import "reactflow/dist/style.css";
-import DeleteNodeButton from "./DeleteNodeButton";
+import DeleteButton from "./DeleteButton";
 import AddNodeButton from "./AddNodeButton";
 
 const nodeTypes = {
@@ -17,11 +17,13 @@ const Mindmap = () => {
         onEdgesChange,
         onConnect,
         setSelectedNode,
+        setSelectedEdge,
     } = useRFStore();
 
     useOnSelectionChange({
-        onChange: ({ nodes }) => {
+        onChange: ({ nodes, edges }) => {
             setSelectedNode(nodes);
+            setSelectedEdge(edges);
         },
     });
 
@@ -37,7 +39,7 @@ const Mindmap = () => {
             <Controls showInteractive={false} />
             <Panel position="top-left">React Flow Mind Map</Panel>
             <AddNodeButton />
-            <DeleteNodeButton />
+            <DeleteButton />
         </ReactFlow>
     );
 };

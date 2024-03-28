@@ -11,7 +11,6 @@ import {
     Connection,
     OnConnect,
     addEdge,
-    OnNodesDelete,
     getIncomers,
     getOutgoers,
     getConnectedEdges,
@@ -34,9 +33,12 @@ export interface RFState {
     updateNodeLabel: (label: string) => void;
     deleteNode: () => void;
     edges: Edge[];
+    selectedEdge: Edge;
     onEdgesChange: OnEdgesChange;
     setEdges: (edges: Edge[]) => void;
     onConnect: OnConnect;
+    deleteEdge: () => void;
+    setSelectedEdge: (edges: Edge[]) => void;
 }
 
 const useRFStore = create<RFState>((set, get) => ({
@@ -49,6 +51,7 @@ const useRFStore = create<RFState>((set, get) => ({
             position: { x: 0, y: 0 },
         },
     ],
+    selectedEdge: {} as Edge,
     edges: [],
 
     setEdges: (edges: Edge[]) => {
@@ -70,6 +73,12 @@ const useRFStore = create<RFState>((set, get) => ({
     setSelectedNode: (nodes) => {
         set({
             selectedNode: nodes.find((node) => node.selected === true),
+        });
+    },
+
+    setSelectedEdge: (edges) => {
+        set({
+            selectedEdge: edges.find((edge) => edge.selected === true),
         });
     },
 
@@ -164,6 +173,13 @@ const useRFStore = create<RFState>((set, get) => ({
                 return [...remainingEdges, ...createdEdges];
             }, edges)
         );
+    },
+
+    deleteEdge: () => {
+        const selectedEdge = get().selectedEdge;
+        get().setEdges([
+            ...get().edges.filter((edge) => edge.id !== selectedEdge.id),
+        ]);
     },
 }));
 
