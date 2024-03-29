@@ -48,7 +48,7 @@ const useRFStore = create<RFState>((set, get) => ({
         {
             id: "root",
             type: "mindmap",
-            data: { label: "React Flow Mind Map", backgroundColor: "E9EBEA" },
+            data: { label: "New Node", backgroundColor: "E9EBEA" },
             position: { x: 0, y: 0 },
         },
     ],

@@ -1,7 +1,7 @@
-import { Handle, NodeProps, Position } from "reactflow";
-import useFormStore from "../AddNodeForm/store";
-import useRFStore, { NodeData } from "./store";
 import { useEffect, useRef } from "react";
+import { Handle, NodeProps, Position } from "reactflow";
+import useRFStore, { NodeData } from "./store";
+import useFormStore from "../AddNodeForm/store";
 
 function CustomNode({ id, data }: NodeProps<NodeData>) {
     const { setFormVisibility, setIsUpdateForm } = useFormStore();

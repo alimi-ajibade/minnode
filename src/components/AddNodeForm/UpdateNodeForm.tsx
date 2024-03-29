@@ -71,23 +71,6 @@ const UpdateNodeForm = () => {
                     )}
                 </div>
 
-                <div className="mb-3">
-                    <label htmlFor="note" className="block my-2">
-                        Note
-                    </label>
-                    <textarea
-                        {...register("note")}
-                        name="note"
-                        id="note"
-                        rows={5}
-                        defaultValue={
-                            selectedNode.data?.note
-                                ? selectedNode.data.note
-                                : ""
-                        }
-                        className="px-3 py-1 w-full h-194 resize-none border border-2 rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"></textarea>
-                </div>
-
                 <ColorPicker
                     background={color}
                     setBackground={(color) => setColor(color.hex)}
