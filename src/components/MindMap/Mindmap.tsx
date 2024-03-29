@@ -10,6 +10,7 @@ import DeleteButton from "./DeleteButton";
 import AddNodeButton from "./AddNodeButton";
 import DownloadButton from "./DownloadButton";
 import "reactflow/dist/style.css";
+import LayoutButtons from "./LayoutButtons";
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -48,6 +49,7 @@ const Mindmap = () => {
             <Panel position="bottom-right">
                 <AddNodeButton />
                 <DeleteButton />
+                <LayoutButtons />
                 <DownloadButton />
             </Panel>
         </ReactFlow>
