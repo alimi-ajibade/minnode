@@ -1,5 +1,5 @@
-import { Tooltip } from "react-tooltip";
 import { MdDeleteForever } from "react-icons/md";
+import Button from "./Button";
 import useRFStore from "./store";
 
 const DeleteButton = () => {
@@ -8,23 +8,17 @@ const DeleteButton = () => {
     const selectedEgde = useRFStore((s) => s.selectedEdge);
     const deleteEdge = useRFStore((s) => s.deleteEdge);
     return (
-        <div className="m-3">
-            <button
-                className={`border border-3 rounded-md py-2 px-4 bg-red-500 hover:bg-red-600 active:bg-red-800 text-gray-50 transition duration-500 ease-in-out disabled:bg-red-300 transition duration-500 ease-in-out`}
-                data-tooltip-id="delete-button"
-                onClick={() => {
-                    selectedNode ? deleteNode() : deleteEdge();
-                }}
-                disabled={selectedNode || selectedEgde ? false : true}>
-                <MdDeleteForever />
-            </button>
-            <Tooltip
-                id="delete-button"
-                place="bottom"
-                variant="error"
-                content="add a new node"
-            />
-        </div>
+        <Button
+            classNames="border border-3 rounded-md py-2 px-4 bg-red-500 hover:bg-red-600 active:bg-red-800 text-gray-50 transition duration-500 ease-in-out disabled:bg-red-300 transition duration-500 ease-in-out"
+            dataTooltipId="delete-button"
+            onCLick={() => {
+                selectedNode ? deleteNode() : deleteEdge();
+            }}
+            disabled={selectedNode || selectedEgde ? false : true}
+            tooltipVariant="error"
+            tooltipContent="delete selected node or edge">
+            <MdDeleteForever />
+        </Button>
     );
 };
 
