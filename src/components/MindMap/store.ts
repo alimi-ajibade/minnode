@@ -30,7 +30,7 @@ export interface RFState {
     setSelectedNode: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
     addNode: () => void;
-    updateNodeUsingForm: (data: NodeData) => void;
+    updateNode: (data: NodeData) => void;
     updateNodeLabel: (label: string) => void;
     deleteNode: () => void;
     edges: Edge[];
@@ -117,7 +117,7 @@ const useRFStore = create<RFState>((set, get) => ({
         set({ nodes: [...currentNodes, newNode] });
     },
 
-    updateNodeUsingForm: (data) => {
+    updateNode: (data) => {
         const selectedNode = get().selectedNode;
 
         if (selectedNode)
