@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Tooltip, VariantType } from "react-tooltip";
+import { ReactNode, useRef } from "react";
+import { Tooltip, VariantType, TooltipRefProps } from "react-tooltip";
 
 interface Props {
     classNames: string;
@@ -20,6 +20,21 @@ const Button = ({
     tooltipVariant,
     onCLick,
 }: Props) => {
+    const toolTipRef = useRef<TooltipRefProps>(null);
+
+    const afterShow = () => {
+        let timeoutId: number;
+
+        if (toolTipRef.current?.isOpen) {
+            timeoutId = setTimeout(() => {
+                toolTipRef.current?.close();
+            }, 3000);
+        }
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    };
+
     return (
         <div className="m-3">
             <button
@@ -30,10 +45,12 @@ const Button = ({
                 {children}
             </button>
             <Tooltip
+                ref={toolTipRef}
                 id={dataTooltipId}
                 place="bottom"
                 variant={tooltipVariant ? tooltipVariant : "dark"}
                 content={tooltipContent}
+                afterShow={afterShow}
             />
         </div>
     );
