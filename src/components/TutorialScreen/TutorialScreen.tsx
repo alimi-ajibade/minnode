@@ -20,12 +20,12 @@ const TutorialScreen = () => {
             className={`${
                 !showTutorial && "hidden"
             } @container p-3 h-screen w-screen z-50 ${""} absolute flex flex-row justify-center items-center inset-0 backdrop-filter backdrop-blur-lg`}>
-            <div className="relative flex flex-row justify-center items-center bg-gray-50 border border-3 rounded-md shadow-md w-full min-h-40 p-5 @md:w-96">
+            <div className="relative flex flex-row justify-center items-center bg-gray-50 border border-3 rounded-md shadow-md w-full min-h-44 p-5 @md:w-96">
                 <button
                     onClick={() => {
                         setShowTutorial(!showTutorial);
                     }}
-                    className="absolute top-0 right-0 py-3 px-3 text-xs text-zinc-800">
+                    className="absolute top-0 right-0 py-3 px-3 text-s text-zinc-800">
                     x
                 </button>
 
@@ -51,7 +51,7 @@ const TutorialScreen = () => {
                         <div className="border border-3 rounded-md py-2 px-4 bg-red-500 text-gray-50">
                             <MdDeleteForever />
                         </div>
-                        <div>to delete a selected node or edge.</div>
+                        <div>icon to delete a selected node or edge.</div>
                     </ScreenInfo>
                 )}
 
@@ -61,7 +61,7 @@ const TutorialScreen = () => {
                         <div className="border border-3 rounded-md py-2 px-4 bg-gray-500 text-gray-50">
                             <BiSolidObjectsHorizontalLeft />
                         </div>
-                        <div>arrange nodes horizontally.</div>
+                        <div>icon arrange nodes horizontally.</div>
                     </ScreenInfo>
                 )}
 
@@ -71,7 +71,7 @@ const TutorialScreen = () => {
                         <div className="border border-3 rounded-md py-2 px-4 bg-gray-500 text-gray-50">
                             <BiSolidObjectsVerticalTop />
                         </div>
-                        <div>arrange nodes vertically.</div>
+                        <div>icon arrange nodes vertically.</div>
                     </ScreenInfo>
                 )}
 
@@ -81,35 +81,35 @@ const TutorialScreen = () => {
                         <div className="border border-3 rounded-md py-2 px-4 bg-gray-500 text-gray-50">
                             <BiDownload />
                         </div>
-                        <div>to download mind map image</div>
+                        <div>icon to download mind map image</div>
                     </ScreenInfo>
                 )}
 
                 {isVisible === 6 && (
                     <ScreenInfo>
-                        <p>Enjoy </p>
+                        <p>Enjoy 🥳 </p>
                     </ScreenInfo>
                 )}
 
-                <div className="absolute bottom-0 right-0 m-2 text-base">
+                <div className="absolute bottom-0 right-0 m-2 text-md">
                     <button
                         className="disabled:opacity-0"
                         onClick={() => {
                             if (!(isVisible <= 0)) setIsVisible(isVisible - 1);
                         }}
                         disabled={isVisible === 0}>
-                        <GrFormPrevious />
+                        <GrFormPrevious size={20} />
                     </button>{" "}
                     <button
                         className="disabled:opacity-0"
                         onClick={() => {
                             if (!(isVisible >= tutotialScreens))
                                 setIsVisible(isVisible + 1);
-                            if (isVisible + 1 === tutotialScreens) {
+                            if (isVisible === tutotialScreens) {
                                 setShowTutorial(false);
                             }
                         }}>
-                        <MdOutlineNavigateNext />
+                        <MdOutlineNavigateNext size={20} />
                     </button>
                 </div>
             </div>
