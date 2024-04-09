@@ -10,7 +10,6 @@ function CustomEdge(props: EdgeProps) {
         sourcePosition,
         targetPosition,
     } = props;
-    console.log(props);
 
     const [edgePath] = getBezierPath({
         sourceX: sourcePosition === "right" ? sourceX - 5 : sourceX,

@@ -11,6 +11,7 @@ import DeleteButton from "./DeleteButton";
 import AddNodeButton from "./AddNodeButton";
 import DownloadButton from "./DownloadButton";
 import LayoutButtons from "./LayoutButtons";
+import ColorPicker from "./ColorPicker";
 import "reactflow/dist/style.css";
 
 const nodeTypes = {
@@ -53,6 +54,7 @@ function Mindmap() {
             <Controls showInteractive={false} />
             <Panel position="top-left">Mind Map</Panel>
             <Panel position="bottom-right">
+                <ColorPicker />
                 <AddNodeButton />
                 <DeleteButton />
                 <LayoutButtons />
