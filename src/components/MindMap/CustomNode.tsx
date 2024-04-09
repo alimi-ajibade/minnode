@@ -5,8 +5,13 @@ import useRFStore, { NodeData } from "./store";
 function CustomNode({ id, data }: NodeProps<NodeData>) {
     const labelRef = useRef<HTMLInputElement>(null);
 
-    const { nodes, updateNodeLabel, updateNode, setSelectedNode } =
-        useRFStore();
+    const {
+        nodes,
+        updateNodeLabel,
+        updateNode,
+        setSelectedNode,
+        selectedNode,
+    } = useRFStore();
 
     useEffect(() => {
         const node = nodes.find((node) => node.id === id);
@@ -18,15 +23,19 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
 
     return (
         <>
-            <div className="relative">
+            <div
+                className={
+                    id === selectedNode?.id
+                        ? `outline outline-[#66A9FF] outline-2 outline-offset-1`
+                        : ""
+                }>
                 <input
                     ref={labelRef}
                     defaultValue={data.label}
                     style={{
                         backgroundColor: data.backgroundColor,
-                        outlineColor: data.backgroundColor,
                     }}
-                    className="p-2 border rounded text-center focus:outline outilne-2"
+                    className="p-2 text-center border focus:outline-none"
                     onChange={(event) => {
                         updateNodeLabel(event.target.value);
                         setSelectedNode(nodes);

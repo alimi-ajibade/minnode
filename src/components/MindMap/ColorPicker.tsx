@@ -1,14 +1,9 @@
 import { GithubPicker } from "react-color";
-import useRFStore, { NodeData } from "./store";
-import { useEffect } from "react";
-import { Node } from "reactflow";
+import useRFStore from "./store";
 
 const ColorPicker = () => {
     const selectedNode = useRFStore((s) => s.selectedNode);
-    const setSelectedNode = useRFStore((s) => s.setSelectedNode);
     const updateNode = useRFStore((s) => s.updateNode);
-
-    useEffect(() => {}, []);
 
     return (
         <div className="w-[fit-content] m-auto">
@@ -25,10 +20,11 @@ const ColorPicker = () => {
                     "#3399FF",
                 ]}
                 onChangeComplete={(color) => {
-                    updateNode({
-                        ...selectedNode.data,
-                        backgroundColor: color.hex,
-                    });
+                    if (selectedNode)
+                        updateNode({
+                            ...selectedNode.data,
+                            backgroundColor: color.hex,
+                        });
                 }}
             />
         </div>
