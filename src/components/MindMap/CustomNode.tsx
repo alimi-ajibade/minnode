@@ -4,7 +4,7 @@ import useRFStore, { NodeData } from "./store";
 import { GithubPicker } from "react-color";
 
 function CustomNode({ id, data }: NodeProps<NodeData>) {
-    const [isVisible, setIsVisible] = useState(false);
+    const [isColorPickerVisible, setIsColorPickerVisible] = useState(false);
     const labelRef = useRef<HTMLInputElement>(null);
     const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +30,7 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
                 colorPickerRef.current &&
                 !colorPickerRef.current.contains(event.target as Node)
             ) {
-                setIsVisible(false);
+                setIsColorPickerVisible(false);
             }
         };
 
@@ -44,7 +44,7 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
     return (
         <>
             <div ref={colorPickerRef} className="relative">
-                <div>
+                <div className="relative">
                     <input
                         ref={labelRef}
                         defaultValue={data.label}
@@ -53,21 +53,40 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
                             outlineColor: data.backgroundColor,
                         }}
                         className="p-2 border rounded text-center focus:outline outilne-2"
-                        onFocus={() => setIsVisible(true)}
+                        onFocus={() => {
+                            setIsColorPickerVisible(true);
+                        }}
                         onChange={(event) => {
                             updateNodeLabel(event.target.value);
                             setSelectedNode(nodes);
                         }}
                     />
-                    <Handle type="target" position={Position.Top} />
+                    <Handle
+                        type="target"
+                        position={Position.Top}
+                        id="targetT"
+                    />
                     <Handle
                         type="source"
                         position={Position.Bottom}
-                        style={{ bottom: "auto" }}
+                        id="sourceB"
+                    />
+                    <Handle
+                        type="source"
+                        position={Position.Right}
+                        id="sourceR"
+                    />
+                    <Handle
+                        type="target"
+                        position={Position.Left}
+                        id="targetL"
                     />
                 </div>
 
-                <div className={`${isVisible ? "" : "hidden"} mt-2 ml-1.5`}>
+                <div
+                    className={`${
+                        isColorPickerVisible ? "" : "hidden"
+                    } mt-2 ml-1.5`}>
                     <GithubPicker
                         triangle="hide"
                         width="11.7rem"

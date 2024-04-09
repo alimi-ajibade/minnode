@@ -44,6 +44,7 @@ export interface RFState {
 
 const useRFStore = create<RFState>((set, get) => ({
     selectedNode: {} as Node<NodeData>,
+    selectedEdge: {} as Edge,
     nodes: [
         {
             id: "root",
@@ -52,7 +53,6 @@ const useRFStore = create<RFState>((set, get) => ({
             position: { x: 0, y: 0 },
         },
     ],
-    selectedEdge: {} as Edge,
     edges: [],
 
     setEdges: (edges: Edge[]) => {
@@ -68,7 +68,8 @@ const useRFStore = create<RFState>((set, get) => ({
     },
 
     onConnect: (connection: Connection) => {
-        set({ edges: addEdge(connection, get().edges) });
+        const edge = { ...connection, type: "custom-edge" };
+        set({ edges: addEdge(edge, get().edges) });
     },
 
     setSelectedNode: (nodes) => {

@@ -19,7 +19,7 @@ const UpdateNodeForm = () => {
     const {
         nodes,
         selectedNode,
-        updateNodeUsingForm: updateNode,
+        updateNode: updateNode,
         setSelectedNode,
     } = useRFStore();
 
@@ -56,7 +56,7 @@ const UpdateNodeForm = () => {
                         type="text"
                         name="label"
                         id="label"
-                        className="px-3 py-1 w-full border border-2 rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                        className="px-3 py-1 w-full border-2 rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                         defaultValue={
                             selectedNode.data?.label
                                 ? selectedNode.data.label

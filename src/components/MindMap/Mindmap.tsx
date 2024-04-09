@@ -6,17 +6,22 @@ import ReactFlow, {
 } from "reactflow";
 import useRFStore from "./store";
 import CustomNode from "./CustomNode";
+import CustomEdge from "./CustomEdge";
 import DeleteButton from "./DeleteButton";
 import AddNodeButton from "./AddNodeButton";
 import DownloadButton from "./DownloadButton";
-import "reactflow/dist/style.css";
 import LayoutButtons from "./LayoutButtons";
+import "reactflow/dist/style.css";
 
 const nodeTypes = {
     mindmap: CustomNode,
 };
 
-const Mindmap = () => {
+const edgeTypes = {
+    "custom-edge": CustomEdge,
+};
+
+function Mindmap() {
     const {
         nodes,
         edges,
@@ -38,10 +43,11 @@ const Mindmap = () => {
         <ReactFlow
             nodes={nodes}
             edges={edges}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            nodeTypes={nodeTypes}
             fitView>
             <Background gap={25} />
             <Controls showInteractive={false} />
@@ -54,6 +60,6 @@ const Mindmap = () => {
             </Panel>
         </ReactFlow>
     );
-};
+}
 
 export default Mindmap;
