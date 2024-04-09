@@ -52,7 +52,6 @@ function Mindmap() {
             fitView>
             <Background gap={25} />
             <Controls showInteractive={false} />
-            <Panel position="top-left">Mind Map</Panel>
             <Panel position="bottom-right">
                 <ColorPicker />
                 <AddNodeButton />

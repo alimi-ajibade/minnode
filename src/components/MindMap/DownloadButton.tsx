@@ -1,15 +1,23 @@
 import { toPng } from "html-to-image";
 import { BiDownload } from "react-icons/bi";
-import { getNodesBounds, getViewportForBounds, useReactFlow } from "reactflow";
+import {
+    getNodesBounds,
+    getViewportForBounds,
+    useReactFlow,
+    Node,
+} from "reactflow";
 import Button from "./Button";
 import downloadImage from "../../services/download";
+import useRFStore, { NodeData } from "./store";
 
 const imageWidth = 1024;
 const imageHeight = 768;
 
 const DownloadButton = () => {
     const { getNodes } = useReactFlow();
+    const setSelectedNode = useRFStore((s) => s.setSelectedNode);
     const onClick = () => {
+        setSelectedNode([] as Node<NodeData>[]);
         const nodesBounds = getNodesBounds(getNodes());
         const transform = getViewportForBounds(
             nodesBounds,
