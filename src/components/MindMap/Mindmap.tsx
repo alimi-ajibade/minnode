@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ReactFlow, {
     Background,
     Controls,
@@ -13,6 +14,7 @@ import DownloadButton from "./DownloadButton";
 import LayoutButtons from "./LayoutButtons";
 import ColorPicker from "./ColorPicker";
 import "reactflow/dist/style.css";
+import HandleElementCustom from "../../entities/HandleElementCustom";
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -39,6 +41,24 @@ function Mindmap() {
             setSelectedEdge(edges);
         },
     });
+
+    useEffect(() => {
+        const handles = Array.from(
+            document.querySelectorAll(".react-flow__handle")
+        ) as HandleElementCustom[];
+
+        const focusElement = document.activeElement?.tagName;
+
+        if (focusElement === "BODY" || focusElement === "DIV") {
+            handles.forEach((handle) => {
+                handle.style!.opacity = 0;
+            });
+        } else {
+            handles.forEach((handle) => {
+                handle.style!.opacity = 1;
+            });
+        }
+    }, [document.activeElement]);
 
     return (
         <ReactFlow

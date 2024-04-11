@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeProps, getBezierPath } from "reactflow";
+import { BaseEdge, EdgeProps, getSimpleBezierPath } from "reactflow";
 
 function CustomEdge(props: EdgeProps) {
     const {
@@ -11,11 +11,11 @@ function CustomEdge(props: EdgeProps) {
         targetPosition,
     } = props;
 
-    const [edgePath] = getBezierPath({
-        sourceX: sourcePosition === "right" ? sourceX - 5 : sourceX,
-        sourceY: sourcePosition === "bottom" ? sourceY - 5 : sourceY,
-        targetX: targetPosition === "left" ? targetX + 5 : targetX,
-        targetY: targetPosition === "top" ? targetY + 5 : targetY,
+    const [edgePath] = getSimpleBezierPath({
+        sourceX: sourcePosition === "right" ? sourceX - 3 : sourceX,
+        sourceY: sourcePosition === "bottom" ? sourceY - 3 : sourceY,
+        targetX: targetPosition === "left" ? targetX + 3 : targetX,
+        targetY: targetPosition === "top" ? targetY + 3 : targetY,
     });
 
     return (

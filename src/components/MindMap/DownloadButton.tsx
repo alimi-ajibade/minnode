@@ -9,6 +9,7 @@ import {
 import Button from "./Button";
 import downloadImage from "../../services/download";
 import useRFStore, { NodeData } from "./store";
+import removeHandles from "../../utils/removeHandles";
 
 const imageWidth = 1024;
 const imageHeight = 768;
@@ -26,6 +27,8 @@ const DownloadButton = () => {
             0.5,
             2
         );
+
+        removeHandles();
 
         const mindMap: HTMLElement = document.querySelector(
             ".react-flow__viewport"
