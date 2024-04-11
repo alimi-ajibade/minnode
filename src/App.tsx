@@ -1,14 +1,11 @@
-import FormContainer from "./components/AddNodeForm/FormContainer";
-import Mindmap from "./components/MindMap/Mindmap";
-import TutorialScreen from "./components/TutorialScreen/TutorialScreen";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 const App = () => {
     return (
-        <div className="h-screen relative">
-            <TutorialScreen />
-            <FormContainer />
-            <Mindmap />
-        </div>
+        <>
+            <RouterProvider router={router} />
+        </>
     );
 };
 

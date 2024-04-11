@@ -2,6 +2,7 @@ import ReactFlow, {
     Background,
     Controls,
     Panel,
+    ReactFlowProvider,
     useOnSelectionChange,
 } from "reactflow";
 import useRFStore from "./store";
