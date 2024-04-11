@@ -1,5 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import { SectionWrapper } from "../components/hoc";
 
 const ErrorPage = () => {
     const error = useRouteError();
@@ -19,4 +20,4 @@ const ErrorPage = () => {
     );
 };
 
-export default ErrorPage;
+export default SectionWrapper(ErrorPage);
