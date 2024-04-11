@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import MindMapPage from "./pages/MindMapPage";
-import Mindmap from "./components/MindMap/Mindmap";
 import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
