@@ -13,6 +13,10 @@ export default {
                     to: { opacity: 1 },
                 },
             },
+
+            fontFamily: {
+                sans: ["Karla", "sans-serif"],
+            },
         },
     },
     plugins: [require("@tailwindcss/container-queries")],
