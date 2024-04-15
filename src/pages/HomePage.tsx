@@ -1,5 +1,6 @@
 import { SectionWrapper } from "../components/hoc";
 import Flow from "../components/HomeFlow/Flow";
+import SectionContainer from "../components/SectionContainer";
 
 const HomePage = () => {
     return (
@@ -24,7 +25,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="flex lg:flex-row flex-col items-center min-h-[500px] lg:mt-10 mt-16 ">
+            <SectionContainer marginTop="lg:mt-10 mt-16 ">
                 <div className="lg:ml-10 flex-1 self-center order-1 lg:order-2">
                     <p className="lg:text-5xl text-4xl">
                         Simple and Easy To Use
@@ -43,9 +44,9 @@ const HomePage = () => {
                         />
                     </video>
                 </div>
-            </section>
+            </SectionContainer>
 
-            <section className="flex lg:flex-row flex-col items-center min-h-[500px] lg:mt-2 mt-16">
+            <SectionContainer>
                 <div className="ml-5 flex-1 self-center">
                     <p className="lg:text-5xl text-4xl">
                         Create logical flow and clarity
@@ -62,9 +63,9 @@ const HomePage = () => {
                         className="object-cover"
                     />
                 </div>
-            </section>
+            </SectionContainer>
 
-            <section className="flex flex-col lg:flex-row  items-center min-h-[500px] lg:mt-2 mt-16">
+            <SectionContainer>
                 <div className="lg:ml-10 flex-1 self-center order-1 lg:order-2">
                     <p className="lg:text-5xl text-4xl">
                         Effortless access and download
@@ -82,7 +83,7 @@ const HomePage = () => {
                         className="object-cover"
                     />
                 </div>
-            </section>
+            </SectionContainer>
         </>
     );
 };
