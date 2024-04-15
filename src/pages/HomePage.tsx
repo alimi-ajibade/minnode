@@ -5,7 +5,7 @@ import SectionContainer from "../components/SectionContainer";
 const HomePage = () => {
     return (
         <>
-            <section className="flex flex-col lg:flex-row items-center min-h-[550px] h-screen lg:h-[50vh] mt-5 lg:mt-10 pt-16 lg:pt-1">
+            <section className="flex flex-col lg:flex-row items-center min-h-[550px] h-screen lg:h-[50vh] pt-16 lg:pt-1">
                 <div className="lg:flex-1 grow-0">
                     <p className="text-4xl lg:text-7xl  font-bold">
                         Transform your ideas into structured brilliance.

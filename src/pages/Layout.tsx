@@ -15,13 +15,13 @@ const Layout = () => {
 
             <main
                 className={`${
-                    !pathname.includes("mindMap") && "mt-5 lg:mt-10"
+                    !pathname.includes("mindMap") && "mt-5 lg:mt-10 min-h-full"
                 }`}>
                 <Outlet />
             </main>
 
             {pathname.includes("mindMap") === false && (
-                <div className="absolute bottom-0 w-full h-15 bg-gray-800 text-white">
+                <div className="w-full h-15 bg-gray-800 text-white">
                     <Footer />
                 </div>
             )}
