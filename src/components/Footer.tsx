@@ -1,5 +1,3 @@
-import { SectionWrapper } from "./hoc";
-
 const Footer = () => {
     return (
         <footer className="flex justify-center items-center">
@@ -15,4 +13,4 @@ const Footer = () => {
     );
 };
 
-export default SectionWrapper(Footer);
+export default Footer;
