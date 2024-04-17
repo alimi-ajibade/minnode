@@ -1,12 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { ServerError } from "../entities/ServerError";
 import { CiCircleInfo } from "react-icons/ci";
 import { ScaleLoader } from "react-spinners";
+import { ServerError } from "../entities/ServerError";
+import apiClient from "../services/api-client";
 
 const schema = z.object({
     fullname: z
@@ -34,8 +35,8 @@ const SignUpForm = () => {
 
     const onSubmit = async (data: FormData) => {
         setIsLoading(true);
-        await axios
-            .post("http://localhost:8000/api/users", data)
+        await apiClient
+            .post("/users", data)
             .then(({ headers }) => {
                 localStorage.setItem("access_token", headers["x-auth-token"]);
                 navigate("/");

@@ -7,6 +7,7 @@ import { ServerError } from "../entities/ServerError";
 
 export const useGoogle = () => {
     const [googleIsLoading, setGoogleIsLoading] = useState(false);
+    const [serverError, setServerError] = useState("");
     const navigate = useNavigate();
 
     const googleAuth = useGoogleLogin({
@@ -25,7 +26,7 @@ export const useGoogle = () => {
                     userInfo = res.data;
                 })
                 .catch(() => {
-                    console.log(
+                    setServerError(
                         "Google Sign-in is not available at this moment"
                     );
                     setGoogleIsLoading(false);
@@ -33,7 +34,7 @@ export const useGoogle = () => {
                 });
 
             await axios
-                .post("http://localhost:8000/api/auth/google", {
+                .post("/auth/google", {
                     fullname: userInfo.name,
                     email: userInfo.email,
                 })
@@ -47,7 +48,7 @@ export const useGoogle = () => {
                 })
                 .catch(({ response }: AxiosError) => {
                     const data = response?.data as ServerError;
-                    console.log(data.error);
+                    setServerError(data.error);
                     setGoogleIsLoading(false);
                     return;
                 });
