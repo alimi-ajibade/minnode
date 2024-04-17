@@ -12,6 +12,7 @@
   "dependencies": {
     "@dagrejs/dagre": "^1.1.1",
     "@hookform/resolvers": "^3.3.4",
+    "@react-oauth/google": "^0.12.1",
     "@react-spring/web": "^9.7.3",
     "@tailwindcss/container-queries": "^0.1.1",
     "axios": "^1.6.8",
