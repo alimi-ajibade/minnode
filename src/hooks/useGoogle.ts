@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServerError } from "../entities/ServerError";
+import apiClient from "../services/api-client";
 
 export const useGoogle = () => {
     const [googleIsLoading, setGoogleIsLoading] = useState(false);
@@ -33,7 +34,7 @@ export const useGoogle = () => {
                     return;
                 });
 
-            await axios
+            await apiClient
                 .post("/auth/google", {
                     fullname: userInfo.name,
                     email: userInfo.email,
