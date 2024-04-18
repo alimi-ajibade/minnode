@@ -6,7 +6,7 @@ const Layout = () => {
     const { pathname } = useLocation();
 
     return (
-        <div className="relative font-sans bg-gradient-to-r min-h-dvh from-purple-50 to-pink-50">
+        <div className="relative font-sans bg-gradient-to-r min-h-svh from-purple-50 to-pink-50">
             {pathname.includes("mindMap") === false && (
                 <div className="fixed z-10 top-0 w-screen h-14 bg-gradient-to-r from-purple-100 to-pink-100">
                     <NavBar />
@@ -20,8 +20,8 @@ const Layout = () => {
                 <Outlet />
             </main>
 
-            {pathname.includes("mindMap") === false && (
-                <div className="w-full h-15 bg-gray-800 text-white">
+            {pathname === "/" && (
+                <div className="absolute bottom-0 w-full h-10 bg-gray-800 text-white">
                     <Footer />
                 </div>
             )}
