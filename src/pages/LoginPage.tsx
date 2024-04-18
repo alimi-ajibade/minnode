@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { ScaleLoader } from "react-spinners";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogle } from "../hooks/useGoogle";
 import LoginForm from "../components/LoginForm";
+import useServerError from "../hooks/useServerError";
 
 const LoginPage = () => {
-    const [serverError, setServerError] = useState("");
+    const { serverError } = useServerError();
 
     const { googleAuth, googleIsLoading } = useGoogle(); // google authentication
 
@@ -34,7 +34,7 @@ const LoginPage = () => {
                 </button>
 
                 <p className="text-red-500 mt-2 text-sm text-center">
-                    {serverError}
+                    {serverError.login ? serverError.login : serverError.google}
                 </p>
             </div>
         </div>

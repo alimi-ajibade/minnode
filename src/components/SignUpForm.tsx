@@ -8,6 +8,7 @@ import { CiCircleInfo } from "react-icons/ci";
 import { ScaleLoader } from "react-spinners";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
+import useServerError from "../hooks/useServerError";
 
 const schema = z.object({
     fullname: z
@@ -29,7 +30,7 @@ const SignUpForm = () => {
     } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     const [showPasswordInfo, setShowPasswordInfo] = useState(false);
-    const [serverError, setServerError] = useState("");
+    const { serverError, setServerError } = useServerError();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ const SignUpForm = () => {
             })
             .catch(({ response }: AxiosError) => {
                 const data = response?.data as ServerError;
-                setServerError(data.error);
+                setServerError({ ...serverError, signup: data.error });
                 setIsLoading(false);
                 return;
             });

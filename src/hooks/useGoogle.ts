@@ -5,10 +5,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
+import useServerError from "./useServerError";
 
 export const useGoogle = () => {
     const [googleIsLoading, setGoogleIsLoading] = useState(false);
-    const [serverError, setServerError] = useState("");
+    const { serverError, setServerError } = useServerError();
     const navigate = useNavigate();
 
     const googleAuth = useGoogleLogin({
@@ -27,9 +28,10 @@ export const useGoogle = () => {
                     userInfo = res.data;
                 })
                 .catch(() => {
-                    setServerError(
-                        "Google Sign-in is not available at this moment"
-                    );
+                    setServerError({
+                        ...serverError,
+                        google: "Google Sign-in is not available at this moment",
+                    });
                     setGoogleIsLoading(false);
                     return;
                 });
@@ -49,14 +51,20 @@ export const useGoogle = () => {
                 })
                 .catch(({ response }: AxiosError) => {
                     const data = response?.data as ServerError;
-                    setServerError(data.error);
+                    setServerError({
+                        ...serverError,
+                        google: data.error,
+                    });
                     setGoogleIsLoading(false);
                     return;
                 });
         },
 
         onError: (response) => {
-            console.log(response.error_description!);
+            setServerError({
+                ...serverError,
+                google: response.error_description!,
+            });
         },
         flow: "implicit",
     });

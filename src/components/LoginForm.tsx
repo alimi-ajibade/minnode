@@ -4,10 +4,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { CiCircleInfo } from "react-icons/ci";
 import { ScaleLoader } from "react-spinners";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
+import useServerError from "../hooks/useServerError";
 
 const schema = z.object({
     email: z.string().email({ message: "Use a valid email" }),
@@ -25,7 +25,7 @@ const LoginForm = () => {
         formState: { errors, isValid },
     } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-    const [serverError, setServerError] = useState("");
+    const { serverError, setServerError } = useServerError();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const LoginForm = () => {
             })
             .catch(({ response }: AxiosError) => {
                 const data = response?.data as ServerError;
-                setServerError(data.error);
+                setServerError({ ...serverError, login: data.error });
                 setIsLoading(false);
                 return;
             });
