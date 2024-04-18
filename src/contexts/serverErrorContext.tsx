@@ -1,26 +1,10 @@
-import {
-    Dispatch,
-    ReactNode,
-    useReducer,
-    createContext,
-    useState,
-} from "react";
+import { ReactNode, createContext, useState } from "react";
 
 export interface ServerError {
     signup: string;
     login: string;
     google: string;
 }
-
-// export interface ServerErrorAction {
-//     type: "UPDATE"
-//     error: string
-// }
-
-// const serverErrorReducer = (serverError: ServerError, action: ServerErrorAction): string => {
-//     if (action.type === "UPDATE") return serverError.error
-//     else return serverError.error
-// }
 
 interface ServerErrorContextType {
     serverError: ServerError;

@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogle } from "../hooks/useGoogle";
 import LoginForm from "../components/LoginForm";
 import useServerError from "../hooks/useServerError";
+import DisappearingText from "../components/DisappearingText";
 
 const LoginPage = () => {
     const { serverError } = useServerError();
@@ -10,7 +11,7 @@ const LoginPage = () => {
     const { googleAuth, googleIsLoading } = useGoogle(); // google authentication
 
     return (
-        <div className="h-lvh flex flex-row items-center">
+        <div className="h-lvh flex flex-col columns-1 justify-center items-center">
             <div className="p-5 mx-auto border border-gray-800 rounded-md min-h-96 min-w-96 max-w-96">
                 <h1 className="text-3xl font-medium mb-4">Login</h1>
                 <LoginForm />
@@ -32,10 +33,18 @@ const LoginPage = () => {
                         </>
                     )}
                 </button>
-
-                <p className="text-red-500 mt-2 text-sm text-center">
-                    {serverError.login ? serverError.login : serverError.google}
-                </p>
+            </div>
+            <div className="min-h-20">
+                <DisappearingText>
+                    <p className="text-red-500 mt-2 text-sm text-center">
+                        {serverError.login}
+                    </p>
+                </DisappearingText>
+                <DisappearingText>
+                    <p className="text-red-500 mt-2 text-sm text-center">
+                        {serverError.google}
+                    </p>
+                </DisappearingText>
             </div>
         </div>
     );
