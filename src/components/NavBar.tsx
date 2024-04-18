@@ -31,8 +31,7 @@ const NavBar = () => {
                 <span className="font-bold">SimpleMind</span>
             </div>
 
-            {pathname.includes("login") === false &&
-            pathname.includes("sign-up") === false ? (
+            {pathname === "/" ? (
                 <div className="hidden lg:flex flex-row justify-between gap-2">
                     <LoginButton className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
                     <SignupButton className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 bg-purple-200 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
