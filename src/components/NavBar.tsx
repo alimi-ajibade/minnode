@@ -3,12 +3,13 @@ import { SectionWrapper } from "./hoc";
 import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";
 import { useNavigate, useLocation } from "react-router-dom";
+import SignupButton from "./SignupButton";
+import LoginButton from "./LoginButton";
 
 const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    console.log(pathname);
 
     return (
         <nav className={`flex flex-row items-center justify-between p-2`}>
@@ -30,16 +31,8 @@ const NavBar = () => {
             {pathname.includes("login") === false &&
             pathname.includes("sign-up") === false ? (
                 <div className="hidden lg:flex flex-row justify-between gap-2">
-                    <button
-                        className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out"
-                        onClick={() => navigate("/login")}>
-                        Login
-                    </button>
-                    <button
-                        className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 bg-purple-200 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out"
-                        onClick={() => navigate("/sign-up")}>
-                        Sign up
-                    </button>
+                    <LoginButton className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
+                    <SignupButton className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 bg-purple-200 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
                 </div>
             ) : (
                 <></>
@@ -58,24 +51,16 @@ const NavBar = () => {
                         </button>
                     </li>
                     <li>
-                        <button
+                        <LoginButton
                             className="p-2 mt-5 w-full font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out"
-                            onClick={() => {
-                                navigate("/login");
-                                setShowMenu(false);
-                            }}>
-                            Login
-                        </button>
+                            onClick={() => setShowMenu(false)}
+                        />
                     </li>
                     <li>
-                        <button
+                        <SignupButton
                             className="p-2 mt-5 w-full font-bold border-1 rounded-md outline outline-1 outline-neutral-700 bg-purple-200 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out"
-                            onClick={() => {
-                                navigate("/sign-up");
-                                setShowMenu(false);
-                            }}>
-                            Sign up
-                        </button>
+                            onClick={() => setShowMenu(false)}
+                        />
                     </li>
                 </ul>
             </div>

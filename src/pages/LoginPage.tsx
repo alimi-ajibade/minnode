@@ -4,6 +4,7 @@ import { useGoogle } from "../hooks/useGoogle";
 import LoginForm from "../components/LoginForm";
 import useServerError from "../hooks/useServerError";
 import DisappearingText from "../components/DisappearingText";
+import SignupButton from "../components/SignupButton";
 
 const LoginPage = () => {
     const { serverError } = useServerError();
@@ -33,6 +34,11 @@ const LoginPage = () => {
                         </>
                     )}
                 </button>
+
+                <div className="mt-2 flex flex-col columns-1 justify-center items-center">
+                    <p>or</p>
+                    <SignupButton className="p-2 mt-2 w-full font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
+                </div>
             </div>
             <div className="min-h-20">
                 <DisappearingText>
