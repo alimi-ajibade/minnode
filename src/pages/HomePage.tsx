@@ -1,8 +1,10 @@
 import { SectionWrapper } from "../components/hoc";
 import Flow from "../components/HomeFlow/Flow";
 import SectionContainer from "../components/SectionContainer";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+    const navigate = useNavigate();
     return (
         <>
             <section className="flex flex-col lg:flex-row items-center min-h-[550px] h-screen lg:h-[50vh] pt-16 lg:pt-1">
@@ -16,7 +18,9 @@ const HomePage = () => {
                         and map out their ideas in a structured way.
                     </p>
 
-                    <button className="p-3 mt-6 border-2 rounded-md outline outline-neutral-800 font-bold bg-purple-300 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out">
+                    <button
+                        className="p-3 mt-6 border-2 rounded-md outline outline-neutral-800 font-bold bg-purple-300 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out"
+                        onClick={() => navigate("/sign-up")}>
                         Get Started - it's free
                     </button>
                 </div>
