@@ -35,7 +35,7 @@ const LoginForm = () => {
             .post("/auth", data)
             .then(({ data }) => {
                 localStorage.setItem("access_token", data);
-                navigate("/");
+                navigate("/dashboard");
                 setIsLoading(false);
                 return;
             })

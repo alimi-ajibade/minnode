@@ -40,7 +40,7 @@ const SignUpForm = () => {
             .post("/users", data)
             .then(({ headers }) => {
                 localStorage.setItem("access_token", headers["x-auth-token"]);
-                navigate("/");
+                navigate("/dashboard");
                 setIsLoading(false);
                 return;
             })
