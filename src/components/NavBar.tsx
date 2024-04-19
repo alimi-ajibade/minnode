@@ -14,14 +14,13 @@ const NavBar = () => {
     return (
         <nav className={`flex flex-row items-center justify-between p-2`}>
             <div className="text-2xl flex flex-row gap-2 items-center">
-                {pathname.includes("login") === false &&
-                    pathname.includes("sign-up") === false && (
-                        <button
-                            className="p-1 lg:hidden rounded-md bg-white"
-                            onClick={() => setShowMenu(true)}>
-                            <IoMdMenu size={25} />
-                        </button>
-                    )}
+                {pathname === "/" && (
+                    <button
+                        className="p-1 lg:hidden rounded-md bg-white"
+                        onClick={() => setShowMenu(true)}>
+                        <IoMdMenu size={25} />
+                    </button>
+                )}
 
                 <div
                     className="w-10 h-10 hover:cursor-pointer"

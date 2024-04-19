@@ -6,16 +6,26 @@ const Layout = () => {
     const { pathname } = useLocation();
 
     return (
-        <div className="relative font-sans bg-gradient-to-r min-h-svh from-purple-50 to-pink-50">
-            {pathname.includes("mindMap") === false && (
-                <div className="fixed z-10 top-0 w-screen h-14 bg-gradient-to-r from-purple-100 to-pink-100">
+        <div
+            className={`relative font-sans min-h-svh ${
+                pathname === "/"
+                    ? "bg-gradient-to-r from-purple-50 to-pink-50"
+                    : "bg-gray-100"
+            }`}>
+            {pathname.includes("mindmap") === false && (
+                <div
+                    className={`fixed z-10 top-0 w-screen h-14 ${
+                        pathname === "/"
+                            ? "bg-gradient-to-r from-purple-100 to-pink-100"
+                            : "bg-gray-100"
+                    }`}>
                     <NavBar />
                 </div>
             )}
 
             <main
                 className={`${
-                    !pathname.includes("mindMap") && "mt-5 lg:mt-10"
+                    !pathname.includes("mindmap") && "mt-5 lg:mt-10"
                 }`}>
                 <Outlet />
             </main>
