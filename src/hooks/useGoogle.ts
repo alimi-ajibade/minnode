@@ -46,7 +46,7 @@ export const useGoogle = () => {
                         "access_token",
                         headers["x-auth-token"]
                     );
-                    navigate("/dashboard");
+                    navigate("/app/dashboard");
                     setGoogleIsLoading(false);
                 })
                 .catch(({ response }: AxiosError) => {
