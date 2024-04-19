@@ -1,4 +1,4 @@
-import HandleElementCustom from "../../entities/HandleElementCustom";
+import HandleElementCustom from "../entities/HandleElementCustom";
 
 const removeHandles = () => {
     const handles = Array.from(
