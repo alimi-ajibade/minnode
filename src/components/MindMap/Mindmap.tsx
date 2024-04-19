@@ -5,6 +5,8 @@ import ReactFlow, {
     Panel,
     useOnSelectionChange,
 } from "reactflow";
+import io from "socket.io-client";
+import { useLocation } from "react-router-dom";
 import useRFStore from "./store";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
@@ -13,8 +15,13 @@ import AddNodeButton from "./AddNodeButton";
 import DownloadButton from "./DownloadButton";
 import LayoutButtons from "./LayoutButtons";
 import ColorPicker from "./ColorPicker";
-import "reactflow/dist/style.css";
 import HandleElementCustom from "../../entities/HandleElementCustom";
+import "reactflow/dist/style.css";
+
+const socket = io("http://localhost:8000", {
+    autoConnect: false,
+    reconnectionDelay: 10000,
+});
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -34,6 +41,7 @@ function Mindmap() {
         setSelectedNode,
         setSelectedEdge,
     } = useRFStore();
+    const { pathname } = useLocation();
 
     useOnSelectionChange({
         onChange: ({ nodes, edges }) => {
@@ -59,6 +67,15 @@ function Mindmap() {
             });
         }
     }, [document.activeElement]);
+
+    useEffect(() => {
+        socket.connect();
+
+        return () => {
+            socket.emit("save", { nodes, edges, name: pathname.slice(-10) });
+            socket.disconnect();
+        };
+    }, []);
 
     return (
         <ReactFlow
