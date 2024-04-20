@@ -42,6 +42,7 @@ function Mindmap() {
         setSelectedEdge,
     } = useRFStore();
     const { pathname } = useLocation();
+    const user = localStorage.getItem("current_user");
 
     useOnSelectionChange({
         onChange: ({ nodes, edges }) => {
@@ -72,7 +73,15 @@ function Mindmap() {
         socket.connect();
 
         return () => {
-            socket.emit("save", { nodes, edges, name: pathname.slice(-10) });
+            if (user) {
+                console.log("saving");
+                socket.emit("save", {
+                    nodes,
+                    edges,
+                    name: pathname.slice(-10),
+                    user,
+                });
+            }
             socket.disconnect();
         };
     }, []);
