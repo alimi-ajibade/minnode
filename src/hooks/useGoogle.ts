@@ -6,13 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
 import useServerError from "./useServerError";
-import useAuthStore from "../store";
 
 export const useGoogle = () => {
     const [googleIsLoading, setGoogleIsLoading] = useState(false);
     const { serverError, setServerError } = useServerError();
     const navigate = useNavigate();
-    const { login } = useAuthStore();
 
     const googleAuth = useGoogleLogin({
         onSuccess: async (response) => {
@@ -51,7 +49,7 @@ export const useGoogle = () => {
                         "access_token",
                         headers["x-auth-token"]
                     );
-                    login({ fullname: userInfo.name, email: userInfo.email });
+                    localStorage.setItem("current_user", userInfo.email);
                     navigate("/app/dashboard");
                     setGoogleIsLoading(false);
                 })

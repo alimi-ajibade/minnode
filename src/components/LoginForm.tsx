@@ -6,10 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { ScaleLoader } from "react-spinners";
 import { ServerError } from "../entities/ServerError";
-import apiClient from "../services/api-client";
 import useServerError from "../hooks/useServerError";
-import useAuthStore from "../store";
-import { User } from "../store";
+import authService from "../services/auth";
 
 const schema = z.object({
     email: z.string().email({ message: "Use a valid email" }),
@@ -29,28 +27,19 @@ const LoginForm = () => {
 
     const { serverError, setServerError } = useServerError();
     const [isLoading, setIsLoading] = useState(false);
-    const { login } = useAuthStore();
     const navigate = useNavigate();
 
     const onSubmit = async (data: FormData) => {
         setIsLoading(true);
 
-        await apiClient
-            .post("/auth", data)
+        await authService
+            .login(data)
             .then(({ data }) => {
                 localStorage.setItem("access_token", data["token"]);
-
-                return apiClient({
-                    method: "get",
-                    url: "/users",
-                    headers: {
-                        "x-auth-token": data["token"],
-                    },
-                });
+                return authService.getCurrentUser();
             })
-            .then((response) => {
-                const user = response.data["user"] as User;
-                login(user);
+            .then(({ data }) => {
+                localStorage.setItem("current_user", data.user.email);
                 setIsLoading(false);
                 navigate("/app/dashboard");
             })

@@ -9,8 +9,7 @@ import { ScaleLoader } from "react-spinners";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
 import useServerError from "../hooks/useServerError";
-import { User } from "../store";
-import useAuthStore from "../store";
+import authService from "../services/auth";
 
 const schema = z.object({
     fullname: z
@@ -34,7 +33,6 @@ const SignUpForm = () => {
     const [showPasswordInfo, setShowPasswordInfo] = useState(false);
     const { serverError, setServerError } = useServerError();
     const [isLoading, setIsLoading] = useState(false);
-    const { login } = useAuthStore();
     const navigate = useNavigate();
 
     const onSubmit = async (data: FormData) => {
@@ -44,17 +42,10 @@ const SignUpForm = () => {
             .then(({ headers }) => {
                 localStorage.setItem("access_token", headers["x-auth-token"]);
 
-                return apiClient({
-                    method: "get",
-                    url: "/users",
-                    headers: {
-                        "x-auth-token": headers["x-auth-token"],
-                    },
-                });
+                return authService.getCurrentUser();
             })
-            .then((response) => {
-                const user = response.data["user"] as User;
-                login(user);
+            .then(({ data }) => {
+                localStorage.setItem("current_user", data.user.email);
                 setIsLoading(false);
                 navigate("/app/dashboard");
             })
