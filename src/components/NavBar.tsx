@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SectionWrapper } from "./hoc";
 import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";
+import { HiUserCircle } from "react-icons/hi2";
 import { useNavigate, useLocation } from "react-router-dom";
 import SignupButton from "./SignupButton";
 import LoginButton from "./LoginButton";
@@ -37,6 +38,14 @@ const NavBar = () => {
                 </div>
             ) : (
                 <></>
+            )}
+
+            {pathname.includes("app") && (
+                <div className="text-4xl flex items-center">
+                    <button>
+                        <HiUserCircle />
+                    </button>
+                </div>
             )}
 
             {/* Mobile */}
