@@ -8,6 +8,8 @@ import { ScaleLoader } from "react-spinners";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
 import useServerError from "../hooks/useServerError";
+import useAuthStore from "../store";
+import { User } from "../store";
 
 const schema = z.object({
     email: z.string().email({ message: "Use a valid email" }),
@@ -27,17 +29,30 @@ const LoginForm = () => {
 
     const { serverError, setServerError } = useServerError();
     const [isLoading, setIsLoading] = useState(false);
+    const { login } = useAuthStore();
     const navigate = useNavigate();
 
     const onSubmit = async (data: FormData) => {
         setIsLoading(true);
+
         await apiClient
             .post("/auth", data)
             .then(({ data }) => {
-                localStorage.setItem("access_token", data);
-                navigate("/app/dashboard");
+                localStorage.setItem("access_token", data["token"]);
+
+                return apiClient({
+                    method: "get",
+                    url: "/users",
+                    headers: {
+                        "x-auth-token": data["token"],
+                    },
+                });
+            })
+            .then((response) => {
+                const user = response.data["user"] as User;
+                login(user);
                 setIsLoading(false);
-                return;
+                navigate("/app/dashboard");
             })
             .catch(({ response }: AxiosError) => {
                 const data = response?.data as ServerError;

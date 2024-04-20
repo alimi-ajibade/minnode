@@ -1,29 +1,34 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { User } from "../entities/User";
+import { GoogleUser } from "../entities/GoogleUser";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServerError } from "../entities/ServerError";
 import apiClient from "../services/api-client";
 import useServerError from "./useServerError";
+import useAuthStore from "../store";
 
 export const useGoogle = () => {
     const [googleIsLoading, setGoogleIsLoading] = useState(false);
     const { serverError, setServerError } = useServerError();
     const navigate = useNavigate();
+    const { login } = useAuthStore();
 
     const googleAuth = useGoogleLogin({
         onSuccess: async (response) => {
             setGoogleIsLoading(true);
 
-            let userInfo = {} as User;
+            let userInfo = {} as GoogleUser;
 
             await axios
-                .get<User>("https://www.googleapis.com/oauth2/v3/userinfo", {
-                    headers: {
-                        Authorization: `Bearer ${response.access_token}`,
-                    },
-                })
+                .get<GoogleUser>(
+                    "https://www.googleapis.com/oauth2/v3/userinfo",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${response.access_token}`,
+                        },
+                    }
+                )
                 .then((res) => {
                     userInfo = res.data;
                 })
@@ -46,6 +51,7 @@ export const useGoogle = () => {
                         "access_token",
                         headers["x-auth-token"]
                     );
+                    login({ fullname: userInfo.name, email: userInfo.email });
                     navigate("/app/dashboard");
                     setGoogleIsLoading(false);
                 })
