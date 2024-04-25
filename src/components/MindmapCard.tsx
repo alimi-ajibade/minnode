@@ -2,7 +2,6 @@ import { useRef } from "react";
 import MindMap from "../entities/Mindmap";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
-import { nanoid } from "nanoid";
 import { TbDotsVertical } from "react-icons/tb";
 import Dropdowns from "./Dropdowns";
 
@@ -43,13 +42,11 @@ const MindmapCard = ({ mindmap }: Props) => {
                 </div>
             </div>
 
-            <div
-                key={nanoid(5)}
-                className="bg-pink-100 basis-48 overflow-hidden rounded-md">
+            <div className="bg-pink-100 basis-48 overflow-hidden rounded-md">
                 <img src="/images/fileImage.webp" className="object-cover" />
             </div>
 
-            <div key={nanoid(5)} className="p-2 flex flex-row justify-between">
+            <div className="p-2 flex flex-row justify-between">
                 <p className="text-sm">{mindmap.name}</p>
 
                 <div
