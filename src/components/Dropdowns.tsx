@@ -20,7 +20,7 @@ const Dropdowns = ({ mindmap, dropdownRef: ref, toggleDropdown }: Props) => {
                 <li className="cursor-pointer p-3 hover:bg-gray-200">
                     <button
                         onClick={() => {
-                            deleteMindmap.mutate(mindmap._id.toString());
+                            deleteMindmap.mutate(mindmap._id);
                             toggleDropdown();
                         }}>
                         Delete

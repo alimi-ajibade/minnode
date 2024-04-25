@@ -17,7 +17,7 @@ const useDeleteMindmap = () => {
                 queryClient.getQueryData<MindMap[]>(["mindmaps"]) || [];
 
             queryClient.setQueryData<MindMap[]>(["mindmaps"], (mindmaps) => {
-                return mindmaps?.filter((m) => m._id.toString() !== id);
+                return mindmaps?.filter((m) => m._id !== id);
             });
 
             return { previousMindmaps };

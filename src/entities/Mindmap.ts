@@ -16,8 +16,8 @@ interface MindMapEdge {
     type: string;
 }
 interface MindMap {
-    _id: String;
-    name: String;
+    _id: string;
+    name: string;
     nodes: MindMapNode[];
     edges: MindMapEdge[];
 }

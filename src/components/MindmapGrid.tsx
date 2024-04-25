@@ -1,10 +1,5 @@
-import MindMap from "../entities/Mindmap";
 import useMindmaps from "../hooks/useMindmaps";
 import MindmapCard from "./MindmapCard";
-
-interface Props {
-    mindmaps: MindMap[];
-}
 
 const MindmapGrid = () => {
     const { data: mindmaps } = useMindmaps();
@@ -12,7 +7,7 @@ const MindmapGrid = () => {
     return (
         <>
             {mindmaps?.map((mindmap) => (
-                <MindmapCard mindmap={mindmap} key={mindmap._id.toString()} />
+                <MindmapCard mindmap={mindmap} key={mindmap._id} />
             ))}
         </>
     );

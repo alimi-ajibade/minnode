@@ -1,24 +1,14 @@
 import { create } from "zustand";
+import MindMap from "./entities/Mindmap";
 
-export interface User {
-    email: string;
-    fullname: string;
+interface MindmapStore {
+    currentMindmap: MindMap;
+    setCurrentMindmap: (mindmap: MindMap) => void;
 }
 
-interface AuthStore {
-    user: User;
-    login: (user: User) => void;
-    logout: () => void;
-}
-
-const useAuthStore = create<AuthStore>((set) => ({
-    user: {} as User,
-    login: (user: User) => {
-        set({ user });
-    },
-    logout: () => {
-        set({ user: {} as User });
-    },
+const useMindMapStore = create<MindmapStore>((set) => ({
+    currentMindmap: {} as MindMap,
+    setCurrentMindmap: (mindmap) => set({ currentMindmap: { ...mindmap } }),
 }));
 
-export default useAuthStore;
+export default useMindMapStore;
