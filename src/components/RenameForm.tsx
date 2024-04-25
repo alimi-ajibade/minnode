@@ -1,31 +1,31 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import MindMap from "../entities/Mindmap";
+import useRenameMindmap from "../hooks/useRenameMindmap";
 
 interface Props {
-    itemId: string;
+    mindmap: MindMap;
     setVisiblity: () => void;
-    handleRename: (id: string, newName: string) => void;
 }
 
 export const schema = z.object({
-    rename: z
-        .string()
-        .min(5, { message: "name must ne at least 3 characters" }),
+    name: z.string().min(5, { message: "name must ne at least 3 characters" }),
 });
 
 export type FormData = z.infer<typeof schema>;
 
-const RenameForm = ({ itemId, setVisiblity, handleRename }: Props) => {
+const RenameForm = ({ mindmap, setVisiblity }: Props) => {
     const {
         register,
         handleSubmit,
         formState: { errors, isValid },
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
+    const renameMindmap = useRenameMindmap();
 
     const onSubmit = async (data: FormData) => {
-        handleRename(itemId, data.rename);
+        renameMindmap.mutate({ ...mindmap, name: data.name });
         reset();
         setVisiblity();
     };
@@ -42,20 +42,20 @@ const RenameForm = ({ itemId, setVisiblity, handleRename }: Props) => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mt-6">
-                    <label htmlFor="rename" className="block my-2">
+                    <label htmlFor="name" className="block my-2">
                         Enter new name
                     </label>
                     <input
-                        {...register("rename")}
+                        {...register("name")}
                         type="text"
-                        name="rename"
-                        id="rename"
+                        name="name"
+                        id="name"
                         className="px-3 py-1 w-full border rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                     />
 
-                    {errors.rename && (
+                    {errors.name && (
                         <p className="text-red-500 mt-1">
-                            {errors.rename.message}
+                            {errors.name.message}
                         </p>
                     )}
                 </div>
