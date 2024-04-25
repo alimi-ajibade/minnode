@@ -19,7 +19,7 @@ const useRenameMindmap = () => {
 
             queryClient.setQueryData<MindMap[]>(["mindmaps"], (mindmaps) => {
                 return mindmaps?.map((m) =>
-                    m._id !== modifiedMindmap._id ? { ...modifiedMindmap } : m
+                    m._id === modifiedMindmap._id ? { ...modifiedMindmap } : m
                 );
             });
 

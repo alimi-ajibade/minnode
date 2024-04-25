@@ -7,7 +7,7 @@ const Layout = () => {
 
     return (
         <div
-            className={`relative font-sans min-h-svh ${
+            className={`relative font-sans ${
                 pathname === "/"
                     ? "bg-gradient-to-r from-purple-50 to-pink-50"
                     : "bg-gray-100"

@@ -1,9 +1,9 @@
-import { useRef } from "react";
 import MindMap from "../entities/Mindmap";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { TbDotsVertical } from "react-icons/tb";
 import Dropdowns from "./Dropdowns";
+import useDashboardStore from "../store";
 
 interface Props {
     mindmap: MindMap;
@@ -11,23 +11,7 @@ interface Props {
 
 const MindmapCard = ({ mindmap }: Props) => {
     const navigate = useNavigate();
-    const dropdownRef = useRef<HTMLDivElement>(null);
-
-    const toggleDropdown = () => {
-        const dropdowns = document.getElementsByClassName("dropdowns");
-
-        if (dropdowns) {
-            Array.from(dropdowns).forEach((dropdown) => {
-                if (!dropdown.classList.contains("hidden"))
-                    dropdown.classList.add("hidden");
-            });
-        }
-
-        if (dropdownRef.current) {
-            const dropdown = dropdownRef.current;
-            dropdown.classList.toggle("hidden");
-        }
-    };
+    const toggleDropdown = useDashboardStore((s) => s.toggleDropdown);
 
     return (
         <div
@@ -51,16 +35,12 @@ const MindmapCard = ({ mindmap }: Props) => {
 
                 <div
                     className="opacity-30 cursor-pointer w-4"
-                    onClick={() => toggleDropdown()}>
+                    onClick={() => toggleDropdown(mindmap._id)}>
                     <TbDotsVertical />
                 </div>
             </div>
 
-            <Dropdowns
-                mindmap={mindmap}
-                toggleDropdown={toggleDropdown}
-                dropdownRef={dropdownRef}
-            />
+            <Dropdowns mindmap={mindmap} />
         </div>
     );
 };

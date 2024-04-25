@@ -1,13 +1,8 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MindMap from "../entities/Mindmap";
 import useRenameMindmap from "../hooks/useRenameMindmap";
-
-interface Props {
-    mindmap: MindMap;
-    setVisiblity: () => void;
-}
+import useDashboardStore from "../store";
 
 export const schema = z.object({
     name: z.string().min(5, { message: "name must ne at least 3 characters" }),
@@ -15,7 +10,7 @@ export const schema = z.object({
 
 export type FormData = z.infer<typeof schema>;
 
-const RenameForm = ({ mindmap, setVisiblity }: Props) => {
+const RenameForm = () => {
     const {
         register,
         handleSubmit,
@@ -23,11 +18,13 @@ const RenameForm = ({ mindmap, setVisiblity }: Props) => {
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
     const renameMindmap = useRenameMindmap();
+    const toggleForm = useDashboardStore((s) => s.toggleRenameForm);
+    const mindmap = useDashboardStore((s) => s.currentMindmap);
 
     const onSubmit = async (data: FormData) => {
         renameMindmap.mutate({ ...mindmap, name: data.name });
         reset();
-        setVisiblity();
+        toggleForm();
     };
 
     return (
@@ -36,7 +33,7 @@ const RenameForm = ({ mindmap, setVisiblity }: Props) => {
                 <h1 className="text-xl font-medium">Rename Mindmap</h1>
                 <button
                     className="py-1 px-1 border border-3 rounded-md text-xs text-zinc-800 active:bg-red-700 transition duration-500 ease-in-out"
-                    onClick={() => setVisiblity()}>
+                    onClick={() => toggleForm()}>
                     close
                 </button>
             </div>
