@@ -6,7 +6,7 @@ interface DeleteMindmapContext {
     previousMindmaps: MindMap[];
 }
 
-const useDeleteMindmap = (onDelete: () => void) => {
+const useDeleteMindmap = () => {
     const queryClient = useQueryClient();
 
     return useMutation<MindMap, Error, string, DeleteMindmapContext>({
@@ -19,8 +19,6 @@ const useDeleteMindmap = (onDelete: () => void) => {
             queryClient.setQueryData<MindMap[]>(["mindmaps"], (mindmaps) => {
                 return mindmaps?.filter((m) => m._id.toString() !== id);
             });
-
-            onDelete();
 
             return { previousMindmaps };
         },

@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Dropdowns = ({ mindmap }: Props) => {
-    const deleteMindmap = useDeleteMindmap(() => {});
+    const deleteMindmap = useDeleteMindmap();
 
     return (
         <div
