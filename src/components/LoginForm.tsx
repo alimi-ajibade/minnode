@@ -62,7 +62,7 @@ const LoginForm = () => {
                     type="text"
                     name="email"
                     id="email"
-                    className="px-3 py-1 w-full border rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                    className="px-3 py-1 w-full border border-gray-700 rounded-md focus:outline-sky-500 focus:outline focus:border-none focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                 />
 
                 {errors.email && (
@@ -81,7 +81,7 @@ const LoginForm = () => {
                     type="password"
                     name="password"
                     id="password"
-                    className="px-3 py-1 w-full border rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                    className="px-3 py-1 w-full border border-gray-700 rounded-md focus:outline-sky-500 focus:outline focus:border-none focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                 />
             </div>
 

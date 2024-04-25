@@ -12,15 +12,15 @@ const SignupPage = () => {
     const { googleAuth, googleIsLoading } = useGoogle(); // google authentication
 
     return (
-        <div className="h-lvh flex flex-col columns-1 justify-center items-center">
-            <div className="p-5 mx-auto border border-gray-800 rounded-md min-h-96  min-w-96 max-w-96">
+        <div className="h-lvh flex flex-col columns-1 justify-center items-center px-3">
+            <div className="p-5 mx-auto border border-gray-800 rounded-md min-h-96 min-w-xl max-w-xl bg-white">
                 <h1 className="text-3xl font-medium mb-4">Sign Up</h1>
                 <SignUpForm />
 
                 <hr className="w-full my-7 border border-gray-500" />
 
                 <button
-                    className="flex flex-row justify-center items-center py-2 px-4 w-full border border-3 rounded-md bg-white hover:bg-gray-700 hover:text-gray-50 disabled:opacity-50 transition duration-500 ease-in-out"
+                    className="flex flex-row justify-center items-center py-2 px-4 w-full border border-gray-700 rounded-md bg-white hover:bg-gray-700 hover:text-gray-50 disabled:opacity-50 transition duration-500 ease-in-out"
                     onClick={() => googleAuth()}
                     disabled={googleIsLoading}>
                     {googleIsLoading ? (

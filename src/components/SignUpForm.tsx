@@ -68,7 +68,7 @@ const SignUpForm = () => {
                     type="text"
                     name="fullname"
                     id="fullname"
-                    className="px-3 py-1 w-full border rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                    className="px-3 py-1 w-full border border-gray-700 rounded-md focus:outline-sky-500 focus:outline focus:border-none focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                 />
 
                 {errors.fullname && (
@@ -87,7 +87,7 @@ const SignUpForm = () => {
                     type="text"
                     name="email"
                     id="email"
-                    className="px-3 py-1 w-full border rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                    className="px-3 py-1 w-full border border-gray-700 rounded-md focus:outline-sky-500 focus:outline focus:border-none focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                 />
 
                 {errors.email && (
@@ -108,7 +108,7 @@ const SignUpForm = () => {
                     id="password"
                     onFocus={() => setShowPasswordInfo(true)}
                     onBlur={() => setShowPasswordInfo(false)}
-                    className="px-3 py-1 w-full border rounded-md focus:outline-sky-500 focus:outline focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
+                    className="px-3 py-1 w-full border border-gray-700 rounded-md focus:outline-sky-500 focus:outline focus:border-none focus:ring-1 ring-offset-2 ring-sky-300 transition duration-300 ease-in-out"
                 />
                 <div
                     className={`${
