@@ -23,10 +23,7 @@ const Layout = () => {
                 </div>
             )}
 
-            <main
-                className={`${
-                    !pathname.includes("mindmap") && "mt-5 lg:mt-10"
-                }`}>
+            <main>
                 <Outlet />
             </main>
 

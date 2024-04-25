@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
-        <footer className="flex justify-center items-center">
-            <div className="text-lg flex flex-row gap-2 items-center mt-3">
+        <footer className="flex justify-center items-center min-h-full">
+            <div className="text-lg flex flex-row gap-2 items-center">
                 <div className="w-5 h-5">
                     <img src="/images/icon.png" className="object-contain" />
                 </div>

@@ -2,16 +2,16 @@ import { ReactNode } from "react";
 
 interface Props {
     children: ReactNode;
-    marginTop?: string;
+    classNames?: string;
 }
 
 const SectionContainer = ({
     children,
-    marginTop = "lg:mt-10 mt-16",
+    classNames = "lg:mt-10 mt-16",
 }: Props) => {
     return (
         <section
-            className={`flex lg:flex-row flex-col items-center min-h-[500px] ${marginTop}`}>
+            className={`flex lg:flex-row flex-col items-center min-h-[500px] ${classNames}`}>
             {children}
         </section>
     );

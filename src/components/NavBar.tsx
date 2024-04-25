@@ -13,7 +13,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     return (
-        <nav className={`flex flex-row items-center justify-between p-2`}>
+        <nav className={`flex flex-row items-center justify-between pt-2`}>
             <div className="text-2xl flex flex-row gap-2 items-center">
                 {pathname === "/" && (
                     <button
@@ -26,7 +26,7 @@ const NavBar = () => {
                 <div
                     className="w-10 h-10 hover:cursor-pointer"
                     onClick={() => navigate("/")}>
-                    <img src="/images/icon.png" className="oobject-contain" />
+                    <img src="/images/icon.png" className="object-contain" />
                 </div>
                 <span className="font-bold">SimpleMind</span>
             </div>

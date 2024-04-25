@@ -7,7 +7,7 @@ const HomePage = () => {
     const navigate = useNavigate();
     return (
         <>
-            <section className="flex flex-col lg:flex-row items-center min-h-[550px] h-screen lg:h-[50vh] pt-16 lg:pt-1">
+            <section className="flex flex-col lg:flex-row items-center min-h-[700px] h-screen lg:h-[50vh] pt-16 lg:pt-20">
                 <div className="lg:flex-1 grow-0">
                     <p className="text-4xl lg:text-7xl  font-bold">
                         Transform your ideas into structured brilliance.
@@ -24,12 +24,12 @@ const HomePage = () => {
                         Get Started - it's free
                     </button>
                 </div>
-                <div className="border rounded-md w-full h-full mt-14 flex-1 bg-purple-100 overflow-hidden">
+                <div className="border rounded-md w-full h-full flex-1 mt-10 bg-purple-100 overflow-hidden">
                     <Flow />
                 </div>
             </section>
 
-            <SectionContainer marginTop="lg:mt-10 mt-16 ">
+            <SectionContainer classNames="lg:mt-10 mt-16 ">
                 <div className="lg:ml-10 flex-1 self-center order-1 lg:order-2">
                     <p className="lg:text-5xl text-4xl">
                         Simple and Easy To Use
@@ -50,7 +50,7 @@ const HomePage = () => {
                 </div>
             </SectionContainer>
 
-            <SectionContainer>
+            <SectionContainer classNames="mb-8">
                 <div className="ml-5 flex-1 self-center">
                     <p className="lg:text-5xl text-4xl">
                         Create logical flow and clarity
@@ -69,7 +69,7 @@ const HomePage = () => {
                 </div>
             </SectionContainer>
 
-            <SectionContainer>
+            <SectionContainer classNames="pb-24">
                 <div className="lg:ml-10 flex-1 self-center order-1 lg:order-2">
                     <p className="lg:text-5xl text-4xl">
                         Effortless access and download
