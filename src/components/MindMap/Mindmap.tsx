@@ -4,6 +4,8 @@ import ReactFlow, {
     Controls,
     Panel,
     useOnSelectionChange,
+    ReactFlowProvider,
+    useReactFlow,
 } from "reactflow";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
@@ -31,7 +33,7 @@ const edgeTypes = {
     "custom-edge": CustomEdge,
 };
 
-function Mindmap() {
+function MindmapFlow() {
     const {
         nodes,
         edges,
@@ -41,6 +43,7 @@ function Mindmap() {
         setSelectedNode,
         setSelectedEdge,
     } = useRFStore();
+    const { getNodes, getEdges } = useReactFlow();
     const { pathname } = useLocation();
     const user = localStorage.getItem("current_user");
 
@@ -74,10 +77,9 @@ function Mindmap() {
 
         return () => {
             if (user) {
-                console.log("saving");
                 socket.emit("save", {
-                    nodes,
-                    edges,
+                    nodes: getNodes(),
+                    edges: getEdges(),
                     name: pathname.slice(-10),
                     user,
                 });
@@ -106,6 +108,14 @@ function Mindmap() {
                 <DownloadButton />
             </Panel>
         </ReactFlow>
+    );
+}
+
+function Mindmap() {
+    return (
+        <ReactFlowProvider>
+            <MindmapFlow />
+        </ReactFlowProvider>
     );
 }
 

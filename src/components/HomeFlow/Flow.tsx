@@ -1,4 +1,4 @@
-import ReactFlow, { Controls, Background } from "reactflow";
+import ReactFlow, { Controls, Background, ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
 
 const edges = [{ id: "1-2", source: "1", target: "2" }];
@@ -19,10 +19,12 @@ const nodes = [
 
 function Flow() {
     return (
-        <ReactFlow nodes={nodes} edges={edges} fitView>
-            <Background />
-            <Controls />
-        </ReactFlow>
+        <ReactFlowProvider>
+            <ReactFlow nodes={nodes} edges={edges} fitView>
+                <Background />
+                <Controls />
+            </ReactFlow>
+        </ReactFlowProvider>
     );
 }
 

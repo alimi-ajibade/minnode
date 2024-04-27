@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ReactFlowProvider } from "reactflow";
 import { RouterProvider } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -15,9 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <GoogleOAuthProvider clientId="146214411177-tt3i7hvipc7f1h3mg2fofluqvo1d9jf6.apps.googleusercontent.com">
             <QueryClientProvider client={queryClient}>
                 <ServerErrorProvider>
-                    <ReactFlowProvider>
-                        <RouterProvider router={router} />
-                    </ReactFlowProvider>
+                    <RouterProvider router={router} />
                 </ServerErrorProvider>
             </QueryClientProvider>
         </GoogleOAuthProvider>
