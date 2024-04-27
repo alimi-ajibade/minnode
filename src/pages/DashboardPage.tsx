@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { SectionWrapper } from "../components/hoc";
 import MindmapGrid from "../components/MindmapGrid";
-import RenameForm from "../components/RenameForm";
-import Glassbackdrop from "../components/Glassbackdrop";
+import RenameFormModal from "../components/RenameFormModal";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -37,12 +36,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-
-            <div id="rename_form" className="hidden">
-                <Glassbackdrop>
-                    <RenameForm />
-                </Glassbackdrop>
-            </div>
+            <RenameFormModal />
         </>
     );
 };

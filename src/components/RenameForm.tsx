@@ -18,24 +18,19 @@ const RenameForm = () => {
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
     const renameMindmap = useRenameMindmap();
-    const toggleForm = useDashboardStore((s) => s.toggleRenameForm);
+    const closeRenameFormModal = useDashboardStore((s) => s.setRenameFormModal);
     const mindmap = useDashboardStore((s) => s.currentMindmap);
 
     const onSubmit = async (data: FormData) => {
         renameMindmap.mutate({ ...mindmap, name: data.name });
         reset();
-        toggleForm();
+        closeRenameFormModal();
     };
 
     return (
         <>
-            <div className="flex flex-row justify-between w-full">
+            <div className="w-full">
                 <h1 className="text-xl font-medium">Rename Mindmap</h1>
-                <button
-                    className="py-1 px-1 border border-3 rounded-md text-xs text-zinc-800 active:bg-red-700 transition duration-500 ease-in-out"
-                    onClick={() => toggleForm()}>
-                    close
-                </button>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mt-6">

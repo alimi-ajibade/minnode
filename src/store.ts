@@ -3,20 +3,22 @@ import MindMap from "./entities/Mindmap";
 
 interface DashboardStore {
     currentMindmap: MindMap;
+    isRenameFormModalOpen: boolean;
+    setRenameFormModal: () => void;
     setCurrentMindmap: (mindmap: MindMap) => void;
-    toggleRenameForm: () => void;
     toggleDropdown: (id: string) => void;
 }
 
-const useDashboardStore = create<DashboardStore>((set) => ({
+const useDashboardStore = create<DashboardStore>((set, get) => ({
     currentMindmap: {} as MindMap,
 
-    setCurrentMindmap: (mindmap) => set({ currentMindmap: { ...mindmap } }),
+    isRenameFormModalOpen: false,
 
-    toggleRenameForm: () => {
-        const renameForm = document.getElementById("rename_form");
-        if (renameForm) renameForm.classList.toggle("hidden");
+    setRenameFormModal: () => {
+        set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
     },
+
+    setCurrentMindmap: (mindmap) => set({ currentMindmap: { ...mindmap } }),
 
     toggleDropdown: (id) => {
         const dropdowns = document.getElementsByClassName("dropdowns");
@@ -32,7 +34,6 @@ const useDashboardStore = create<DashboardStore>((set) => ({
         }
 
         const dropdown = document.getElementById(id);
-        console.log(dropdown);
         if (dropdown) dropdown.classList.toggle("hidden");
     },
 }));
