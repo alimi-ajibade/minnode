@@ -1,17 +1,10 @@
-import MindMap from "../entities/Mindmap";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { TbDotsVertical } from "react-icons/tb";
-import {
-    differenceInSeconds,
-    differenceInMinutes,
-    differenceInHours,
-    differenceInDays,
-    differenceInYears,
-    format,
-} from "date-fns";
 import Dropdowns from "./Dropdowns";
 import useDashboardStore from "../store";
+import MindMap from "../entities/Mindmap";
+import getTimeDiff from "../utils/getTimeDifference";
 
 interface Props {
     mindmap: MindMap;
@@ -20,20 +13,6 @@ interface Props {
 const MindmapCard = ({ mindmap }: Props) => {
     const navigate = useNavigate();
     const toggleDropdown = useDashboardStore((s) => s.toggleDropdown);
-
-    const getTimeDiff = (last_modified: string) => {
-        const diffSeconds = differenceInSeconds(Date.now(), last_modified);
-        const diffMinutes = differenceInMinutes(Date.now(), last_modified);
-        const diffHours = differenceInHours(Date.now(), last_modified);
-        const diffDays = differenceInDays(Date.now(), last_modified);
-        const diffYear = differenceInYears(Date.now(), last_modified);
-
-        if (diffYear > 0) return format(new Date(last_modified), "MMM dd yyyy");
-        if (diffDays > 0) return format(new Date(last_modified), "MMM dd");
-        if (diffHours > 0) return `${diffHours} hour(s) ago`;
-        if (diffMinutes > 0) return `${diffMinutes} minute(s) ago`;
-        if (diffSeconds > 0) return `${diffSeconds} second(s) ago`;
-    };
 
     return (
         <div
