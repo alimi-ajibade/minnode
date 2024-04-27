@@ -14,7 +14,6 @@ const Modal = ({ children, isOpen, hasCloseBtn, onClose }: Props) => {
 
     useEffect(() => {
         setModalOpen(isOpen);
-        console.log("working");
     }, [isOpen]);
 
     useEffect(() => {
