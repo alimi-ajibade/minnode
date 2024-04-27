@@ -2,6 +2,14 @@ import MindMap from "../entities/Mindmap";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { TbDotsVertical } from "react-icons/tb";
+import {
+    differenceInSeconds,
+    differenceInMinutes,
+    differenceInHours,
+    differenceInDays,
+    differenceInYears,
+    format,
+} from "date-fns";
 import Dropdowns from "./Dropdowns";
 import useDashboardStore from "../store";
 
@@ -12,6 +20,20 @@ interface Props {
 const MindmapCard = ({ mindmap }: Props) => {
     const navigate = useNavigate();
     const toggleDropdown = useDashboardStore((s) => s.toggleDropdown);
+
+    const getTimeDiff = (last_modified: string) => {
+        const diffSeconds = differenceInSeconds(Date.now(), last_modified);
+        const diffMinutes = differenceInMinutes(Date.now(), last_modified);
+        const diffHours = differenceInHours(Date.now(), last_modified);
+        const diffDays = differenceInDays(Date.now(), last_modified);
+        const diffYear = differenceInYears(Date.now(), last_modified);
+
+        if (diffYear > 0) return format(new Date(last_modified), "MMM dd yyyy");
+        if (diffDays > 0) return format(new Date(last_modified), "MMM dd");
+        if (diffHours > 0) return `${diffHours} hour(s) ago`;
+        if (diffMinutes > 0) return `${diffMinutes} minute(s) ago`;
+        if (diffSeconds > 0) return `${diffSeconds} second(s) ago`;
+    };
 
     return (
         <div
@@ -30,13 +52,19 @@ const MindmapCard = ({ mindmap }: Props) => {
                 <img src="/images/fileImage.webp" className="object-cover" />
             </div>
 
-            <div className="p-2 flex flex-row justify-between">
-                <p className="text-sm">{mindmap.name}</p>
-
-                <div
-                    className="opacity-30 cursor-pointer w-4"
-                    onClick={() => toggleDropdown(mindmap._id)}>
-                    <TbDotsVertical />
+            <div className="p-2">
+                <div className="flex flex-row justify-between">
+                    <p className="text-sm">{mindmap.name}</p>
+                    <div
+                        className="opacity-30 cursor-pointer w-4"
+                        onClick={() => toggleDropdown(mindmap._id)}>
+                        <TbDotsVertical />
+                    </div>
+                </div>
+                <div>
+                    <p className="mt-1 text-xs text-gray-500">
+                        {`last modified: ${getTimeDiff(mindmap.last_modified)}`}
+                    </p>
                 </div>
             </div>
 

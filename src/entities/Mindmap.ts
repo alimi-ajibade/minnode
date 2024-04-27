@@ -20,6 +20,7 @@ interface MindMap {
     name: string;
     nodes: MindMapNode[];
     edges: MindMapEdge[];
+    last_modified: string;
 }
 
 export default MindMap;
