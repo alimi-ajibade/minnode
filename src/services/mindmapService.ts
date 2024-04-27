@@ -29,6 +29,16 @@ class Mindmap<T extends Identifiable> {
             },
         }).then((resp) => resp.data);
     };
+
+    getMindmap = (id: string) => {
+        return apiClient<T>({
+            url: `/mindmap/${id}`,
+            method: "patch",
+            headers: {
+                "x-auth-token": localStorage.getItem("access_token"),
+            },
+        }).then((resp) => resp.data);
+    };
 }
 
 const mindmapService = new Mindmap<IMindMap>();

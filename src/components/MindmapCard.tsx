@@ -5,6 +5,7 @@ import Dropdowns from "./Dropdowns";
 import useDashboardStore from "../store";
 import MindMap from "../entities/Mindmap";
 import getTimeDiff from "../utils/getTimeDifference";
+import CardFlow from "./CardFlow";
 
 interface Props {
     mindmap: MindMap;
@@ -20,7 +21,7 @@ const MindmapCard = ({ mindmap }: Props) => {
             key={mindmap._id}>
             <div
                 onClick={() => navigate(`/app/mindmap/${mindmap._id}`)}
-                className="cursor-pointer absolute flex flex-col columns-1 justify-center items-center min-h-48 min-w-full rounded-md bg-gray-700 bg-opacity-70 text-white opacity-0 hover:opacity-100 transistion ease-in-out duration-300">
+                className="cursor-pointer z-30 absolute flex flex-col columns-1 justify-center items-center min-h-48 min-w-full rounded-md bg-gray-700 bg-opacity-70 text-white opacity-0 hover:opacity-100 transistion ease-in-out duration-300">
                 <p>View</p>
                 <div>
                     <FaArrowRight />
@@ -28,7 +29,8 @@ const MindmapCard = ({ mindmap }: Props) => {
             </div>
 
             <div className="bg-pink-100 basis-48 overflow-hidden rounded-md">
-                <img src="/images/fileImage.webp" className="object-cover" />
+                {/* <img src="/images/fileImage.webp" className="object-cover" /> */}
+                <CardFlow mindmap={mindmap} key={mindmap._id} />
             </div>
 
             <div className="p-2">

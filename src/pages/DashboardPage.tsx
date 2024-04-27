@@ -10,7 +10,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className="mt-14 h-[95vh]">
+            <div className="mt-14 min-h-[95vh] pb-3">
                 <div className="mt-14">
                     <h1 className="pt-10 lg:text-4xl text-2xl font-semibold">
                         Create a Mindmap

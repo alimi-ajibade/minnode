@@ -14,6 +14,7 @@ const useMindmaps = () =>
                 },
             }).then((resp) => resp.data),
         staleTime: 10 * 1000,
+        refetchOnWindowFocus: "always",
     });
 
 export default useMindmaps;
