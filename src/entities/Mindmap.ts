@@ -17,7 +17,8 @@ interface MindMapEdge {
 }
 interface MindMap {
     _id: string;
-    name: string;
+    fileId: string;
+    filename: string;
     nodes: MindMapNode[];
     edges: MindMapEdge[];
     last_modified: string;

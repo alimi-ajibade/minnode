@@ -22,7 +22,7 @@ const RenameForm = () => {
     const mindmap = useDashboardStore((s) => s.currentMindmap);
 
     const onSubmit = async (data: FormData) => {
-        renameMindmap.mutate({ ...mindmap, name: data.name });
+        renameMindmap.mutate({ ...mindmap, filename: data.name });
         reset();
         closeRenameFormModal();
     };

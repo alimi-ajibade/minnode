@@ -14,13 +14,17 @@ interface Props {
 const MindmapCard = ({ mindmap }: Props) => {
     const navigate = useNavigate();
     const toggleDropdown = useDashboardStore((s) => s.toggleDropdown);
+    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
 
     return (
         <div
             className="relative flex flex-col columns-1 rows-2 min-w-52 max-w-52 h-64 rounded-md bg-gray-100"
             key={mindmap._id}>
             <div
-                onClick={() => navigate(`/app/mindmap/${mindmap._id}`)}
+                onClick={() => {
+                    setCurrentMindmap(mindmap);
+                    navigate(`/app/mindmap/${mindmap.fileId}`);
+                }}
                 className="cursor-pointer z-30 absolute flex flex-col columns-1 justify-center items-center min-h-48 min-w-full rounded-md bg-gray-700 bg-opacity-70 text-white opacity-0 hover:opacity-100 transistion ease-in-out duration-300">
                 <p>View</p>
                 <div>
@@ -29,13 +33,12 @@ const MindmapCard = ({ mindmap }: Props) => {
             </div>
 
             <div className="bg-pink-100 basis-48 overflow-hidden rounded-md">
-                {/* <img src="/images/fileImage.webp" className="object-cover" /> */}
                 <CardFlow mindmap={mindmap} key={mindmap._id} />
             </div>
 
             <div className="p-2">
                 <div className="flex flex-row justify-between">
-                    <p className="text-sm">{mindmap.name}</p>
+                    <p className="text-sm">{mindmap.filename}</p>
                     <div
                         className="opacity-30 cursor-pointer w-4"
                         onClick={() => toggleDropdown(mindmap._id)}>
