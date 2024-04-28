@@ -18,6 +18,7 @@ import DownloadButton from "./DownloadButton";
 import LayoutButtons from "./LayoutButtons";
 import ColorPicker from "./ColorPicker";
 import HandleElementCustom from "../../entities/HandleElementCustom";
+import useDashboardStore from "../../store";
 import "reactflow/dist/style.css";
 
 const socket = io("http://localhost:8000", {
@@ -43,7 +44,8 @@ function MindmapFlow() {
         setSelectedNode,
         setSelectedEdge,
     } = useRFStore();
-    const { getNodes, getEdges } = useReactFlow();
+    const { getNodes, getEdges, setNodes, setEdges } = useReactFlow();
+    const currentMindmap = useDashboardStore((s) => s.currentMindmap);
     const { pathname } = useLocation();
     const user = localStorage.getItem("current_user");
 
@@ -75,15 +77,18 @@ function MindmapFlow() {
     useEffect(() => {
         socket.connect();
 
+        if (currentMindmap.fileId) {
+            setNodes(currentMindmap.nodes);
+            setEdges(currentMindmap.edges);
+        }
+
         return () => {
-            if (user) {
-                socket.emit("save", {
-                    nodes: getNodes(),
-                    edges: getEdges(),
-                    name: pathname.slice(-10),
-                    user,
-                });
-            }
+            socket.emit("save", {
+                nodes: getNodes(),
+                edges: getEdges(),
+                fileId: pathname.slice(-10),
+                user,
+            });
             socket.disconnect();
         };
     }, []);
