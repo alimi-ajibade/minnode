@@ -23,28 +23,14 @@ export interface NodeData {
     backgroundColor?: string;
 }
 
-export interface RFState {
+interface State {
     nodes: Node<NodeData>[];
     selectedNode: Node<NodeData>;
-    onNodesChange: OnNodesChange;
-    setSelectedNode: (nodes: Node<NodeData>[]) => void;
-    addNodeUsingForm: (label: string, note?: string, color?: string) => void;
-    addNode: () => void;
-    updateNode: (data: NodeData) => void;
-    updateNodeLabel: (label: string) => void;
-    deleteNode: () => void;
     edges: Edge[];
     selectedEdge: Edge;
-    onEdgesChange: OnEdgesChange;
-    setEdges: (edges: Edge[]) => void;
-    onConnect: OnConnect;
-    deleteEdge: () => void;
-    setSelectedEdge: (edges: Edge[]) => void;
 }
 
-const useRFStore = create<RFState>((set, get) => ({
-    selectedNode: {} as Node<NodeData>,
-    selectedEdge: {} as Edge,
+const initialStates: State = {
     nodes: [
         {
             id: "root",
@@ -54,6 +40,32 @@ const useRFStore = create<RFState>((set, get) => ({
         },
     ],
     edges: [],
+    selectedNode: {} as Node<NodeData>,
+    selectedEdge: {} as Edge,
+};
+
+export interface RFState {
+    nodes: Node<NodeData>[];
+    selectedNode: Node<NodeData>;
+    edges: Edge[];
+    selectedEdge: Edge;
+    onNodesChange: OnNodesChange;
+    setSelectedNode: (nodes: Node<NodeData>[]) => void;
+    addNodeUsingForm: (label: string, note?: string, color?: string) => void;
+    addNode: () => void;
+    updateNode: (data: NodeData) => void;
+    updateNodeLabel: (label: string) => void;
+    deleteNode: () => void;
+    onEdgesChange: OnEdgesChange;
+    setEdges: (edges: Edge[]) => void;
+    onConnect: OnConnect;
+    deleteEdge: () => void;
+    setSelectedEdge: (edges: Edge[]) => void;
+    resetAll: () => void;
+}
+
+const useRFStore = create<RFState>((set, get) => ({
+    ...initialStates,
 
     setEdges: (edges: Edge[]) => {
         set({ edges });
@@ -199,6 +211,10 @@ const useRFStore = create<RFState>((set, get) => ({
         get().setEdges([
             ...get().edges.filter((edge) => edge.id !== selectedEdge.id),
         ]);
+    },
+
+    resetAll: () => {
+        set(initialStates);
     },
 }));
 

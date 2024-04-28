@@ -20,6 +20,7 @@ import ColorPicker from "./ColorPicker";
 import HandleElementCustom from "../../entities/HandleElementCustom";
 import useDashboardStore from "../../store";
 import "reactflow/dist/style.css";
+import MindMap from "../../entities/Mindmap";
 
 const socket = io("http://localhost:8000", {
     autoConnect: false,
@@ -43,10 +44,14 @@ function MindmapFlow() {
         onConnect,
         setSelectedNode,
         setSelectedEdge,
+        resetAll,
     } = useRFStore();
     const { getNodes, getEdges, setNodes, setEdges } = useReactFlow();
+
     const currentMindmap = useDashboardStore((s) => s.currentMindmap);
+    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
     const { pathname } = useLocation();
+
     const user = localStorage.getItem("current_user");
 
     useOnSelectionChange({
@@ -77,12 +82,14 @@ function MindmapFlow() {
     useEffect(() => {
         socket.connect();
 
-        if (currentMindmap.fileId) {
+        if (currentMindmap?.fileId) {
             setNodes(currentMindmap.nodes);
             setEdges(currentMindmap.edges);
         }
 
         return () => {
+            setCurrentMindmap({} as MindMap);
+            resetAll();
             socket.emit("save", {
                 nodes: getNodes(),
                 edges: getEdges(),
