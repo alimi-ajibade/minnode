@@ -13,7 +13,6 @@ const useMindmaps = () =>
                     "x-auth-token": localStorage.getItem("access_token"),
                 },
             }).then((resp) => resp.data),
-        staleTime: 10 * 1000,
         refetchOnWindowFocus: "always",
     });
 
