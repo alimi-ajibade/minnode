@@ -3,7 +3,7 @@ import IMindMap from "../entities/Mindmap";
 
 interface Identifiable {
     _id: string;
-    name: string;
+    filename: string;
 }
 
 class Mindmap<T extends Identifiable> {
@@ -25,15 +25,15 @@ class Mindmap<T extends Identifiable> {
                 "x-auth-token": localStorage.getItem("access_token"),
             },
             data: {
-                name: modifiedData.name,
+                name: modifiedData.filename,
             },
         }).then((resp) => resp.data);
     };
 
-    getMindmap = (id: string) => {
+    getMindmap = (fileId: string) => {
         return apiClient<T>({
-            url: `/mindmap/${id}`,
-            method: "patch",
+            url: `/mindmap/${fileId}`,
+            method: "get",
             headers: {
                 "x-auth-token": localStorage.getItem("access_token"),
             },
