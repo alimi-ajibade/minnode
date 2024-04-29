@@ -24,7 +24,7 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
         const dropdowns = document.getElementsByClassName("dropdowns");
 
         if (dropdowns) {
-            Array.from(dropdowns).forEach((dropdown) => {
+            Array.from(dropdowns).map((dropdown) => {
                 if (
                     dropdown.id !== id &&
                     !dropdown.classList.contains("hidden")

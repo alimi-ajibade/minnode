@@ -50,9 +50,8 @@ const MindmapCard = ({ mindmap }: Props) => {
                         {`last modified: ${getTimeDiff(mindmap.last_modified)}`}
                     </p>
                 </div>
+                <Dropdowns mindmap={mindmap} />
             </div>
-
-            <Dropdowns mindmap={mindmap} />
         </div>
     );
 };

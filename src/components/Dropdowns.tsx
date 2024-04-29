@@ -15,7 +15,7 @@ const Dropdowns = ({ mindmap }: Props) => {
     return (
         <div
             id={mindmap._id}
-            className={`dropdowns hidden z-30 absolute bg-white shadow-md rounded-md top-56 -right-5`}>
+            className={`dropdowns hidden z-30 absolute bg-white shadow-md rounded-md top-56 -right-5 animate-in fade-in zoom-in`}>
             <ul className="w-20">
                 <li className="cursor-pointer hover:bg-gray-200">
                     <button
