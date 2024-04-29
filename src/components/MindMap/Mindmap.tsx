@@ -94,6 +94,7 @@ function MindmapFlow() {
                 nodes: getNodes(),
                 edges: getEdges(),
                 fileId: pathname.slice(-10),
+                filename: currentMindmap?.filename,
                 user,
             });
             socket.disconnect();
@@ -110,7 +111,7 @@ function MindmapFlow() {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             fitView>
-            <Background gap={25} />
+            <Background gap={15} />
             <Controls showInteractive={false} />
             <Panel position="bottom-right">
                 <ColorPicker />

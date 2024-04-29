@@ -1,16 +1,16 @@
 import { create } from "zustand";
-import MindMap from "./entities/Mindmap";
+import MindMap, { PartialMindmap } from "./entities/Mindmap";
 
 interface DashboardStore {
-    currentMindmap: MindMap;
+    currentMindmap: MindMap | PartialMindmap;
     isRenameFormModalOpen: boolean;
     setRenameFormModal: () => void;
-    setCurrentMindmap: (mindmap: MindMap) => void;
+    setCurrentMindmap: (mindmap: PartialMindmap) => void;
     toggleDropdown: (id: string) => void;
 }
 
 const useDashboardStore = create<DashboardStore>((set, get) => ({
-    currentMindmap: {} as MindMap,
+    currentMindmap: {} as MindMap | PartialMindmap,
 
     isRenameFormModalOpen: false,
 

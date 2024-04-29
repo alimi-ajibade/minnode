@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRenameMindmap from "../hooks/useRenameMindmap";
 import useDashboardStore from "../store";
+import MindMap from "../entities/Mindmap";
 
 export const schema = z.object({
     name: z.string().min(5, { message: "name must ne at least 3 characters" }),
@@ -22,7 +23,7 @@ const RenameForm = () => {
     const mindmap = useDashboardStore((s) => s.currentMindmap);
 
     const onSubmit = async (data: FormData) => {
-        renameMindmap.mutate({ ...mindmap, filename: data.name });
+        renameMindmap.mutate({ ...mindmap, filename: data.name } as MindMap);
         reset();
         closeRenameFormModal();
     };

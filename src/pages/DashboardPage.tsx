@@ -4,9 +4,12 @@ import { nanoid } from "nanoid";
 import { SectionWrapper } from "../components/hoc";
 import MindmapGrid from "../components/MindmapGrid";
 import RenameFormModal from "../components/RenameFormModal";
+import useDashboardStore from "../store";
+import mindmapTemplates from "../entities/templateMindmaps";
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
 
     return (
         <>
@@ -17,13 +20,44 @@ const Dashboard = () => {
                     </h1>
 
                     <div className="mt-5 p-3 bg-white rounded-md min-w-full">
-                        <div
-                            className="flex justify-center items-center max-w-48 min-h-36 rounded-md bg-purple-500 text-6xl hover:bg-purple-600 transition duration-500"
-                            onClick={() => {
-                                const id = nanoid(10);
-                                navigate(`/app/mindmap/${id}`);
-                            }}>
-                            <IoIosAdd color="#fff" />
+                        <h4 className="font-medium mb-2">Templates</h4>
+                        <div className="flex flex-row gap-5">
+                            <div>
+                                <button
+                                    className="flex justify-center items-center max-w-48 min-w-48 min-h-36 rounded-md bg-purple-500 text-6xl hover:bg-purple-600 transition duration-500"
+                                    onClick={() => {
+                                        const id = nanoid(10);
+                                        navigate(`/app/mindmap/${id}`);
+                                    }}>
+                                    <IoIosAdd color="#fff" />
+                                </button>
+                                <p className="mt-1 text-sm">New Mindmap</p>
+                            </div>
+                            {Object.keys(mindmapTemplates).map((key) => {
+                                const template = mindmapTemplates[key];
+                                return (
+                                    <div key={key} className="flex flex-col">
+                                        <button
+                                            className="bg-gray-100 max-w-48 min-w-48 min-h-36 max-h-36 overflow-hidden rounded-md hover:border border-blue-700 transition duration-500"
+                                            onClick={() => {
+                                                const id = nanoid(10);
+                                                setCurrentMindmap({
+                                                    ...template.mindmap,
+                                                    fileId: id,
+                                                });
+                                                navigate(`/app/mindmap/${id}`);
+                                            }}>
+                                            <img
+                                                src={template.image}
+                                                className="object-cover"
+                                            />
+                                        </button>
+                                        <p className="mt-1 text-sm">
+                                            {template.mindmap.filename}
+                                        </p>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
