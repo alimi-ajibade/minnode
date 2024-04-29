@@ -18,7 +18,7 @@ const MindmapCard = ({ mindmap }: Props) => {
 
     return (
         <div
-            className="relative flex flex-col columns-1 rows-2 min-w-52 max-w-52 h-64 rounded-md bg-gray-100"
+            className="relative flex flex-col columns-1 rows-2 h-64 rounded-md bg-gray-100"
             key={mindmap._id}>
             <div
                 onClick={() => {

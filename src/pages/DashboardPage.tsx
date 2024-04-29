@@ -19,8 +19,10 @@ const Dashboard = () => {
                         Create a Mindmap
                     </h1>
 
-                    <div className="mt-5 p-3 bg-white rounded-md min-w-full">
-                        <h4 className="font-medium mb-2">Templates</h4>
+                    <div className="mt-5 py-3 px-5 bg-white rounded-md min-w-full overflow-scroll lg:overflow-auto">
+                        <h4 className="hidden lg:flex font-medium mb-2">
+                            Templates
+                        </h4>
                         <div className="flex flex-row gap-5">
                             <div>
                                 <button
@@ -36,7 +38,9 @@ const Dashboard = () => {
                             {Object.keys(mindmapTemplates).map((key) => {
                                 const template = mindmapTemplates[key];
                                 return (
-                                    <div key={key} className="flex flex-col">
+                                    <div
+                                        key={key}
+                                        className="hidden lg:flex flex-col">
                                         <button
                                             className="bg-gray-100 max-w-48 min-w-48 min-h-36 max-h-36 overflow-hidden rounded-md hover:border border-blue-700 transition duration-500"
                                             onClick={() => {
@@ -65,9 +69,7 @@ const Dashboard = () => {
                     <h1 className="lg:text-2xl text-2xl font-semibold">
                         Recents
                     </h1>
-                    <div className="flex flex-row gap-5 flex-wrap mt-5 p-3 bg-white rounded-md min-w-full">
-                        <MindmapGrid />
-                    </div>
+                    <MindmapGrid />
                 </div>
             </div>
             <RenameFormModal />
