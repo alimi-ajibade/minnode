@@ -4,11 +4,14 @@ import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";
 import { HiUserCircle } from "react-icons/hi2";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ImExit } from "react-icons/im";
 import SignupButton from "./SignupButton";
 import LoginButton from "./LoginButton";
+import OutsideClickHander from "./OutsideClickHander";
 
 const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const [showLogout, setShowLogout] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
@@ -41,11 +44,30 @@ const NavBar = () => {
             )}
 
             {pathname.includes("app") && (
-                <div className="text-4xl flex items-center">
-                    <button>
-                        <HiUserCircle />
-                    </button>
-                </div>
+                <OutsideClickHander onOutsideClick={() => setShowLogout(false)}>
+                    <div className="relative text-4xl flex items-center">
+                        <button onClick={() => setShowLogout(true)}>
+                            <HiUserCircle />
+                        </button>
+
+                        {showLogout && (
+                            <div className="absolute flex flex-row items-center gap-2 bg-white p-3 rounded-md text-lg top-10 animate-in fade-in zoom-in">
+                                <div>
+                                    <ImExit />
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        localStorage.removeItem("access_token");
+                                        localStorage.removeItem("current_user");
+                                        setShowLogout(false);
+                                        navigate("/");
+                                    }}>
+                                    Logout
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </OutsideClickHander>
             )}
 
             {/* Mobile */}
