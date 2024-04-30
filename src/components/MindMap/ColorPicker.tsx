@@ -2,6 +2,7 @@ import useRFStore from "./store";
 import { TwitterPicker } from "react-color";
 import { LuPaintbrush2 } from "react-icons/lu";
 import Button from "./Button";
+import OutsideClickHander from "../OutsideClickHander";
 
 interface Props {
     showColorPicker: boolean;
@@ -17,26 +18,31 @@ const ColorPicker = ({ showColorPicker, setShowColorPicker }: Props) => {
             <Button
                 dataTooltipId="color-button"
                 onCLick={() => setShowColorPicker(!showColorPicker)}
-                tooltipContent="change color">
+                tooltipContent="change color"
+                disabled={selectedNode ? false : true}>
                 <LuPaintbrush2 />
             </Button>
 
-            <div
-                className={`${
-                    showColorPicker ? "block" : "hidden"
-                } absolute top-52 right-20`}>
-                <TwitterPicker
-                    triangle="hide"
-                    onChangeComplete={(color) => {
-                        if (selectedNode)
-                            updateNode({
-                                ...selectedNode.data,
-                                backgroundColor: color.hex,
-                            });
-                        setShowColorPicker(false);
-                    }}
-                />
-            </div>
+            {showColorPicker && (
+                <div
+                    className={`absolute top-[85%] right-16 ${
+                        showColorPicker ? "animate-in fade-in zoom-in" : ""
+                    }`}>
+                    <OutsideClickHander
+                        onOutsideClick={() => setShowColorPicker(false)}>
+                        <TwitterPicker
+                            triangle="hide"
+                            onChangeComplete={(color) => {
+                                if (selectedNode)
+                                    updateNode({
+                                        ...selectedNode.data,
+                                        backgroundColor: color.hex,
+                                    });
+                            }}
+                        />
+                    </OutsideClickHander>
+                </div>
+            )}
         </>
     );
 };

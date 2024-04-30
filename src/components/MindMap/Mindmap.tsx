@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactFlow, {
     Background,
     Controls,
-    Panel,
     useOnSelectionChange,
     ReactFlowProvider,
     useReactFlow,
@@ -12,15 +11,12 @@ import { useLocation } from "react-router-dom";
 import useRFStore from "./store";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
-import DeleteButton from "./DeleteButton";
-import AddNodeButton from "./AddNodeButton";
-import DownloadButton from "./DownloadButton";
-import LayoutButtons from "./LayoutButtons";
-import ColorPicker from "./ColorPicker";
 import HandleElementCustom from "../../entities/HandleElementCustom";
 import useDashboardStore from "../../store";
-import "reactflow/dist/style.css";
 import MindMap from "../../entities/Mindmap";
+import "reactflow/dist/style.css";
+import { toast } from "react-toastify";
+import ControlPanel from "./ControlPanel";
 
 const socket = io("http://localhost:8000", {
     autoConnect: false,
@@ -52,6 +48,8 @@ function MindmapFlow() {
     const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
     const { pathname } = useLocation();
 
+    const [showColorPicker, setShowColorPicker] = useState(false);
+
     const user = localStorage.getItem("current_user");
 
     useOnSelectionChange({
@@ -82,14 +80,36 @@ function MindmapFlow() {
     useEffect(() => {
         socket.connect();
 
+        socket.on("connect", () => {
+            // console.log(socket);
+            if (socket.recovered)
+                toast("Connection restored", { type: "success" });
+        });
+
+        setTimeout(() => {
+            if (socket.io.engine) {
+                // close the low-level connection and trigger a reconnection
+                socket.io.engine.close();
+            }
+        }, 10000);
+
+        socket.on("disconnect", () => {
+            // toast.dismiss();
+            // toast(
+            //     "You're offline, your progress won't be saved. Reconnecting...",
+            //     { autoClose: false }
+            // );
+        });
+
         if (currentMindmap?.fileId) {
             setNodes(currentMindmap.nodes);
             setEdges(currentMindmap.edges);
         }
 
         return () => {
-            setCurrentMindmap({} as MindMap);
-            resetAll();
+            setCurrentMindmap({} as MindMap); // shouldn't be here
+            resetAll(); // shouldn't be here
+
             socket.emit("save", {
                 nodes: getNodes(),
                 edges: getEdges(),
@@ -110,16 +130,16 @@ function MindmapFlow() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            onPaneClick={() => {
+                setShowColorPicker(false);
+            }}
             fitView>
             <Background gap={15} />
             <Controls showInteractive={false} />
-            <Panel position="bottom-right">
-                <ColorPicker />
-                <AddNodeButton />
-                <DeleteButton />
-                <LayoutButtons />
-                <DownloadButton />
-            </Panel>
+            <ControlPanel
+                showColorPicker={showColorPicker}
+                setShowColorPicker={setShowColorPicker}
+            />
         </ReactFlow>
     );
 }
