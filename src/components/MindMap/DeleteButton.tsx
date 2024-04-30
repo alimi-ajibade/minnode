@@ -9,7 +9,6 @@ const DeleteButton = () => {
     const deleteEdge = useRFStore((s) => s.deleteEdge);
     return (
         <Button
-            classNames="border border-3 rounded-md py-2 px-4 bg-red-500 hover:bg-red-600 active:bg-red-800 text-gray-50 transition duration-500 ease-in-out disabled:bg-red-300 transition duration-500 ease-in-out"
             dataTooltipId="delete-button"
             onCLick={() => {
                 selectedNode ? deleteNode() : deleteEdge();

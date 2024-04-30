@@ -2,7 +2,6 @@ import { ReactNode, useRef } from "react";
 import { Tooltip, VariantType, TooltipRefProps } from "react-tooltip";
 
 interface Props {
-    classNames: string;
     dataTooltipId: string;
     disabled?: boolean;
     children: ReactNode;
@@ -12,7 +11,6 @@ interface Props {
 }
 
 const Button = ({
-    classNames,
     dataTooltipId,
     disabled,
     children,
@@ -35,9 +33,9 @@ const Button = ({
     };
 
     return (
-        <div className="m-3">
+        <div className="px-1 my-3">
             <button
-                className={classNames}
+                className={`flex justify-center item-center px-[1.9px] py-1 rounded-md text-gray-500 w-full text-3xl disabled:text-gray-200 hover:text-blue-500 hover:bg-blue-300 transition duration-300 ease-in-out`}
                 data-tooltip-id={dataTooltipId}
                 onClick={onCLick}
                 disabled={disabled}>

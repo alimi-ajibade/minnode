@@ -1,33 +1,43 @@
-import { GithubPicker } from "react-color";
 import useRFStore from "./store";
+import { TwitterPicker } from "react-color";
+import { LuPaintbrush2 } from "react-icons/lu";
+import Button from "./Button";
 
-const ColorPicker = () => {
+interface Props {
+    showColorPicker: boolean;
+    setShowColorPicker: (value: boolean) => void;
+}
+
+const ColorPicker = ({ showColorPicker, setShowColorPicker }: Props) => {
     const selectedNode = useRFStore((s) => s.selectedNode);
     const updateNode = useRFStore((s) => s.updateNode);
 
     return (
-        <div className="w-[fit-content] m-auto">
-            <GithubPicker
-                triangle="hide"
-                width="2.3rem"
-                colors={[
-                    "#eeeeee",
-                    "#FF7F4D",
-                    "#FCCB00",
-                    "#00CC33",
-                    "#33A3BB",
-                    "#66A9FF",
-                    "#3399FF",
-                ]}
-                onChangeComplete={(color) => {
-                    if (selectedNode)
-                        updateNode({
-                            ...selectedNode.data,
-                            backgroundColor: color.hex,
-                        });
-                }}
-            />
-        </div>
+        <>
+            <Button
+                dataTooltipId="color-button"
+                onCLick={() => setShowColorPicker(!showColorPicker)}
+                tooltipContent="change color">
+                <LuPaintbrush2 />
+            </Button>
+
+            <div
+                className={`${
+                    showColorPicker ? "block" : "hidden"
+                } absolute top-52 right-20`}>
+                <TwitterPicker
+                    triangle="hide"
+                    onChangeComplete={(color) => {
+                        if (selectedNode)
+                            updateNode({
+                                ...selectedNode.data,
+                                backgroundColor: color.hex,
+                            });
+                        setShowColorPicker(false);
+                    }}
+                />
+            </div>
+        </>
     );
 };
 
