@@ -5,18 +5,23 @@ import ReactFlow, {
     useOnSelectionChange,
     ReactFlowProvider,
     useReactFlow,
+    Panel,
 } from "reactflow";
 import io from "socket.io-client";
 import { toast } from "react-toastify";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useRFStore from "./store";
+import { useShallow } from "zustand/react/shallow";
 import useMindmap from "../../hooks/useMindmap";
+import useDashboardStore from "../../store";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
 import HandleElementCustom from "../../entities/HandleElementCustom";
+import { IoIosArrowBack } from "react-icons/io";
 import ControlPanel from "./ControlPanel";
+
 import "reactflow/dist/style.css";
-import useDashboardStore from "../../store";
+import UserProfilePicture from "../UserProfilePicture";
 
 const socket = io("http://localhost:8000", {
     autoConnect: false,
@@ -41,15 +46,17 @@ function MindmapFlow() {
         setSelectedNode,
         setSelectedEdge,
         resetAll,
-    } = useRFStore();
+    } = useRFStore(); // improve selection
 
     const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
 
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     const { data: mindmap } = useMindmap(pathname.slice(-10));
-    const templateMindmap = useDashboardStore((s) => s.currentMindmap);
-    const setTemplateMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+    const [templateMindmap, setShowLogout] = useDashboardStore(
+        useShallow((s) => [s.currentMindmap, s.setShowLogout])
+    );
 
     useEffect(() => {
         if (mindmap) {
@@ -124,6 +131,7 @@ function MindmapFlow() {
             onConnect={onConnect}
             onPaneClick={() => {
                 setShowColorPicker(false);
+                setShowLogout(false);
             }}
             fitView>
             <Background gap={15} />
@@ -132,6 +140,23 @@ function MindmapFlow() {
                 showColorPicker={showColorPicker}
                 setShowColorPicker={setShowColorPicker}
             />
+            <Panel position="top-left">
+                <div className="flex flex--row items-center justify-center gap-3 py-5 px-3 bg-white hover:cursor-pointer rounded-md shadow-md box-border w-content h-12">
+                    <div
+                        onClick={() => navigate("/app/dashboard")}
+                        className="py-3 px-2 text-lg rounded-md hover:text-blue-500 hover:bg-blue-300 transition duration-300 ease-in-out">
+                        <IoIosArrowBack />
+                    </div>
+
+                    <UserProfilePicture />
+
+                    <p className="text-lg">
+                        {templateMindmap.filename
+                            ? templateMindmap.filename
+                            : mindmap?.filename}
+                    </p>
+                </div>
+            </Panel>
         </ReactFlow>
     );
 }

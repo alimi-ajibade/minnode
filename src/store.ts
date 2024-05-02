@@ -4,7 +4,9 @@ import MindMap, { PartialMindmap } from "./entities/Mindmap";
 interface DashboardStore {
     currentMindmap: MindMap | PartialMindmap;
     isRenameFormModalOpen: boolean;
+    showLogout: boolean;
     setRenameFormModal: () => void;
+    setShowLogout: (value: boolean) => void;
     setCurrentMindmap: (mindmap: PartialMindmap) => void;
     toggleDropdown: (id: string) => void;
 }
@@ -14,9 +16,13 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
 
     isRenameFormModalOpen: false,
 
+    showLogout: false,
+
     setRenameFormModal: () => {
         set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
     },
+
+    setShowLogout: () => set({ showLogout: !get().showLogout }),
 
     setCurrentMindmap: (mindmap) => set({ currentMindmap: { ...mindmap } }),
 
