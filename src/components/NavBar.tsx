@@ -2,16 +2,13 @@ import { useState } from "react";
 import { SectionWrapper } from "./hoc";
 import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";
-import { HiUserCircle } from "react-icons/hi2";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ImExit } from "react-icons/im";
 import SignupButton from "./SignupButton";
 import LoginButton from "./LoginButton";
-import OutsideClickHander from "./OutsideClickHander";
+import UserProfilePicture from "./UserProfilePicture";
 
 const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
-    const [showLogout, setShowLogout] = useState(false);
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
@@ -34,41 +31,14 @@ const NavBar = () => {
                 <span className="font-bold">SimpleMind</span>
             </div>
 
-            {pathname === "/" ? (
+            {pathname === "/" && (
                 <div className="hidden lg:flex flex-row justify-between gap-2">
                     <LoginButton className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
                     <SignupButton className="p-2 w-28 font-bold border-1 rounded-md outline outline-1 outline-neutral-700 bg-purple-200 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out" />
                 </div>
-            ) : (
-                <></>
             )}
 
-            {pathname.includes("app") && (
-                <OutsideClickHander onOutsideClick={() => setShowLogout(false)}>
-                    <div className="relative text-4xl flex items-center">
-                        <button onClick={() => setShowLogout(true)}>
-                            <HiUserCircle />
-                        </button>
-
-                        {showLogout && (
-                            <div className="absolute flex flex-row items-center gap-2 bg-white p-3 rounded-md text-lg top-10 animate-in fade-in zoom-in">
-                                <div>
-                                    <ImExit />
-                                </div>
-                                <button
-                                    onClick={() => {
-                                        localStorage.removeItem("access_token");
-                                        localStorage.removeItem("current_user");
-                                        setShowLogout(false);
-                                        navigate("/");
-                                    }}>
-                                    Logout
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                </OutsideClickHander>
-            )}
+            {pathname.includes("app") && <UserProfilePicture />}
 
             {/* Mobile */}
             <div
