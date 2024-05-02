@@ -7,16 +7,16 @@ import ReactFlow, {
     useReactFlow,
 } from "reactflow";
 import io from "socket.io-client";
+import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import useRFStore from "./store";
+import useMindmap from "../../hooks/useMindmap";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
 import HandleElementCustom from "../../entities/HandleElementCustom";
-import useDashboardStore from "../../store";
-import MindMap from "../../entities/Mindmap";
-import "reactflow/dist/style.css";
-import { toast } from "react-toastify";
 import ControlPanel from "./ControlPanel";
+import "reactflow/dist/style.css";
+import useDashboardStore from "../../store";
 
 const socket = io("http://localhost:8000", {
     autoConnect: false,
@@ -42,20 +42,47 @@ function MindmapFlow() {
         setSelectedEdge,
         resetAll,
     } = useRFStore();
-    const { getNodes, getEdges, setNodes, setEdges } = useReactFlow();
 
-    const currentMindmap = useDashboardStore((s) => s.currentMindmap);
-    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+    const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
+
     const { pathname } = useLocation();
 
-    const [showColorPicker, setShowColorPicker] = useState(false);
+    const { data: mindmap } = useMindmap(pathname.slice(-10));
+    const templateMindmap = useDashboardStore((s) => s.currentMindmap);
+    const setTemplateMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+
+    useEffect(() => {
+        if (mindmap) {
+            setNodes(mindmap.nodes);
+            setEdges(mindmap.edges);
+            return;
+        }
+
+        if (templateMindmap.fileId) {
+            setNodes(templateMindmap.nodes);
+            setEdges(templateMindmap.edges);
+            return;
+        }
+    }, [mindmap]);
 
     const user = localStorage.getItem("current_user");
+
+    const [showColorPicker, setShowColorPicker] = useState(false);
 
     useOnSelectionChange({
         onChange: ({ nodes, edges }) => {
             setSelectedNode(nodes);
             setSelectedEdge(edges);
+
+            socket.emit("save", {
+                nodes: getNodes(),
+                edges: getEdges(),
+                fileId: pathname.slice(-10),
+                filename: templateMindmap.filename
+                    ? templateMindmap.filename
+                    : mindmap?.filename,
+                user,
+            });
         },
     });
 
@@ -80,43 +107,8 @@ function MindmapFlow() {
     useEffect(() => {
         socket.connect();
 
-        socket.on("connect", () => {
-            // console.log(socket);
-            if (socket.recovered)
-                toast("Connection restored", { type: "success" });
-        });
-
-        setTimeout(() => {
-            if (socket.io.engine) {
-                // close the low-level connection and trigger a reconnection
-                socket.io.engine.close();
-            }
-        }, 10000);
-
-        socket.on("disconnect", () => {
-            // toast.dismiss();
-            // toast(
-            //     "You're offline, your progress won't be saved. Reconnecting...",
-            //     { autoClose: false }
-            // );
-        });
-
-        if (currentMindmap?.fileId) {
-            setNodes(currentMindmap.nodes);
-            setEdges(currentMindmap.edges);
-        }
-
         return () => {
-            setCurrentMindmap({} as MindMap); // shouldn't be here
-            resetAll(); // shouldn't be here
-
-            socket.emit("save", {
-                nodes: getNodes(),
-                edges: getEdges(),
-                fileId: pathname.slice(-10),
-                filename: currentMindmap?.filename,
-                user,
-            });
+            resetAll();
             socket.disconnect();
         };
     }, []);

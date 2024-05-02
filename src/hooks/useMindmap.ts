@@ -6,7 +6,7 @@ const useMindmap = (id: string) =>
     useQuery<MindMap, Error>({
         queryKey: ["mindmap", id],
         queryFn: () => {
-            return mindmapService.getMindmap(id);
+            return mindmapService.getMindmap(id).then((resp) => resp.data);
         },
         refetchOnWindowFocus: "always",
     });

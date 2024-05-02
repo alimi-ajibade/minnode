@@ -37,7 +37,7 @@ class Mindmap<T extends Identifiable> {
             headers: {
                 "x-auth-token": localStorage.getItem("access_token"),
             },
-        }).then((resp) => resp.data);
+        });
     };
 }
 
