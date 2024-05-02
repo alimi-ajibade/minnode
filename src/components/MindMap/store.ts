@@ -115,7 +115,11 @@ const useRFStore = create<RFState>((set, get) => ({
 
     addNode: () => {
         const currentNodes = get().nodes;
-        const lastNodePosition = currentNodes[currentNodes.length - 1].position;
+        let lastNodePosition = { x: 0, y: 0 };
+
+        if (currentNodes.length > 0) {
+            lastNodePosition = currentNodes[currentNodes.length - 1].position;
+        }
 
         const newNode = {
             id: nanoid(),
