@@ -41,7 +41,7 @@ const useRenameMindmap = () => {
             toast("saved", { type: "success" });
         },
 
-        onError: (error, deletedMindmap, context) => {
+        onError: (_error, _deletedMindmap, context) => {
             if (!context) return;
 
             queryClient.setQueryData(["mindmaps"], context?.previousMindmaps);
