@@ -1,17 +1,21 @@
 import { useEffect, useRef } from "react";
 import { Handle, NodeProps, Position } from "reactflow";
 import useRFStore, { NodeData } from "./store";
+import { useShallow } from "zustand/react/shallow";
 
 function CustomNode({ id, data }: NodeProps<NodeData>) {
     const labelRef = useRef<HTMLInputElement>(null);
 
-    const {
-        nodes,
-        updateNodeLabel,
-        updateNode,
-        setSelectedNode,
-        selectedNode,
-    } = useRFStore();
+    const [nodes, updateNodeLabel, updateNode, setSelectedNode, selectedNode] =
+        useRFStore(
+            useShallow((s) => [
+                s.nodes,
+                s.updateNodeLabel,
+                s.updateNode,
+                s.setSelectedNode,
+                s.selectedNode,
+            ])
+        );
 
     useEffect(() => {
         const node = nodes.find((node) => node.id === id);
