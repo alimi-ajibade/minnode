@@ -22,7 +22,7 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
         set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
     },
 
-    setShowLogout: () => set({ showLogout: !get().showLogout }),
+    setShowLogout: (value) => set({ showLogout: value }),
 
     setCurrentMindmap: (mindmap) => set({ currentMindmap: { ...mindmap } }),
 

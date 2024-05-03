@@ -22,9 +22,11 @@ import ControlPanel from "./ControlPanel";
 
 import "reactflow/dist/style.css";
 import UserProfilePicture from "../UserProfilePicture";
+import { PartialMindmap } from "../../entities/Mindmap";
 
 const socket = io("http://localhost:8000", {
     autoConnect: false,
+    reconnection: true,
     reconnectionDelay: 10000,
 });
 
@@ -37,7 +39,7 @@ const edgeTypes = {
 };
 
 function MindmapFlow() {
-    const {
+    const [
         nodes,
         edges,
         onNodesChange,
@@ -46,7 +48,18 @@ function MindmapFlow() {
         setSelectedNode,
         setSelectedEdge,
         resetAll,
-    } = useRFStore(); // improve selection
+    ] = useRFStore(
+        useShallow((s) => [
+            s.nodes,
+            s.edges,
+            s.onNodesChange,
+            s.onEdgesChange,
+            s.onConnect,
+            s.setSelectedNode,
+            s.setSelectedEdge,
+            s.resetAll,
+        ])
+    ); // improve selection
 
     const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
 
@@ -54,9 +67,14 @@ function MindmapFlow() {
     const navigate = useNavigate();
 
     const { data: mindmap } = useMindmap(pathname.slice(-10));
-    const [templateMindmap, setShowLogout] = useDashboardStore(
-        useShallow((s) => [s.currentMindmap, s.setShowLogout])
-    );
+    const [templateMindmap, setShowLogout, setCurrentMindmap] =
+        useDashboardStore(
+            useShallow((s) => [
+                s.currentMindmap,
+                s.setShowLogout,
+                s.setCurrentMindmap,
+            ])
+        );
 
     useEffect(() => {
         if (mindmap) {
@@ -114,9 +132,31 @@ function MindmapFlow() {
     useEffect(() => {
         socket.connect();
 
+        socket.on("connect", () => {
+            if (socket.recovered) {
+                console.log("recovered");
+            }
+        });
+
+        // setTimeout(() => {
+        //     if (socket.io.engine) {
+        //         // close the low-level connection and trigger a reconnection
+        //         socket.io.engine.close();
+        //     }
+        // }, 5000);
+
+        socket.on("disconnect", () => {
+            if (!toast.isActive("disconnect"))
+                toast(
+                    "You're offline. Your changes won't be saved, reconnecting...",
+                    { toastId: "disconnect", autoClose: false }
+                );
+        });
+
         return () => {
             resetAll();
             socket.disconnect();
+            setCurrentMindmap({} as PartialMindmap);
         };
     }, []);
 
@@ -141,7 +181,7 @@ function MindmapFlow() {
                 setShowColorPicker={setShowColorPicker}
             />
             <Panel position="top-left">
-                <div className="flex flex--row items-center justify-center gap-3 py-5 px-3 bg-white hover:cursor-pointer rounded-md shadow-md box-border w-content h-12">
+                <div className="flex flex--row items-center justify-center gap-3 py-5 px-3 bg-white hover:cursor-pointer rounded-full shadow-md box-border w-content h-12">
                     <div
                         onClick={() => navigate("/app/dashboard")}
                         className="py-3 px-2 text-lg rounded-md hover:text-blue-500 hover:bg-blue-300 transition duration-300 ease-in-out">

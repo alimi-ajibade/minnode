@@ -6,6 +6,7 @@ import MindmapGrid from "../components/MindmapGrid";
 import RenameFormModal from "../components/RenameFormModal";
 import useDashboardStore from "../store";
 import mindmapTemplates from "../entities/templateMindmaps";
+import { Slide, ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -13,6 +14,20 @@ const Dashboard = () => {
 
     return (
         <>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={true}
+                closeButton={false}
+                theme="dark"
+                transition={Slide}
+                style={{
+                    fontSize: "0.9rem",
+                    textAlign: "center",
+                    width: "fit-content",
+                    top: 0,
+                }}
+            />
             <div className="mt-14 min-h-[95vh] pb-3">
                 <div className="mt-14">
                     <h1 className="pt-10 lg:text-4xl text-2xl font-semibold">

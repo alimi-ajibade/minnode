@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Layout = () => {
@@ -9,20 +8,6 @@ const Layout = () => {
 
     return (
         <>
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={true}
-                closeButton={false}
-                theme="dark"
-                transition={Slide}
-                style={{
-                    fontSize: "0.9rem",
-                    textAlign: "center",
-                    width: "fit-content",
-                    top: 0,
-                }}
-            />
             <div
                 className={`relative font-sans ${
                     pathname === "/"
