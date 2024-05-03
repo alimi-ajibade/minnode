@@ -40,12 +40,12 @@ const SignUpForm = () => {
         await apiClient
             .post("/users", data)
             .then(({ headers }) => {
-                localStorage.setItem("access_token", headers["x-auth-token"]);
+                sessionStorage.setItem("access_token", headers["x-auth-token"]);
 
                 return authService.getCurrentUser();
             })
             .then(({ data }) => {
-                localStorage.setItem("current_user", data.user.email);
+                sessionStorage.setItem("current_user", data.user.email);
                 setIsLoading(false);
                 navigate("/app/dashboard");
             })

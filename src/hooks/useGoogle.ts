@@ -45,11 +45,11 @@ export const useGoogle = () => {
                     email: userInfo.email,
                 })
                 .then(({ headers }) => {
-                    localStorage.setItem(
+                    sessionStorage.setItem(
                         "access_token",
                         headers["x-auth-token"]
                     );
-                    localStorage.setItem("current_user", userInfo.email);
+                    sessionStorage.setItem("current_user", userInfo.email);
                     navigate("/app/dashboard");
                     setGoogleIsLoading(false);
                 })

@@ -25,7 +25,7 @@ class Auth {
             method: "get",
             url: "/users",
             headers: {
-                "x-auth-token": localStorage.getItem("access_token"),
+                "x-auth-token": sessionStorage.getItem("access_token"),
             },
         });
     }

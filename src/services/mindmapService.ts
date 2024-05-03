@@ -12,7 +12,7 @@ class Mindmap<T extends Identifiable> {
             url: `/mindmap/${id}`,
             method: "delete",
             headers: {
-                "x-auth-token": localStorage.getItem("access_token"),
+                "x-auth-token": sessionStorage.getItem("access_token"),
             },
         }).then((resp) => resp.data);
     };
@@ -22,7 +22,7 @@ class Mindmap<T extends Identifiable> {
             url: `/mindmap/${modifiedData._id}`,
             method: "patch",
             headers: {
-                "x-auth-token": localStorage.getItem("access_token"),
+                "x-auth-token": sessionStorage.getItem("access_token"),
             },
             data: {
                 name: modifiedData.filename,
@@ -35,7 +35,7 @@ class Mindmap<T extends Identifiable> {
             url: `/mindmap/${fileId}`,
             method: "get",
             headers: {
-                "x-auth-token": localStorage.getItem("access_token"),
+                "x-auth-token": sessionStorage.getItem("access_token"),
             },
         });
     };

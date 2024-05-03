@@ -35,11 +35,11 @@ const LoginForm = () => {
         await authService
             .login(data)
             .then(({ data }) => {
-                localStorage.setItem("access_token", data["token"]);
+                sessionStorage.setItem("access_token", data["token"]);
                 return authService.getCurrentUser();
             })
             .then(({ data }) => {
-                localStorage.setItem("current_user", data.user.email);
+                sessionStorage.setItem("current_user", data.user.email);
                 setIsLoading(false);
                 navigate("/app/dashboard");
             })

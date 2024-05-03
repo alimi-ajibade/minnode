@@ -10,7 +10,7 @@ const useMindmaps = () =>
                 url: "/mindmap",
                 method: "get",
                 headers: {
-                    "x-auth-token": localStorage.getItem("access_token"),
+                    "x-auth-token": sessionStorage.getItem("access_token"),
                 },
             }).then((resp) => resp.data),
         refetchOnWindowFocus: "always",

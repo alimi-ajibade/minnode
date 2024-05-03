@@ -25,8 +25,8 @@ const UserProfilePicture = () => {
                         </div>
                         <button
                             onClick={() => {
-                                localStorage.removeItem("access_token");
-                                localStorage.removeItem("current_user");
+                                sessionStorage.removeItem("access_token");
+                                sessionStorage.removeItem("current_user");
                                 setShowLogout(false);
                                 navigate("/");
                             }}>
