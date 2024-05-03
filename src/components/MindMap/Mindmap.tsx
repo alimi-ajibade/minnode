@@ -20,7 +20,6 @@ import HandleElementCustom from "../../entities/HandleElementCustom";
 import { IoIosArrowBack } from "react-icons/io";
 import ControlPanel from "./ControlPanel";
 import UserProfilePicture from "../UserProfilePicture";
-import { PartialMindmap } from "../../entities/Mindmap";
 import "reactflow/dist/style.css";
 
 const socket = io("http://localhost:8000", {
@@ -64,7 +63,7 @@ function MindmapFlow() {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
-    const { data: mindmap } = useMindmap(pathname.slice(-10));
+    const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
     const [templateMindmap, setShowLogout] = useDashboardStore(
         useShallow((s) => [s.currentMindmap, s.setShowLogout])
     );
@@ -149,14 +148,21 @@ function MindmapFlow() {
             }
         }
 
-        socket.on("disconnect", onDisconnect);
-        socket.on("connect", onConnect);
+        // socket.on("disconnect", onDisconnect);
+        // socket.on("connect", onConnect);
 
         return () => {
             socket.off("disconnect", onDisconnect);
             socket.off("connect", onConnect);
         };
     }, []);
+
+    if (isLoading)
+        return (
+            <div className="w-full h-full flex item-center justify-center animate-pulse">
+                <img src="/images/icon.png" className="object-contain w-20" />
+            </div>
+        );
 
     return (
         <ReactFlow
@@ -179,20 +185,24 @@ function MindmapFlow() {
                 setShowColorPicker={setShowColorPicker}
             />
             <Panel position="top-left">
-                <div className="flex flex--row items-center justify-center gap-3 py-5 px-3 text-xs lg:text-lg bg-white hover:cursor-pointer rounded-full shadow-md box-border w-content h-12">
+                <div className="flex flex--row items-center justify-center gap-3 lg:h-12 h-1 py-4 lg:py-5 px-3 text-xs lg:text-lg rounded-full shadow-md box-border w-content bg-white hover:cursor-pointer">
                     <div
                         onClick={() => navigate("/app/dashboard")}
                         className="py-3 px-2 rounded-md hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out">
                         <IoIosArrowBack />
                     </div>
 
-                    <UserProfilePicture />
-
                     <p>
                         {templateMindmap.filename
                             ? templateMindmap.filename
                             : mindmap?.filename}
                     </p>
+                </div>
+            </Panel>
+
+            <Panel position="top-right">
+                <div className="flex flex--row items-center justify-center gap-3 lg:h-12 h-1 py-4 lg:py-5 px-3 text-xs lg:text-lg rounded-full shadow-md box-border w-content bg-white hover:cursor-pointer">
+                    <UserProfilePicture />
                 </div>
             </Panel>
         </ReactFlow>
