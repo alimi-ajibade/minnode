@@ -8,6 +8,7 @@ import useDashboardStore from "../store";
 import mindmapTemplates from "../entities/templateMindmaps";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PartialMindmap } from "../entities/Mindmap";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -22,12 +23,7 @@ const Dashboard = () => {
                 closeButton={false}
                 theme="dark"
                 transition={Slide}
-                style={{
-                    fontSize: "0.9rem",
-                    textAlign: "center",
-                    width: "fit-content",
-                    top: 0,
-                }}
+                className={"text-center rounded-md text-sm"}
             />
             <div className="mt-14 min-h-[95vh] pb-3">
                 <div className="mt-14">
@@ -46,6 +42,7 @@ const Dashboard = () => {
                                     onClick={() => {
                                         const id = nanoid(10);
                                         navigate(`/app/mindmap/${id}`);
+                                        setCurrentMindmap({} as PartialMindmap);
                                     }}>
                                     <IoIosAdd color="#fff" />
                                 </button>
