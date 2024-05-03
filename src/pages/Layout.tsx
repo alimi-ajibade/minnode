@@ -16,11 +16,11 @@ const Layout = () => {
                 }`}>
                 {pathname.includes("mindmap") === false && (
                     <div
-                        className={`fixed z-10 top-0 w-screen h-14 ${
+                        className={`fixed z-10 top-0 w-screen  ${
                             pathname === "/"
-                                ? "bg-gradient-to-r from-purple-100 to-pink-100"
+                                ? "border-b border-gray-700 bg-gray-50"
                                 : "bg-gray-100"
-                        }`}>
+                        } h-14 `}>
                         <NavBar />
                     </div>
                 )}

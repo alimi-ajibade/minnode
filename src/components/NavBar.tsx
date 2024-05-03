@@ -17,7 +17,7 @@ const NavBar = () => {
             <div className="text-2xl flex flex-row gap-2 items-center">
                 {pathname === "/" && (
                     <button
-                        className="p-1 lg:hidden rounded-md bg-white"
+                        className="p-1 lg:hidden"
                         onClick={() => setShowMenu(true)}>
                         <IoMdMenu size={25} />
                     </button>
