@@ -19,14 +19,12 @@ import CustomEdge from "./CustomEdge";
 import HandleElementCustom from "../../entities/HandleElementCustom";
 import { IoIosArrowBack } from "react-icons/io";
 import ControlPanel from "./ControlPanel";
-
-import "reactflow/dist/style.css";
 import UserProfilePicture from "../UserProfilePicture";
 import { PartialMindmap } from "../../entities/Mindmap";
+import "reactflow/dist/style.css";
 
 const socket = io("http://localhost:8000", {
     autoConnect: false,
-    reconnection: true,
     reconnectionDelay: 10000,
 });
 
@@ -59,7 +57,7 @@ function MindmapFlow() {
             s.setSelectedEdge,
             s.resetAll,
         ])
-    ); // improve selection
+    );
 
     const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
 
@@ -76,6 +74,9 @@ function MindmapFlow() {
             ])
         );
 
+    const [showColorPicker, setShowColorPicker] = useState(false);
+    const user = sessionStorage.getItem("current_user");
+
     useEffect(() => {
         if (mindmap) {
             setNodes(mindmap.nodes);
@@ -89,27 +90,6 @@ function MindmapFlow() {
             return;
         }
     }, [mindmap]);
-
-    const user = localStorage.getItem("current_user");
-
-    const [showColorPicker, setShowColorPicker] = useState(false);
-
-    useOnSelectionChange({
-        onChange: ({ nodes, edges }) => {
-            setSelectedNode(nodes);
-            setSelectedEdge(edges);
-
-            socket.emit("save", {
-                nodes: getNodes(),
-                edges: getEdges(),
-                fileId: pathname.slice(-10),
-                filename: templateMindmap.filename
-                    ? templateMindmap.filename
-                    : mindmap?.filename,
-                user,
-            });
-        },
-    });
 
     useEffect(() => {
         const handles = Array.from(
@@ -129,34 +109,57 @@ function MindmapFlow() {
         }
     }, [document.activeElement]);
 
+    useOnSelectionChange({
+        onChange: ({ nodes, edges }) => {
+            setSelectedNode(nodes);
+            setSelectedEdge(edges);
+
+            socket.emit("save", {
+                nodes: getNodes(),
+                edges: getEdges(),
+                fileId: pathname.slice(-10),
+                filename: templateMindmap.filename
+                    ? templateMindmap.filename
+                    : mindmap?.filename,
+                user,
+            });
+        },
+    });
+
     useEffect(() => {
         socket.connect();
-
-        socket.on("connect", () => {
-            if (socket.recovered) {
-                console.log("recovered");
-            }
-        });
-
-        // setTimeout(() => {
-        //     if (socket.io.engine) {
-        //         // close the low-level connection and trigger a reconnection
-        //         socket.io.engine.close();
-        //     }
-        // }, 5000);
-
-        socket.on("disconnect", () => {
-            if (!toast.isActive("disconnect"))
-                toast(
-                    "You're offline. Your changes won't be saved, reconnecting...",
-                    { toastId: "disconnect", autoClose: false }
-                );
-        });
-
         return () => {
             resetAll();
             socket.disconnect();
             setCurrentMindmap({} as PartialMindmap);
+        };
+    }, []);
+
+    useEffect(() => {
+        function onDisconnect() {
+            if (!toast.isActive("disconnect")) {
+                toast(
+                    "You're offline. Your changes won't be saved, reconnecting...",
+                    { toastId: "disconnect", autoClose: false }
+                );
+                return;
+            }
+            return;
+        }
+
+        function onConnect() {
+            if (!toast.isActive("connect")) {
+                if (toast.isActive("disconnect")) toast.dismiss("disconnect");
+                toast("connected", { toastId: "connect", type: "success" });
+            }
+        }
+
+        socket.on("disconnect", onDisconnect);
+        socket.on("connect", onConnect);
+
+        return () => {
+            socket.off("disconnect", onDisconnect);
+            socket.off("connect", onConnect);
         };
     }, []);
 
