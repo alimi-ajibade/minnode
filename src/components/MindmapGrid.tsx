@@ -1,6 +1,6 @@
 import useMindmaps from "../hooks/useMindmaps";
 import MindmapCard from "./MindmapCard";
-import MindmapCardSkeletont from "./MindmapCardSkeleton";
+import MindmapCardSkeleton from "./MindmapCardSkeleton";
 
 const MindmapGrid = () => {
     const { data: mindmaps, isLoading } = useMindmaps();
@@ -12,7 +12,7 @@ const MindmapGrid = () => {
         return (
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-4 xl:grid-cols-6 mt-5 py-5 px-5 bg-white rounded-md min-w-full">
                 {skeletons.map((index) => (
-                    <MindmapCardSkeletont key={index} />
+                    <MindmapCardSkeleton key={index} />
                 ))}
             </div>
         );
