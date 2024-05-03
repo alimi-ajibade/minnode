@@ -7,6 +7,7 @@ import RenameFormModal from "../components/RenameFormModal";
 import useDashboardStore from "../store";
 import mindmapTemplates from "../entities/templateMindmaps";
 import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Dashboard = () => {
                         Create a Mindmap
                     </h1>
 
-                    <div className="mt-5 py-3 px-5 bg-white rounded-md min-w-full overflow-scroll lg:overflow-auto">
+                    <div className="mt-5 py-3 px-5 lg:bg-white rounded-md min-w-full overflow-scroll lg:overflow-auto">
                         <h4 className="hidden lg:flex font-medium mb-2">
                             Templates
                         </h4>

@@ -1,5 +1,6 @@
 import { Slide, ToastContainer } from "react-toastify";
 import Mindmap from "../components/MindMap/Mindmap";
+import "react-toastify/dist/ReactToastify.css";
 
 const MindMapPage = () => {
     return (
@@ -11,10 +12,7 @@ const MindMapPage = () => {
                 closeButton={false}
                 theme="dark"
                 transition={Slide}
-                style={{
-                    // fontSize: "0.9rem",
-                    textAlign: "center",
-                }}
+                className={"text-center rounded-md text-sm"}
             />
             <Mindmap />
         </div>

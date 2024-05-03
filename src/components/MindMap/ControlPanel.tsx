@@ -13,7 +13,7 @@ interface Props {
 const ControlPanel = ({ showColorPicker, setShowColorPicker }: Props) => {
     return (
         <ReactFlowProvider>
-            <div className="z-10 absolute top-[32%] right-5 py-3 w-14 bg-white rounded-md shadow-md">
+            <div className="z-10 absolute top-[32%] right-2 lg:right-4 lg:py-3 w-10 lg:w-14 bg-white rounded-md shadow-md">
                 <AddNodeButton />
                 <DeleteButton />
                 <LayoutButtons />

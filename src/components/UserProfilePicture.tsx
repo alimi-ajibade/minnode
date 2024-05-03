@@ -19,7 +19,7 @@ const UserProfilePicture = () => {
                 </button>
 
                 {showLogout && (
-                    <div className="absolute flex flex-row items-center gap-2 bg-white p-3 rounded-md text-lg top-10 shadow-md animate-in fade-in zoom-in">
+                    <div className="absolute flex flex-row items-center gap-2 bg-white p-3 rounded-md text-xs lg:text-lg top-10 shadow-md animate-in fade-in zoom-in">
                         <div>
                             <ImExit />
                         </div>

@@ -128,6 +128,7 @@ function MindmapFlow() {
 
     useEffect(() => {
         socket.connect();
+
         return () => {
             resetAll();
             socket.disconnect();
@@ -184,16 +185,16 @@ function MindmapFlow() {
                 setShowColorPicker={setShowColorPicker}
             />
             <Panel position="top-left">
-                <div className="flex flex--row items-center justify-center gap-3 py-5 px-3 bg-white hover:cursor-pointer rounded-full shadow-md box-border w-content h-12">
+                <div className="flex flex--row items-center justify-center gap-3 py-5 px-3 text-xs lg:text-lg bg-white hover:cursor-pointer rounded-full shadow-md box-border w-content h-12">
                     <div
                         onClick={() => navigate("/app/dashboard")}
-                        className="py-3 px-2 text-lg rounded-md hover:text-blue-500 hover:bg-blue-300 transition duration-300 ease-in-out">
+                        className="py-3 px-2 rounded-md hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out">
                         <IoIosArrowBack />
                     </div>
 
                     <UserProfilePicture />
 
-                    <p className="text-lg">
+                    <p>
                         {templateMindmap.filename
                             ? templateMindmap.filename
                             : mindmap?.filename}
