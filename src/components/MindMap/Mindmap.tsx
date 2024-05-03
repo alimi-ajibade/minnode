@@ -65,14 +65,9 @@ function MindmapFlow() {
     const navigate = useNavigate();
 
     const { data: mindmap } = useMindmap(pathname.slice(-10));
-    const [templateMindmap, setShowLogout, setCurrentMindmap] =
-        useDashboardStore(
-            useShallow((s) => [
-                s.currentMindmap,
-                s.setShowLogout,
-                s.setCurrentMindmap,
-            ])
-        );
+    const [templateMindmap, setShowLogout] = useDashboardStore(
+        useShallow((s) => [s.currentMindmap, s.setShowLogout])
+    );
 
     const [showColorPicker, setShowColorPicker] = useState(false);
     const user = sessionStorage.getItem("current_user");
@@ -132,7 +127,6 @@ function MindmapFlow() {
         return () => {
             resetAll();
             socket.disconnect();
-            setCurrentMindmap({} as PartialMindmap);
         };
     }, []);
 
