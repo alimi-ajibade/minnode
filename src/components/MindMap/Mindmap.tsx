@@ -7,7 +7,6 @@ import ReactFlow, {
     useReactFlow,
     Panel,
 } from "reactflow";
-import io from "socket.io-client";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import useRFStore from "./store";
@@ -20,12 +19,8 @@ import HandleElementCustom from "../../entities/HandleElementCustom";
 import { IoIosArrowBack } from "react-icons/io";
 import ControlPanel from "./ControlPanel";
 import UserProfilePicture from "../UserProfilePicture";
+import socket from "../../services/socket-client";
 import "reactflow/dist/style.css";
-
-const socket = io("http://localhost:8000", {
-    autoConnect: false,
-    reconnectionDelay: 10000,
-});
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -161,8 +156,8 @@ function MindmapFlow() {
             }
         }
 
-        // socket.on("disconnect", onDisconnect);
-        // socket.on("connect", onConnect);
+        socket.on("disconnect", onDisconnect);
+        socket.on("connect", onConnect);
 
         return () => {
             socket.off("disconnect", onDisconnect);
