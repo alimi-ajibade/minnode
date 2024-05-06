@@ -124,6 +124,19 @@ function MindmapFlow() {
         socket.connect();
 
         return () => {
+            const nodes = getNodes();
+
+            if (nodes.length >= 1) {
+                socket.emit("save", {
+                    nodes: getNodes(),
+                    edges: getEdges(),
+                    fileId: pathname.slice(-10),
+                    filename: templateMindmap.filename
+                        ? templateMindmap.filename
+                        : mindmap?.filename,
+                    user,
+                });
+            }
             resetAll();
             socket.disconnect();
         };
