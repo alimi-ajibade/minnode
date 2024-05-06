@@ -21,7 +21,7 @@ const Button = ({
     const toolTipRef = useRef<TooltipRefProps>(null);
 
     const afterShow = () => {
-        let timeoutId: NodeJS.Timeout;
+        let timeoutId: any;
         if (toolTipRef.current?.isOpen) {
             timeoutId = setTimeout(() => {
                 toolTipRef.current?.close();
