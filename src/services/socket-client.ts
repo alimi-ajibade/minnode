@@ -1,8 +1,8 @@
 import io from "socket.io-client";
 
-const baseURL = import.meta.env.VITE_MINDMAP_API_URL;
+const APIURL = import.meta.env.VITE_MINDMAP_API_URL;
 
-const socket = io(baseURL, {
+const socket = io(APIURL, {
     autoConnect: false,
     reconnectionDelay: 10000,
 });
