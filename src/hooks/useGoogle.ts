@@ -1,5 +1,5 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { GoogleUser } from "../entities/GoogleUser";
+import { User } from "../entities/User";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,19 +16,16 @@ export const useGoogle = () => {
         onSuccess: async (response) => {
             setGoogleIsLoading(true);
 
-            let userInfo = {} as GoogleUser;
+            let userInfo = {} as User;
 
             await axios
-                .get<GoogleUser>(
-                    "https://www.googleapis.com/oauth2/v3/userinfo",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${response.access_token}`,
-                        },
-                    }
-                )
+                .get<User>("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: {
+                        Authorization: `Bearer ${response.access_token}`,
+                    },
+                })
                 .then((res) => {
-                    userInfo = res.data;
+                    userInfo = res.data as User;
                 })
                 .catch(() => {
                     setServerError({
@@ -43,6 +40,7 @@ export const useGoogle = () => {
                 .post("/auth/google", {
                     fullname: userInfo.name,
                     email: userInfo.email,
+                    picture: userInfo.picture,
                 })
                 .then(({ headers }) => {
                     sessionStorage.setItem(
@@ -50,8 +48,8 @@ export const useGoogle = () => {
                         headers["x-auth-token"]
                     );
                     sessionStorage.setItem("current_user", userInfo.email);
-                    navigate("/app/dashboard");
                     setGoogleIsLoading(false);
+                    navigate("/app/dashboard");
                 })
                 .catch(({ response }: AxiosError) => {
                     const data = response?.data as ServerError;
