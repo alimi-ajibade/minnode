@@ -152,7 +152,8 @@ function MindmapFlow() {
         function onConnect() {
             if (!toast.isActive("connect")) {
                 if (toast.isActive("disconnect")) toast.dismiss("disconnect");
-                toast("connected", { toastId: "connect", type: "success" });
+                if (pathname.includes("mindmap"))
+                    toast("connected", { toastId: "connect", type: "success" });
             }
         }
 
