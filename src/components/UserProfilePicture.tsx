@@ -19,19 +19,27 @@ const UserProfilePicture = () => {
                 </button>
 
                 {showLogout && (
-                    <div className="absolute flex flex-row items-center gap-2 bg-white p-3 rounded-md text-xs lg:text-lg top-10 shadow-md animate-in fade-in zoom-in">
-                        <div>
-                            <ImExit />
+                    <div className="absolute bg-white p-3 rounded-md text-sm lg:text-base top-10 -right-3 shadow-md animate-in fade-in zoom-in">
+                        <div className="flex flex-row items-center gap-2 mb-4">
+                            <HiUserCircle className="text-4xl" />
+                            <div>
+                                <p className="text-xl lg:text-2xl font-medium">
+                                    User Two
+                                </p>
+                                <p>User2@domain.com</p>
+                            </div>
                         </div>
-                        <button
+                        <div
+                            className="flex flex-row items-center gap-5 ml-2 hover:text-blue-600 transition duration-500 ease-in-out"
                             onClick={() => {
                                 sessionStorage.removeItem("access_token");
                                 sessionStorage.removeItem("current_user");
                                 setShowLogout(false);
                                 navigate("/");
                             }}>
-                            Logout
-                        </button>
+                            <ImExit />
+                            <button>Logout</button>
+                        </div>
                     </div>
                 )}
             </div>
