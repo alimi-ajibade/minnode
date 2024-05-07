@@ -1,8 +1,8 @@
 import io from "socket.io-client";
 
-// const APIURL = import.meta.env.VITE_MINDMAP_API_URL;
+const APIURL = import.meta.env.VITE_MINDMAP_API_URL;
 
-const socket = io("https://mindmap-api.onrender.com/api", {
+const socket = io(APIURL, {
     autoConnect: false,
     reconnectionDelay: 10000,
 });
