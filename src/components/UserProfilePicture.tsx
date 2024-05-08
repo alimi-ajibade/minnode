@@ -1,7 +1,7 @@
 import OutsideClickHander from "./OutsideClickHander";
 import { HiUserCircle } from "react-icons/hi2";
 import { ImExit } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useDashboardStore from "../store";
 import { useShallow } from "zustand/react/shallow";
 import { User } from "../entities/User";
@@ -11,21 +11,32 @@ const UserProfilePicture = () => {
         useShallow((s) => [s.showLogout, s.setShowLogout])
     );
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const current_user = JSON.parse(
         sessionStorage.getItem("current_user")!
     ) as User;
 
     return (
         <OutsideClickHander onOutsideClick={() => setShowLogout(false)}>
-            <div className="relative text-2xl lg:text-4xl flex items-center">
+            <div className="relative flex items-center">
                 <button onClick={() => setShowLogout(true)}>
                     {current_user?.picture ? (
                         <img
                             src={current_user.picture}
-                            className="rounded-full size-6 lg:size-9 border-2 border-white"
+                            className={`rounded-full ${
+                                pathname.includes("mindmap")
+                                    ? "size-6"
+                                    : "size-9"
+                            } lg:size-9 border-2 border-white`}
                         />
                     ) : (
-                        <HiUserCircle />
+                        <HiUserCircle
+                            className={`${
+                                pathname.includes("mindmap")
+                                    ? "text-2xl"
+                                    : "text-4xl"
+                            } lg:text-4xl`}
+                        />
                     )}
                 </button>
 
