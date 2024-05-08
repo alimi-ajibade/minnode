@@ -16,8 +16,6 @@ export const useGoogle = () => {
         onSuccess: async (response) => {
             setGoogleIsLoading(true);
 
-            let userInfo = {} as User;
-
             axios
                 .get<User>("https://www.googleapis.com/oauth2/v3/userinfo", {
                     headers: {
@@ -25,37 +23,45 @@ export const useGoogle = () => {
                     },
                 })
                 .then((res) => {
-                    userInfo = res.data as User;
+                    const googleUserInfo = res.data as User;
+
+                    apiClient
+                        .post("/auth/google", {
+                            fullname: googleUserInfo.name,
+                            email: googleUserInfo.email,
+                            picture: googleUserInfo.picture,
+                        })
+                        .then(({ headers }) => {
+                            sessionStorage.setItem(
+                                "access_token",
+                                headers["x-auth-token"]
+                            );
+                            sessionStorage.setItem(
+                                "current_user",
+                                JSON.stringify({
+                                    name: googleUserInfo.name,
+                                    email: googleUserInfo.email,
+                                    picture: googleUserInfo.picture,
+                                })
+                            );
+
+                            setGoogleIsLoading(false);
+                            navigate("/app/dashboard");
+                        })
+                        .catch(({ response }: AxiosError) => {
+                            const data = response?.data as ServerError;
+                            setServerError({
+                                ...serverError,
+                                google: data.error,
+                            });
+                            setGoogleIsLoading(false);
+                            return;
+                        });
                 })
                 .catch(() => {
                     setServerError({
                         ...serverError,
                         google: "Google Sign-in is not available at this moment",
-                    });
-                    setGoogleIsLoading(false);
-                    return;
-                });
-
-            apiClient
-                .post("/auth/google", {
-                    fullname: userInfo.name,
-                    email: userInfo.email,
-                    picture: userInfo.picture,
-                })
-                .then(({ headers }) => {
-                    sessionStorage.setItem(
-                        "access_token",
-                        headers["x-auth-token"]
-                    );
-                    sessionStorage.setItem("current_user", userInfo.email);
-                    setGoogleIsLoading(false);
-                    navigate("/app/dashboard");
-                })
-                .catch(({ response }: AxiosError) => {
-                    const data = response?.data as ServerError;
-                    setServerError({
-                        ...serverError,
-                        google: data.error,
                     });
                     setGoogleIsLoading(false);
                     return;

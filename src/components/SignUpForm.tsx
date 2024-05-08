@@ -46,7 +46,11 @@ const SignUpForm = () => {
                 return authService.getCurrentUser();
             })
             .then(({ data }) => {
-                sessionStorage.setItem("current_user", data.user.email);
+                JSON.stringify({
+                    name: data.user.fullname,
+                    email: data.user.email,
+                    picture: data.user?.picture,
+                });
                 setIsLoading(false);
                 navigate("/app/dashboard");
             })

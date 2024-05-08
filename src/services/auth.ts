@@ -1,3 +1,4 @@
+import { User } from "../entities/User";
 import apiClient from "./api-client";
 
 interface LoginData {
@@ -17,7 +18,7 @@ class Auth {
     }
 
     signup(data: SignupData) {
-        return apiClient.post("/users", data);
+        return apiClient.post<User>("/users", data);
     }
 
     getCurrentUser() {
