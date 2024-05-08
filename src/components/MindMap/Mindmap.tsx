@@ -140,10 +140,11 @@ function MindmapFlow() {
     useEffect(() => {
         function onDisconnect() {
             if (!toast.isActive("disconnect")) {
-                toast(
-                    "You're offline. Your changes won't be saved, reconnecting...",
-                    { toastId: "disconnect", autoClose: false }
-                );
+                if (pathname.includes("mindmap"))
+                    toast(
+                        "You're offline. Your changes won't be saved, reconnecting...",
+                        { toastId: "disconnect", autoClose: false }
+                    );
                 return;
             }
             return;
@@ -152,8 +153,7 @@ function MindmapFlow() {
         function onConnect() {
             if (!toast.isActive("connect")) {
                 if (toast.isActive("disconnect")) toast.dismiss("disconnect");
-                if (pathname.includes("mindmap"))
-                    toast("connected", { toastId: "connect", type: "success" });
+                toast("connected", { toastId: "connect", type: "success" });
             }
         }
 
