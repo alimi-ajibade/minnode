@@ -35,9 +35,10 @@ const SignUpForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = (data: FormData) => {
         setIsLoading(true);
-        await apiClient
+
+        apiClient
             .post("/users", data)
             .then(({ headers }) => {
                 sessionStorage.setItem("access_token", headers["x-auth-token"]);

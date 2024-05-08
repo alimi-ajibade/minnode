@@ -29,10 +29,10 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = (data: FormData) => {
         setIsLoading(true);
 
-        await authService
+        authService
             .login(data)
             .then(({ data }) => {
                 sessionStorage.setItem("access_token", data["token"]);

@@ -18,7 +18,7 @@ export const useGoogle = () => {
 
             let userInfo = {} as User;
 
-            await axios
+            axios
                 .get<User>("https://www.googleapis.com/oauth2/v3/userinfo", {
                     headers: {
                         Authorization: `Bearer ${response.access_token}`,
@@ -36,7 +36,7 @@ export const useGoogle = () => {
                     return;
                 });
 
-            await apiClient
+            apiClient
                 .post("/auth/google", {
                     fullname: userInfo.name,
                     email: userInfo.email,

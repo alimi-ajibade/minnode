@@ -10,18 +10,14 @@ const ProtectedRoute = ({ children }: Props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const getCurrentUser = async () => {
-            await authService
-                .getCurrentUser()
-                .then(() => {
-                    return;
-                })
-                .catch(() => {
-                    return navigate("/login");
-                });
-        };
-
-        getCurrentUser();
+        authService
+            .getCurrentUser()
+            .then(() => {
+                return;
+            })
+            .catch(() => {
+                return navigate("/login");
+            });
     }, []);
 
     return children;
