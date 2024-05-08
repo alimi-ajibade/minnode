@@ -17,6 +17,7 @@ const Dashboard = () => {
     return (
         <>
             <ToastContainer
+                containerId={"dashboard"}
                 position="top-center"
                 autoClose={2000}
                 hideProgressBar={true}

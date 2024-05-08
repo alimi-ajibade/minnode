@@ -6,6 +6,7 @@ const MindMapPage = () => {
     return (
         <div className="relative w-screen h-screen">
             <ToastContainer
+                containerId={"mindmap"}
                 position="top-center"
                 autoClose={3000}
                 hideProgressBar={true}
