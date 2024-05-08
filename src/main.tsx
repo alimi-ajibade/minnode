@@ -8,10 +8,11 @@ import ServerErrorProvider from "./contexts/serverErrorContext.tsx";
 import "./index.css";
 
 const queryClient = new QueryClient();
+const client_id = import.meta.env.VITE_MINDMAP_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <GoogleOAuthProvider clientId="146214411177-tt3i7hvipc7f1h3mg2fofluqvo1d9jf6.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={client_id}>
             <QueryClientProvider client={queryClient}>
                 <ServerErrorProvider>
                     <RouterProvider router={router} />
