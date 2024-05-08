@@ -16,7 +16,7 @@ const useRenameMindmap = () => {
 
         onMutate: (modifiedMindmap) => {
             toast.dismiss();
-            toast("saving");
+            toast("saving", { containerId: "dashboard" });
 
             const previousMindmaps =
                 queryClient.getQueryData<MindMap[]>(["mindmaps"]) || [];
@@ -38,7 +38,7 @@ const useRenameMindmap = () => {
             });
 
             toast.dismiss();
-            toast("saved", { type: "success" });
+            toast("saved", { type: "success", containerId: "dashboard" });
         },
 
         onError: (_error, _deletedMindmap, context) => {

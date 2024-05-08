@@ -64,7 +64,7 @@ function MindmapFlow() {
     );
 
     const [showColorPicker, setShowColorPicker] = useState(false);
-    const user = sessionStorage.getItem("current_user");
+    const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
 
     useEffect(() => {
         if (mindmap) {
@@ -142,7 +142,11 @@ function MindmapFlow() {
             if (!toast.isActive("disconnect")) {
                 toast(
                     "You're offline. Your changes won't be saved, reconnecting...",
-                    { toastId: "disconnect", autoClose: false }
+                    {
+                        toastId: "disconnect",
+                        autoClose: false,
+                        containerId: "mindmap",
+                    }
                 );
                 return;
             }
@@ -152,7 +156,11 @@ function MindmapFlow() {
         function onConnect() {
             if (!toast.isActive("connect")) {
                 if (toast.isActive("disconnect")) toast.dismiss("disconnect");
-                toast("connected", { toastId: "connect", type: "success" });
+                toast("connected", {
+                    toastId: "connect",
+                    type: "success",
+                    containerId: "mindmap",
+                });
             }
         }
 

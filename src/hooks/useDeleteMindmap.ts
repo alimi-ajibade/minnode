@@ -15,7 +15,7 @@ const useDeleteMindmap = () => {
 
         onMutate: (id) => {
             toast.dismiss();
-            toast("deleting");
+            toast("deleting", { containerId: "dashboard" });
 
             const previousMindmaps =
                 queryClient.getQueryData<MindMap[]>(["mindmaps"]) || [];
@@ -38,7 +38,10 @@ const useDeleteMindmap = () => {
             queryClient.setQueryData(["mindmaps"], context?.previousMindmaps);
 
             toast.dismiss();
-            toast("Something went wrong...", { type: "error" });
+            toast("Something went wrong...", {
+                type: "error",
+                containerId: "dashboard",
+            });
         },
     });
 };
