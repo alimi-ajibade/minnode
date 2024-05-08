@@ -8,7 +8,6 @@ const AddNodeButton = () => {
         <Button
             dataTooltipId="add-button"
             onCLick={addNode}
-            tooltipVariant="info"
             tooltipContent="add a new node">
             <BiAddToQueue />
         </Button>

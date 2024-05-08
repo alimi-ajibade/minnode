@@ -14,7 +14,6 @@ const DeleteButton = () => {
                 selectedNode ? deleteNode() : deleteEdge();
             }}
             disabled={selectedNode || selectedEgde ? false : true}
-            tooltipVariant="error"
             tooltipContent="delete selected node or edge">
             <MdDeleteForever />
         </Button>

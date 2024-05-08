@@ -8,7 +8,7 @@ import ReactFlow, {
     Panel,
 } from "reactflow";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useRFStore from "./store";
 import { useShallow } from "zustand/react/shallow";
 import useMindmap from "../../hooks/useMindmap";
@@ -16,10 +16,12 @@ import useDashboardStore from "../../store";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
 import HandleElementCustom from "../../entities/HandleElementCustom";
-import { IoIosArrowBack } from "react-icons/io";
+import { PiPresentationDuotone } from "react-icons/pi";
 import ControlPanel from "./ControlPanel";
-import UserProfilePicture from "../UserProfilePicture";
 import socket from "../../services/socket-client";
+import Button from "./Button";
+import TopLeftPanel from "./TopLeftPanel";
+import TopRightPanel from "./TopRightPanel";
 import "reactflow/dist/style.css";
 
 const nodeTypes = {
@@ -56,11 +58,20 @@ function MindmapFlow() {
     const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
 
     const { pathname } = useLocation();
-    const navigate = useNavigate();
 
     const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
-    const [templateMindmap, setShowLogout] = useDashboardStore(
-        useShallow((s) => [s.currentMindmap, s.setShowLogout])
+    const [
+        templateMindmap,
+        setShowLogout,
+        presentationMode,
+        setPresentationMode,
+    ] = useDashboardStore(
+        useShallow((s) => [
+            s.currentMindmap,
+            s.setShowLogout,
+            s.presentationMode,
+            s.setPresentationMode,
+        ])
     );
 
     const [showColorPicker, setShowColorPicker] = useState(false);
@@ -180,6 +191,26 @@ function MindmapFlow() {
             </div>
         );
 
+    if (presentationMode)
+        return (
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}>
+                <Panel position="top-right">
+                    <div className="flex flex--row items-center justify-center gap-3 lg:h-12 h-1 py-4 lg:py-5 px-3 text-xs lg:text-lg rounded-full shadow-md box-border w-content bg-white">
+                        <Button
+                            dataTooltipId="presentation-mode"
+                            tooltipContent="Presentation Mode"
+                            onCLick={() => setPresentationMode()}>
+                            <PiPresentationDuotone />
+                        </Button>
+                    </div>
+                </Panel>
+            </ReactFlow>
+        );
+
     return (
         <ReactFlow
             nodes={nodes}
@@ -201,25 +232,17 @@ function MindmapFlow() {
                 setShowColorPicker={setShowColorPicker}
             />
             <Panel position="top-left">
-                <div className="flex flex--row items-center justify-center gap-3 lg:h-12 h-1 py-4 lg:py-5 px-3 text-xs lg:text-lg rounded-full shadow-md box-border w-content bg-white hover:cursor-pointer">
-                    <div
-                        onClick={() => navigate("/app/dashboard")}
-                        className="py-3 px-2 rounded-md hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out">
-                        <IoIosArrowBack />
-                    </div>
-
-                    <p>
-                        {templateMindmap.filename
+                <TopLeftPanel
+                    filename={
+                        templateMindmap.filename
                             ? templateMindmap.filename
-                            : mindmap?.filename}
-                    </p>
-                </div>
+                            : mindmap?.filename
+                    }
+                />
             </Panel>
 
             <Panel position="top-right">
-                <div className="flex flex--row items-center justify-center gap-3 lg:h-12 h-1 py-4 lg:py-5 px-3 text-xs lg:text-lg rounded-full shadow-md box-border w-content bg-white hover:cursor-pointer">
-                    <UserProfilePicture />
-                </div>
+                <TopRightPanel />
             </Panel>
         </ReactFlow>
     );

@@ -5,18 +5,19 @@ interface DashboardStore {
     currentMindmap: MindMap | PartialMindmap;
     isRenameFormModalOpen: boolean;
     showLogout: boolean;
+    presentationMode: boolean;
     setRenameFormModal: () => void;
     setShowLogout: (value: boolean) => void;
     setCurrentMindmap: (mindmap: PartialMindmap) => void;
+    setPresentationMode: () => void;
     toggleDropdown: (id: string) => void;
 }
 
 const useDashboardStore = create<DashboardStore>((set, get) => ({
     currentMindmap: {} as MindMap | PartialMindmap,
-
     isRenameFormModalOpen: false,
-
     showLogout: false,
+    presentationMode: false,
 
     setRenameFormModal: () => {
         set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
@@ -25,6 +26,9 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
     setShowLogout: (value) => set({ showLogout: value }),
 
     setCurrentMindmap: (mindmap) => set({ currentMindmap: { ...mindmap } }),
+
+    setPresentationMode: () =>
+        set({ presentationMode: !get().presentationMode }),
 
     toggleDropdown: (id) => {
         const dropdowns = document.getElementsByClassName("dropdowns");
