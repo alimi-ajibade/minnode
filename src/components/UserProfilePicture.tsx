@@ -19,7 +19,7 @@ const UserProfilePicture = () => {
         <OutsideClickHander onOutsideClick={() => setShowLogout(false)}>
             <div className="relative text-4xl flex items-center">
                 <button onClick={() => setShowLogout(true)}>
-                    {current_user.picture ? (
+                    {current_user?.picture ? (
                         <img
                             src={current_user.picture}
                             className="rounded-full size-9 border-2 border-white"
