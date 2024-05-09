@@ -235,6 +235,7 @@ function MindmapFlow() {
             fitView>
             <Background gap={15} />
             <Controls showInteractive={false} />
+            <ControlPanel />
             <Panel position="top-left">
                 <TopLeftPanel
                     filename={
@@ -256,7 +257,6 @@ function Mindmap() {
     return (
         <ReactFlowProvider>
             <MindmapFlow />
-            <ControlPanel />
         </ReactFlowProvider>
     );
 }
