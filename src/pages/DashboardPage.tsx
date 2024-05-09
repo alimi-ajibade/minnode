@@ -24,7 +24,7 @@ const Dashboard = () => {
                 closeButton={false}
                 theme="dark"
                 transition={Slide}
-                className={"text-center rounded-md text-sm"}
+                className={"text-center rounded-md text-sm w-fit"}
             />
             <div className="mt-14 min-h-[95vh] pb-3">
                 <div className="mt-14">

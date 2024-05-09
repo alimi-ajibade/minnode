@@ -7,13 +7,13 @@ const MindMapPage = () => {
         <div className="relative w-screen h-screen">
             <ToastContainer
                 containerId={"mindmap"}
-                position="top-center"
+                position="bottom-center"
                 autoClose={3000}
                 hideProgressBar={true}
                 closeButton={false}
                 theme="dark"
                 transition={Slide}
-                className={"text-center rounded-md text-sm"}
+                className={"text-center rounded-md text-sm w-fit"}
             />
             <Mindmap />
         </div>

@@ -27,3 +27,4 @@ dist-ssr
 TODO.txt
 .env.development
 .vercel
+package-lock.json
