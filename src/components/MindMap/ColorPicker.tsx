@@ -3,15 +3,15 @@ import { TwitterPicker } from "react-color";
 import { LuPaintbrush2 } from "react-icons/lu";
 import Button from "./Button";
 import OutsideClickHander from "../OutsideClickHander";
+import useDashboardStore from "../../store";
+import { useShallow } from "zustand/react/shallow";
 
-interface Props {
-    showColorPicker: boolean;
-    setShowColorPicker: (value: boolean) => void;
-}
-
-const ColorPicker = ({ showColorPicker, setShowColorPicker }: Props) => {
+const ColorPicker = () => {
     const selectedNode = useRFStore((s) => s.selectedNode);
     const updateNode = useRFStore((s) => s.updateNode);
+    const [showColorPicker, setShowColorPicker] = useDashboardStore(
+        useShallow((s) => [s.showColorPicker, s.setShowColorPicker])
+    );
 
     return (
         <>
@@ -25,7 +25,7 @@ const ColorPicker = ({ showColorPicker, setShowColorPicker }: Props) => {
 
             {showColorPicker && (
                 <div
-                    className={`absolute top-[85%] right-16 ${
+                    className={`absolute top-[85%] left-16 ${
                         showColorPicker ? "animate-in fade-in zoom-in" : ""
                     }`}>
                     <OutsideClickHander

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ReactFlow, {
     Background,
     Controls,
@@ -62,19 +62,20 @@ function MindmapFlow() {
     const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
     const [
         templateMindmap,
-        setShowLogout,
         presentationMode,
+        setShowColorPicker,
+        setShowLogout,
         setPresentationMode,
     ] = useDashboardStore(
         useShallow((s) => [
             s.currentMindmap,
-            s.setShowLogout,
             s.presentationMode,
+            s.setShowColorPicker,
+            s.setShowLogout,
             s.setPresentationMode,
         ])
     );
 
-    const [showColorPicker, setShowColorPicker] = useState(false);
     const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
 
     useEffect(() => {
@@ -234,10 +235,6 @@ function MindmapFlow() {
             fitView>
             <Background gap={15} />
             <Controls showInteractive={false} />
-            <ControlPanel
-                showColorPicker={showColorPicker}
-                setShowColorPicker={setShowColorPicker}
-            />
             <Panel position="top-left">
                 <TopLeftPanel
                     filename={
@@ -259,6 +256,7 @@ function Mindmap() {
     return (
         <ReactFlowProvider>
             <MindmapFlow />
+            <ControlPanel />
         </ReactFlowProvider>
     );
 }

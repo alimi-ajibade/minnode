@@ -6,10 +6,12 @@ interface DashboardStore {
     isRenameFormModalOpen: boolean;
     showLogout: boolean;
     presentationMode: boolean;
+    showColorPicker: boolean;
     setRenameFormModal: () => void;
     setShowLogout: (value: boolean) => void;
     setCurrentMindmap: (mindmap: PartialMindmap) => void;
     setPresentationMode: () => void;
+    setShowColorPicker: (value: boolean) => void;
     toggleDropdown: (id: string) => void;
 }
 
@@ -18,6 +20,7 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
     isRenameFormModalOpen: false,
     showLogout: false,
     presentationMode: false,
+    showColorPicker: false,
 
     setRenameFormModal: () => {
         set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
@@ -29,6 +32,8 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
 
     setPresentationMode: () =>
         set({ presentationMode: !get().presentationMode }),
+
+    setShowColorPicker: (value) => set({ showColorPicker: value }),
 
     toggleDropdown: (id) => {
         const dropdowns = document.getElementsByClassName("dropdowns");
