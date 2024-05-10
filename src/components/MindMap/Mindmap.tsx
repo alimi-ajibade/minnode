@@ -66,6 +66,7 @@ function MindmapFlow() {
         setShowColorPicker,
         setShowLogout,
         setPresentationMode,
+        setShowAssistant,
     ] = useDashboardStore(
         useShallow((s) => [
             s.currentMindmap,
@@ -73,6 +74,7 @@ function MindmapFlow() {
             s.setShowColorPicker,
             s.setShowLogout,
             s.setPresentationMode,
+            s.setShowAssitant,
         ])
     );
 
@@ -231,9 +233,10 @@ function MindmapFlow() {
             onPaneClick={() => {
                 setShowColorPicker(false);
                 setShowLogout(false);
+                setShowAssistant(false);
             }}
             fitView>
-            <Background gap={15} />
+            <Background gap={18} />
             <Controls showInteractive={false} />
             <ControlPanel />
             <Panel position="top-left">

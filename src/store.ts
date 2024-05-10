@@ -7,11 +7,15 @@ interface DashboardStore {
     showLogout: boolean;
     presentationMode: boolean;
     showColorPicker: boolean;
+    showAssitant: boolean;
+    fetchingAIResponse: boolean;
     setRenameFormModal: () => void;
     setShowLogout: (value: boolean) => void;
     setCurrentMindmap: (mindmap: PartialMindmap) => void;
     setPresentationMode: () => void;
     setShowColorPicker: (value: boolean) => void;
+    setShowAssitant: (value: boolean) => void;
+    setFetchingAIResponse: (value: boolean) => void;
     toggleDropdown: (id: string) => void;
 }
 
@@ -21,6 +25,8 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
     showLogout: false,
     presentationMode: false,
     showColorPicker: false,
+    showAssitant: false,
+    fetchingAIResponse: false,
 
     setRenameFormModal: () => {
         set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
@@ -34,6 +40,10 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
         set({ presentationMode: !get().presentationMode }),
 
     setShowColorPicker: (value) => set({ showColorPicker: value }),
+
+    setShowAssitant: (value) => set({ showAssitant: value }),
+
+    setFetchingAIResponse: (value) => set({ fetchingAIResponse: value }),
 
     toggleDropdown: (id) => {
         const dropdowns = document.getElementsByClassName("dropdowns");

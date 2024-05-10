@@ -1,15 +1,26 @@
-import Button from "./Button";
+import { useShallow } from "zustand/react/shallow";
 import useDashboardStore from "../../store";
+import Button from "./Button";
 import { PiPresentationDuotone } from "react-icons/pi";
 import { SiGooglegemini } from "react-icons/si";
-
 import UserProfilePicture from "../UserProfilePicture";
-import { useState } from "react";
 import AIAssistant from "./AIAssistant";
 
 const TopRightPanel = () => {
-    const setPresentationMode = useDashboardStore((s) => s.setPresentationMode);
-    const [showSearch, hideSearch] = useState(false);
+    const [
+        setPresentationMode,
+        showAssistant,
+        setShowAssistant,
+        fetchingAIResponse,
+    ] = useDashboardStore(
+        useShallow((s) => [
+            s.setPresentationMode,
+            s.showAssitant,
+            s.setShowAssitant,
+            s.fetchingAIResponse,
+        ])
+    );
+
     return (
         <>
             <div
@@ -17,11 +28,29 @@ const TopRightPanel = () => {
                 <Button
                     dataTooltipId="ask-gemini"
                     tooltipContent="Ask Gemini for help"
-                    onCLick={() => hideSearch(!showSearch)}>
+                    onCLick={() => setShowAssistant(!showAssistant)}>
                     <div className="relative">
-                        <SiGooglegemini className="text-blue-500 row-span-2" />
-                        <SiGooglegemini className="text-blue-500 size-2 absolute top-0 right-0" />
-                        <SiGooglegemini className="text-blue-500 size-2 absolute bottom-0 right-0" />
+                        <SiGooglegemini
+                            className={`text-blue-500 row-span-2 ${
+                                fetchingAIResponse
+                                    ? "animate-pulse duration-&lsqb;1.5&rsqb;"
+                                    : ""
+                            }`}
+                        />
+                        <SiGooglegemini
+                            className={`text-blue-500 size-2 absolute top-0 right-0 ${
+                                fetchingAIResponse
+                                    ? "animate-pulse duration-700"
+                                    : ""
+                            }`}
+                        />
+                        <SiGooglegemini
+                            className={`text-blue-500 size-2 absolute bottom-0 right-0 ${
+                                fetchingAIResponse
+                                    ? "animate-pulse duration-500"
+                                    : ""
+                            }`}
+                        />
                     </div>
                 </Button>
                 <Button
@@ -33,7 +62,7 @@ const TopRightPanel = () => {
                 <UserProfilePicture />
             </div>
 
-            {showSearch && <AIAssistant />}
+            {showAssistant && <AIAssistant />}
         </>
     );
 };
