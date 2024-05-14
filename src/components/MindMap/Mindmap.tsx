@@ -49,7 +49,7 @@ function MindmapFlow() {
             s.onNodesChange,
             s.onEdgesChange,
             s.onConnect,
-            s.setSelectedNode,
+            s.setSelectedNodes,
             s.setSelectedEdge,
             s.resetAll,
         ])
@@ -114,6 +114,7 @@ function MindmapFlow() {
 
     useOnSelectionChange({
         onChange: ({ nodes, edges }) => {
+            console.log(nodes);
             setSelectedNode(nodes);
             setSelectedEdge(edges);
 

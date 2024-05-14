@@ -4,16 +4,16 @@ import useRFStore from "./store";
 
 const DeleteButton = () => {
     const deleteNode = useRFStore((s) => s.deleteNode);
-    const selectedNode = useRFStore((s) => s.selectedNode);
-    const selectedEgde = useRFStore((s) => s.selectedEdge);
+    const selectedNodes = useRFStore((s) => s.selectedNodes);
+    const selectedEgde = useRFStore((s) => s.selectedEdges);
     const deleteEdge = useRFStore((s) => s.deleteEdge);
     return (
         <Button
             dataTooltipId="delete-button"
             onCLick={() => {
-                selectedNode ? deleteNode() : deleteEdge();
+                selectedNodes ? deleteNode() : deleteEdge();
             }}
-            disabled={selectedNode || selectedEgde ? false : true}
+            disabled={selectedNodes || selectedEgde ? false : true}
             tooltipContent="delete selected node or edge">
             <MdDeleteForever />
         </Button>

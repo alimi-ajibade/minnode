@@ -16,9 +16,9 @@ const imageHeight = 768;
 
 const DownloadButton = () => {
     const { getNodes } = useReactFlow();
-    const setSelectedNode = useRFStore((s) => s.setSelectedNode);
+    const setSelectedNodes = useRFStore((s) => s.setSelectedNodes);
     const onClick = () => {
-        setSelectedNode([] as Node<NodeData>[]);
+        setSelectedNodes([] as Node<NodeData>[]);
         const nodesBounds = getNodesBounds(getNodes());
         const transform = getViewportForBounds(
             nodesBounds,

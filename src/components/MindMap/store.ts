@@ -25,7 +25,7 @@ export interface NodeData {
 
 interface State {
     nodes: Node<NodeData>[];
-    selectedNode: Node<NodeData>;
+    selectedNodes: Node<NodeData>[];
     edges: Edge[];
     selectedEdge: Edge;
 }
@@ -40,20 +40,20 @@ const initialStates: State = {
         },
     ],
     edges: [],
-    selectedNode: {} as Node<NodeData>,
+    selectedNodes: [] as Node<NodeData>[],
     selectedEdge: {} as Edge,
 };
 
 export interface RFState {
     nodes: Node<NodeData>[];
-    selectedNode: Node<NodeData>;
+    selectedNodes: Node<NodeData>[];
     edges: Edge[];
     selectedEdge: Edge;
     onNodesChange: OnNodesChange;
-    setSelectedNode: (nodes: Node<NodeData>[]) => void;
+    setSelectedNodes: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
     addNode: () => void;
-    updateNode: (data: NodeData) => void;
+    updateNodeData: (node: Node, data: NodeData) => void;
     updateNodeLabel: (label: string) => void;
     deleteNode: () => void;
     onEdgesChange: OnEdgesChange;
@@ -84,9 +84,9 @@ const useRFStore = create<RFState>((set, get) => ({
         set({ edges: addEdge(edge, get().edges) });
     },
 
-    setSelectedNode: (nodes) => {
+    setSelectedNodes: (nodes) => {
         set({
-            selectedNode: nodes.find((node) => node.selected === true),
+            selectedNodes: nodes.filter((node) => node.selected === true),
         });
     },
 
@@ -134,19 +134,34 @@ const useRFStore = create<RFState>((set, get) => ({
         set({ nodes: [...currentNodes, newNode] });
     },
 
-    updateNode: (data) => {
-        const selectedNode = get().selectedNode;
+    updateNodeData: (node, data) => {
+        set({
+            nodes: [
+                ...get().nodes.map((n) => {
+                    if (n.id === node.id) {
+                        n.data = {
+                            ...n.data,
+                            label: data.label,
+                            backgroundColor: data.backgroundColor,
+                            note: data.note,
+                        };
+                    }
 
-        if (selectedNode)
+                    return n;
+                }),
+            ],
+        });
+    },
+
+    updateNodeLabel: (label) => {
+        [...get().selectedNodes].forEach((n) => {
             set({
                 nodes: [
                     ...get().nodes.map((node) => {
-                        if (node.id === selectedNode.id) {
+                        if (node.id === n.id) {
                             node.data = {
                                 ...node.data,
-                                label: data.label,
-                                backgroundColor: data.backgroundColor,
-                                note: data.note,
+                                label: label,
                             };
                         }
 
@@ -154,60 +169,45 @@ const useRFStore = create<RFState>((set, get) => ({
                     }),
                 ],
             });
-    },
-
-    updateNodeLabel: (label) => {
-        const selectedNode = get().selectedNode;
-
-        set({
-            nodes: [
-                ...get().nodes.map((node) => {
-                    if (node.id === selectedNode.id) {
-                        node.data = {
-                            ...node.data,
-                            label: label,
-                        };
-                    }
-
-                    return node;
-                }),
-            ],
         });
     },
 
     deleteNode: () => {
         const nodes = get().nodes;
         const edges = get().edges;
+        const selectedNodes = get().selectedNodes;
 
-        set({
-            nodes: [
-                ...get().nodes.filter((node) => {
-                    return node.id !== get().selectedNode.id;
-                }),
-            ],
+        selectedNodes.forEach((n) => {
+            set({
+                nodes: [
+                    ...get().nodes.filter((node) => {
+                        return node.id !== n.id;
+                    }),
+                ],
+            });
+
+            get().setEdges(
+                [n].reduce((acc, node) => {
+                    const incomers = getIncomers(node, nodes, edges);
+                    const outgoers = getOutgoers(node, nodes, edges);
+                    const connectedEdges = getConnectedEdges([node], edges);
+
+                    const remainingEdges = acc.filter(
+                        (edge) => !connectedEdges.includes(edge)
+                    );
+
+                    const createdEdges = incomers.flatMap(({ id: source }) =>
+                        outgoers.map(({ id: target }) => ({
+                            id: `${source}->${target}`,
+                            source,
+                            target,
+                        }))
+                    );
+
+                    return [...remainingEdges, ...createdEdges];
+                }, edges)
+            );
         });
-
-        get().setEdges(
-            [get().selectedNode].reduce((acc, node) => {
-                const incomers = getIncomers(node, nodes, edges);
-                const outgoers = getOutgoers(node, nodes, edges);
-                const connectedEdges = getConnectedEdges([node], edges);
-
-                const remainingEdges = acc.filter(
-                    (edge) => !connectedEdges.includes(edge)
-                );
-
-                const createdEdges = incomers.flatMap(({ id: source }) =>
-                    outgoers.map(({ id: target }) => ({
-                        id: `${source}->${target}`,
-                        source,
-                        target,
-                    }))
-                );
-
-                return [...remainingEdges, ...createdEdges];
-            }, edges)
-        );
     },
 
     deleteEdge: () => {

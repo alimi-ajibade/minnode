@@ -7,8 +7,8 @@ import useDashboardStore from "../../store";
 import { useShallow } from "zustand/react/shallow";
 
 const ColorPicker = () => {
-    const selectedNode = useRFStore((s) => s.selectedNode);
-    const updateNode = useRFStore((s) => s.updateNode);
+    const selectedNodes = useRFStore((s) => s.selectedNodes);
+    const updateNode = useRFStore((s) => s.updateNodeData);
     const [showColorPicker, setShowColorPicker] = useDashboardStore(
         useShallow((s) => [s.showColorPicker, s.setShowColorPicker])
     );
@@ -19,7 +19,7 @@ const ColorPicker = () => {
                 dataTooltipId="color-button"
                 onCLick={() => setShowColorPicker(!showColorPicker)}
                 tooltipContent="change color"
-                disabled={selectedNode ? false : true}>
+                disabled={selectedNodes ? false : true}>
                 <LuPaintbrush2 />
             </Button>
 
@@ -33,11 +33,14 @@ const ColorPicker = () => {
                         <TwitterPicker
                             triangle="hide"
                             onChangeComplete={(color) => {
-                                if (selectedNode)
-                                    updateNode({
-                                        ...selectedNode.data,
-                                        backgroundColor: color.hex,
+                                if (selectedNodes.length > 0) {
+                                    selectedNodes.forEach((n) => {
+                                        updateNode(n, {
+                                            ...n.data,
+                                            backgroundColor: color.hex,
+                                        });
                                     });
+                                }
                             }}
                         />
                     </OutsideClickHander>
