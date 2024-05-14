@@ -39,8 +39,7 @@ function MindmapFlow() {
         onNodesChange,
         onEdgesChange,
         onConnect,
-        setSelectedNode,
-        setSelectedEdge,
+        onSelectionEnd,
         resetAll,
     ] = useRFStore(
         useShallow((s) => [
@@ -49,8 +48,7 @@ function MindmapFlow() {
             s.onNodesChange,
             s.onEdgesChange,
             s.onConnect,
-            s.setSelectedNodes,
-            s.setSelectedEdge,
+            s.onSelectionEnd,
             s.resetAll,
         ])
     );
@@ -113,11 +111,7 @@ function MindmapFlow() {
     }, [document.activeElement]);
 
     useOnSelectionChange({
-        onChange: ({ nodes, edges }) => {
-            console.log(nodes);
-            setSelectedNode(nodes);
-            setSelectedEdge(edges);
-
+        onChange: () => {
             socket.emit("save", {
                 nodes: getNodes(),
                 edges: getEdges(),
@@ -231,6 +225,7 @@ function MindmapFlow() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            onSelectionEnd={onSelectionEnd}
             onPaneClick={() => {
                 setShowColorPicker(false);
                 setShowLogout(false);

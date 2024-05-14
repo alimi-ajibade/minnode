@@ -56,6 +56,7 @@ export interface RFState {
     onConnect: OnConnect;
     deleteEdge: () => void;
     setSelectedEdge: (edges: Edge[]) => void;
+    onSelectionEnd: () => void;
     resetAll: () => void;
 }
 
@@ -211,6 +212,11 @@ const useRFStore = create<RFState>((set, get) => ({
         [...selectedEdges].forEach((e) => {
             get().setEdges([...get().edges.filter((edge) => edge.id !== e.id)]);
         });
+    },
+
+    onSelectionEnd: () => {
+        get().setSelectedNodes(get().nodes);
+        get().setSelectedEdge(get().edges);
     },
 
     resetAll: () => {
