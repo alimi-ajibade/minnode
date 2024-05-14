@@ -1,14 +1,15 @@
 import { BaseEdge, EdgeProps, getSimpleBezierPath } from "reactflow";
+import _ from "lodash";
 
 function CustomEdge(props: EdgeProps) {
     const {
-        id,
         sourceX,
         sourceY,
         targetX,
         targetY,
         sourcePosition,
         targetPosition,
+        selected,
     } = props;
 
     const [edgePath] = getSimpleBezierPath({
@@ -18,9 +19,13 @@ function CustomEdge(props: EdgeProps) {
         targetY: targetPosition === "top" ? targetY + 3 : targetY,
     });
 
+    const style = selected
+        ? { stroke: "#66A9FF", strokeWidth: "2" }
+        : { strokeWidth: "2" };
+
     return (
         <>
-            <BaseEdge id={id} path={edgePath} />
+            <BaseEdge path={edgePath} style={style} />
         </>
     );
 }

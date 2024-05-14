@@ -11,7 +11,7 @@ const DeleteButton = () => {
         <Button
             dataTooltipId="delete-button"
             onCLick={() => {
-                selectedNodes ? deleteNode() : deleteEdge();
+                selectedNodes.length > 0 ? deleteNode() : deleteEdge();
             }}
             disabled={selectedNodes || selectedEgde ? false : true}
             tooltipContent="delete selected node or edge">

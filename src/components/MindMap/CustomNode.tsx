@@ -4,22 +4,15 @@ import { Handle, NodeProps, Position } from "reactflow";
 import useRFStore, { NodeData } from "./store";
 import { useShallow } from "zustand/react/shallow";
 
-function CustomNode({ id, data }: NodeProps<NodeData>) {
+function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
     const labelRef = useRef<HTMLInputElement>(null);
 
-    const [
-        nodes,
-        updateNodeLabel,
-        updateNode,
-        setSelectedNodes,
-        selectedNodes,
-    ] = useRFStore(
+    const [nodes, updateNodeLabel, updateNode, setSelectedNodes] = useRFStore(
         useShallow((s) => [
             s.nodes,
             s.updateNodeLabel,
             s.updateNodeData,
             s.setSelectedNodes,
-            s.selectedNodes,
         ])
     );
 
@@ -35,7 +28,7 @@ function CustomNode({ id, data }: NodeProps<NodeData>) {
         <>
             <div
                 className={
-                    _.find(selectedNodes, (n) => id === n.id)
+                    selected
                         ? `outline outline-[#66A9FF] outline-2 outline-offset-1`
                         : ""
                 }>

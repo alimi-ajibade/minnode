@@ -27,7 +27,7 @@ interface State {
     nodes: Node<NodeData>[];
     selectedNodes: Node<NodeData>[];
     edges: Edge[];
-    selectedEdge: Edge;
+    selectedEdges: Edge[];
 }
 
 const initialStates: State = {
@@ -41,14 +41,14 @@ const initialStates: State = {
     ],
     edges: [],
     selectedNodes: [] as Node<NodeData>[],
-    selectedEdge: {} as Edge,
+    selectedEdges: [] as Edge[],
 };
 
 export interface RFState {
     nodes: Node<NodeData>[];
     selectedNodes: Node<NodeData>[];
     edges: Edge[];
-    selectedEdge: Edge;
+    selectedEdges: Edge[];
     onNodesChange: OnNodesChange;
     setSelectedNodes: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
@@ -92,7 +92,7 @@ const useRFStore = create<RFState>((set, get) => ({
 
     setSelectedEdge: (edges) => {
         set({
-            selectedEdge: edges.find((edge) => edge.selected === true),
+            selectedEdges: edges.filter((edge) => edge.selected === true),
         });
     },
 
@@ -211,10 +211,11 @@ const useRFStore = create<RFState>((set, get) => ({
     },
 
     deleteEdge: () => {
-        const selectedEdge = get().selectedEdge;
-        get().setEdges([
-            ...get().edges.filter((edge) => edge.id !== selectedEdge.id),
-        ]);
+        const selectedEdges = get().selectedEdges;
+
+        [...selectedEdges].forEach((e) => {
+            get().setEdges([...get().edges.filter((edge) => edge.id !== e.id)]);
+        });
     },
 
     resetAll: () => {
