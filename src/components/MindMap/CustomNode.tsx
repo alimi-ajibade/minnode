@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import _ from "lodash";
 import { Handle, NodeProps, Position } from "reactflow";
-import useRFStore, { NodeData } from "./store";
+import useRFStore from "./store";
+import { NodeData } from "../../entities/NodeData";
 import { useShallow } from "zustand/react/shallow";
 
 function CustomNode({ id, data, selected }: NodeProps<NodeData>) {

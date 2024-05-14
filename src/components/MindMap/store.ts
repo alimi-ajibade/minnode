@@ -16,12 +16,7 @@ import {
     getConnectedEdges,
 } from "reactflow";
 import { create } from "zustand";
-
-export interface NodeData {
-    label: string;
-    note?: string;
-    backgroundColor?: string;
-}
+import { NodeData } from "../../entities/NodeData";
 
 interface State {
     nodes: Node<NodeData>[];

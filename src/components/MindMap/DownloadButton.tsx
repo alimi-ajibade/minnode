@@ -8,7 +8,8 @@ import {
 } from "reactflow";
 import Button from "./Button";
 import downloadImage from "../../services/download";
-import useRFStore, { NodeData } from "./store";
+import useRFStore from "./store";
+import { NodeData } from "../../entities/NodeData";
 import removeHandles from "../../utils/removeHandles";
 
 const imageWidth = 1024;

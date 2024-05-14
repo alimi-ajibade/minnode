@@ -7,7 +7,7 @@ import {
     ReactFlowProvider,
 } from "reactflow";
 import MindMap from "../entities/Mindmap";
-import { NodeData } from "./MindMap/store";
+import { NodeData } from "../entities/NodeData";
 import CustomEdge from "./MindMap/CustomEdge";
 
 interface Props {
