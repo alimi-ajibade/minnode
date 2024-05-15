@@ -35,7 +35,7 @@ const Button = ({
     return (
         <div className="px-1 my-3">
             <button
-                className={`flex justify-center item-center px-[1.9px] py-1 rounded-md text-gray-500 w-full text-xl lg:text-3xl disabled:text-gray-200 hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out`}
+                className={`flex justify-center item-center px-[1.9px] py-1 rounded-md text-gray-500 w-full text-xl lg:text-3xl focus:border-none disabled:text-gray-200 hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out`}
                 data-tooltip-id={dataTooltipId}
                 onClick={onCLick}
                 disabled={disabled}>

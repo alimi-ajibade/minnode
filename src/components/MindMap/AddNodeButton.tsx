@@ -1,4 +1,4 @@
-import { BiAddToQueue } from "react-icons/bi";
+import { RiFunctionAddLine } from "react-icons/ri";
 import Button from "./Button";
 import useRFStore from "./store";
 
@@ -9,7 +9,7 @@ const AddNodeButton = () => {
             dataTooltipId="add-button"
             onCLick={addNode}
             tooltipContent="add a new node">
-            <BiAddToQueue />
+            <RiFunctionAddLine />
         </Button>
     );
 };

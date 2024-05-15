@@ -1,5 +1,5 @@
 import { toPng } from "html-to-image";
-import { BiDownload } from "react-icons/bi";
+import { TbCloudDownload } from "react-icons/tb";
 import {
     getNodesBounds,
     getViewportForBounds,
@@ -51,7 +51,7 @@ const DownloadButton = () => {
             dataTooltipId="download-button"
             onCLick={onClick}
             tooltipContent="download mind map">
-            <BiDownload />
+            <TbCloudDownload />
         </Button>
     );
 };

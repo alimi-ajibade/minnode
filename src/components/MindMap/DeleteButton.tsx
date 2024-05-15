@@ -1,4 +1,4 @@
-import { MdDeleteForever } from "react-icons/md";
+import { TbLayoutGridRemove } from "react-icons/tb";
 import Button from "./Button";
 import useRFStore from "./store";
 
@@ -15,7 +15,7 @@ const DeleteButton = () => {
             }}
             disabled={selectedNodes || selectedEgde ? false : true}
             tooltipContent="delete selected node or edge">
-            <MdDeleteForever />
+            <TbLayoutGridRemove />
         </Button>
     );
 };

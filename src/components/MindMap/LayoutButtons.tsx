@@ -1,7 +1,4 @@
-import {
-    BiSolidObjectsHorizontalLeft,
-    BiSolidObjectsVerticalTop,
-} from "react-icons/bi";
+import { TbHierarchy3 } from "react-icons/tb";
 import Button from "./Button";
 import useLayoutNodes from "../../hooks/useLayoutNodes";
 
@@ -13,13 +10,13 @@ const LayoutButtons = () => {
                 dataTooltipId="horizontal-button"
                 onCLick={() => onLayout("LR")}
                 tooltipContent="layout nodes horizontally">
-                <BiSolidObjectsHorizontalLeft />
+                <TbHierarchy3 className="  -rotate-90" />
             </Button>
             <Button
                 dataTooltipId="vertical-button"
                 onCLick={() => onLayout("TB")}
                 tooltipContent="layout nodes vertically">
-                <BiSolidObjectsVerticalTop />
+                <TbHierarchy3 />
             </Button>
         </>
     );
