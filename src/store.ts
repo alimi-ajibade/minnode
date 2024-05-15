@@ -9,6 +9,7 @@ interface UIStore {
     showColorPicker: boolean;
     showAssitant: boolean;
     fetchingAIResponse: boolean;
+    showNodeHandles: boolean;
     setRenameFormModal: () => void;
     setShowLogout: (value: boolean) => void;
     setCurrentMindmap: (mindmap: PartialMindmap) => void;
@@ -16,6 +17,7 @@ interface UIStore {
     setShowColorPicker: (value: boolean) => void;
     setShowAssitant: (value: boolean) => void;
     setFetchingAIResponse: (value: boolean) => void;
+    setShowNodeHandles: (value: boolean) => void;
     toggleDropdown: (id: string) => void;
 }
 
@@ -27,6 +29,7 @@ const useUIStore = create<UIStore>((set, get) => ({
     showColorPicker: false,
     showAssitant: false,
     fetchingAIResponse: false,
+    showNodeHandles: false,
 
     setRenameFormModal: () => {
         set({ isRenameFormModalOpen: !get().isRenameFormModalOpen });
@@ -44,6 +47,10 @@ const useUIStore = create<UIStore>((set, get) => ({
     setShowAssitant: (value) => set({ showAssitant: value }),
 
     setFetchingAIResponse: (value) => set({ fetchingAIResponse: value }),
+
+    setShowNodeHandles: (value) => {
+        set({ showNodeHandles: value });
+    },
 
     toggleDropdown: (id) => {
         const dropdowns = document.getElementsByClassName("dropdowns");

@@ -4,6 +4,7 @@ import { Handle, NodeProps, Position } from "reactflow";
 import useRFStore from "./store";
 import { NodeData } from "../../entities/NodeData";
 import { useShallow } from "zustand/react/shallow";
+import useUIStore from "../../store";
 
 function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
     const labelRef = useRef<HTMLInputElement>(null);
@@ -16,6 +17,8 @@ function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
             s.setSelectedNodes,
         ])
     );
+
+    const showNodeHandles = useUIStore((s) => s.showNodeHandles);
 
     useEffect(() => {
         const node = nodes.find((node) => node.id === id);
@@ -45,10 +48,38 @@ function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
                         setSelectedNodes(nodes);
                     }}
                 />
-                <Handle type="target" position={Position.Top} id="targetT" />
-                <Handle type="source" position={Position.Bottom} id="sourceB" />
-                <Handle type="source" position={Position.Right} id="sourceR" />
-                <Handle type="target" position={Position.Left} id="targetL" />
+                <Handle
+                    type="target"
+                    position={Position.Top}
+                    id="targetT"
+                    className={
+                        selected || showNodeHandles ? "opacity-50" : "opacity-0"
+                    }
+                />
+                <Handle
+                    type="source"
+                    position={Position.Bottom}
+                    id="sourceB"
+                    className={
+                        selected || showNodeHandles ? "opacity-50" : "opacity-0"
+                    }
+                />
+                <Handle
+                    type="source"
+                    position={Position.Right}
+                    id="sourceR"
+                    className={
+                        selected || showNodeHandles ? "opacity-50" : "opacity-0"
+                    }
+                />
+                <Handle
+                    type="target"
+                    position={Position.Left}
+                    id="targetL"
+                    className={
+                        selected || showNodeHandles ? "opacity-50" : "opacity-0"
+                    }
+                />
             </div>
         </>
     );

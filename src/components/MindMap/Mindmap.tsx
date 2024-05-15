@@ -6,6 +6,7 @@ import ReactFlow, {
     ReactFlowProvider,
     useReactFlow,
     Panel,
+    ConnectionMode,
 } from "reactflow";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
@@ -15,7 +16,6 @@ import useMindmap from "../../hooks/useMindmap";
 import useUIStore from "../../store";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
-import HandleElementCustom from "../../entities/HandleElementCustom";
 import { PiPresentationDuotone } from "react-icons/pi";
 import ControlPanel from "./ControlPanel";
 import socket from "../../services/socket-client";
@@ -57,6 +57,7 @@ function MindmapFlow() {
     const { pathname } = useLocation();
     const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
     const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
+    const connectionMode = ConnectionMode.Loose;
 
     const [
         templateMindmap,
@@ -65,6 +66,7 @@ function MindmapFlow() {
         setShowLogout,
         setPresentationMode,
         setShowAssistant,
+        setShowNodeHandles,
     ] = useUIStore(
         useShallow((s) => [
             s.currentMindmap,
@@ -73,6 +75,7 @@ function MindmapFlow() {
             s.setShowLogout,
             s.setPresentationMode,
             s.setShowAssitant,
+            s.setShowNodeHandles,
         ])
     );
 
@@ -89,24 +92,6 @@ function MindmapFlow() {
             return;
         }
     }, [mindmap]);
-
-    useEffect(() => {
-        const handles = Array.from(
-            document.querySelectorAll(".react-flow__handle")
-        ) as HandleElementCustom[];
-
-        const focusElement = document.activeElement?.tagName;
-
-        if (focusElement === "BODY" || focusElement === "DIV") {
-            handles.forEach((handle) => {
-                handle.style!.opacity = 0;
-            });
-        } else {
-            handles.forEach((handle) => {
-                handle.style!.opacity = 1;
-            });
-        }
-    }, [document.activeElement]);
 
     useOnSelectionChange({
         onChange: () => {
@@ -225,6 +210,11 @@ function MindmapFlow() {
             onConnect={onConnect}
             onSelectionEnd={onSelectionEnd}
             deleteKeyCode={"Delete"}
+            // selectionOnDrag={true}
+            // panOnDrag={false}
+            connectionMode={connectionMode}
+            onConnectStart={() => setShowNodeHandles(true)}
+            onConnectEnd={() => setShowNodeHandles(false)}
             onPaneClick={() => {
                 setShowColorPicker(false);
                 setShowLogout(false);
