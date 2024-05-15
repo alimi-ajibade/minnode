@@ -3,13 +3,13 @@ import { TwitterPicker } from "react-color";
 import { LuPaintbrush2 } from "react-icons/lu";
 import Button from "./Button";
 import OutsideClickHander from "../OutsideClickHander";
-import useDashboardStore from "../../store";
+import useUIStore from "../../store";
 import { useShallow } from "zustand/react/shallow";
 
 const ColorPicker = () => {
     const selectedNodes = useRFStore((s) => s.selectedNodes);
     const updateNode = useRFStore((s) => s.updateNodeData);
-    const [showColorPicker, setShowColorPicker] = useDashboardStore(
+    const [showColorPicker, setShowColorPicker] = useUIStore(
         useShallow((s) => [s.showColorPicker, s.setShowColorPicker])
     );
 

@@ -2,12 +2,12 @@ import OutsideClickHander from "./OutsideClickHander";
 import { HiUserCircle } from "react-icons/hi2";
 import { ImExit } from "react-icons/im";
 import { useNavigate, useLocation } from "react-router-dom";
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 import { useShallow } from "zustand/react/shallow";
 import { User } from "../entities/User";
 
 const UserProfilePicture = () => {
-    const [showLogout, setShowLogout] = useDashboardStore(
+    const [showLogout, setShowLogout] = useUIStore(
         useShallow((s) => [s.showLogout, s.setShowLogout])
     );
     const navigate = useNavigate();

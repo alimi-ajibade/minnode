@@ -4,8 +4,10 @@ import { BiSend } from "react-icons/bi";
 import { z } from "zod";
 import apiClient from "../../services/api-client";
 import { toast } from "react-toastify";
-import useDashboardStore from "../../store";
+import useUIStore from "../../store";
 import { useShallow } from "zustand/react/shallow";
+import { useReactFlow } from "reactflow";
+import useLayoutNodes from "../../hooks/useLayoutNodes";
 
 const schema = z.object({
     prompt: z
@@ -16,11 +18,6 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AIAssistant = () => {
-    // const [isLoading, setIsLoading] = useState(false);
-    const [setShowAssistant, setFetchAIResponse] = useDashboardStore(
-        useShallow((s) => [s.setShowAssitant, s.setFetchingAIResponse])
-    );
-
     const {
         register,
         handleSubmit,
@@ -28,10 +25,16 @@ const AIAssistant = () => {
     } = useForm<FormData>({
         resolver: zodResolver(schema),
     });
+    const [setShowAssistant, setFetchAIResponse] = useUIStore(
+        useShallow((s) => [s.setShowAssitant, s.setFetchingAIResponse])
+    );
+    const { addNodes, addEdges } = useReactFlow();
+    const arrangeNodes = useLayoutNodes();
 
     const onSubmit = async (data: FormData) => {
-        // setIsLoading(true);
+        setShowAssistant(false);
         setFetchAIResponse(true);
+
         toast("Formulating your response...", {
             toastId: "ai",
             autoClose: false,
@@ -47,7 +50,10 @@ const AIAssistant = () => {
             data,
         })
             .then(({ data }) => {
-                console.log({ data });
+                addNodes(data.nodes);
+                addEdges(data.edges);
+
+                arrangeNodes("LR");
                 if (toast.isActive("ai")) toast.dismiss("ai");
             })
             .catch((err) => {
@@ -60,9 +66,7 @@ const AIAssistant = () => {
                 );
             })
             .finally(() => {
-                setShowAssistant(false);
                 setFetchAIResponse(false);
-                // setIsLoading(false);
             });
     };
 

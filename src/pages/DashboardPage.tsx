@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { SectionWrapper } from "../components/hoc";
 import MindmapGrid from "../components/MindmapGrid";
 import RenameFormModal from "../components/RenameFormModal";
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 import { Slide, ToastContainer } from "react-toastify";
 import { PartialMindmap } from "../entities/Mindmap";
 import MindmapTemplates from "../components/MindmapTemplates";
@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+    const setCurrentMindmap = useUIStore((s) => s.setCurrentMindmap);
 
     return (
         <>

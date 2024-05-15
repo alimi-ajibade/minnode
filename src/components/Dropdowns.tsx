@@ -1,6 +1,6 @@
 import MindMap from "../entities/Mindmap";
 import useDeleteMindmap from "../hooks/useDeleteMindmap";
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 
 interface Props {
     mindmap: MindMap;
@@ -8,9 +8,9 @@ interface Props {
 
 const Dropdowns = ({ mindmap }: Props) => {
     const deleteMindmap = useDeleteMindmap();
-    const displayRenameForm = useDashboardStore((s) => s.setRenameFormModal);
-    const toggleDropdown = useDashboardStore((s) => s.toggleDropdown);
-    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+    const displayRenameForm = useUIStore((s) => s.setRenameFormModal);
+    const toggleDropdown = useUIStore((s) => s.toggleDropdown);
+    const setCurrentMindmap = useUIStore((s) => s.setCurrentMindmap);
 
     return (
         <div

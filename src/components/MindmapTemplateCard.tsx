@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 import { PartialMindmap } from "../entities/Mindmap";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 const MindmapTemplateCard = ({ template }: Props) => {
     const navigate = useNavigate();
-    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+    const setCurrentMindmap = useUIStore((s) => s.setCurrentMindmap);
 
     return (
         <div className="hidden lg:flex flex-col">

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { TbDotsVertical } from "react-icons/tb";
 import Dropdowns from "./Dropdowns";
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 import MindMap from "../entities/Mindmap";
 import getTimeDiff from "../utils/getTimeDifference";
 import CardFlow from "./CardFlow";
@@ -13,8 +13,8 @@ interface Props {
 
 const MindmapCard = ({ mindmap }: Props) => {
     const navigate = useNavigate();
-    const toggleDropdown = useDashboardStore((s) => s.toggleDropdown);
-    const setCurrentMindmap = useDashboardStore((s) => s.setCurrentMindmap);
+    const toggleDropdown = useUIStore((s) => s.toggleDropdown);
+    const setCurrentMindmap = useUIStore((s) => s.setCurrentMindmap);
 
     return (
         <div

@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 import useRFStore from "./store";
 import { useShallow } from "zustand/react/shallow";
 import useMindmap from "../../hooks/useMindmap";
-import useDashboardStore from "../../store";
+import useUIStore from "../../store";
 import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
 import HandleElementCustom from "../../entities/HandleElementCustom";
@@ -54,10 +54,10 @@ function MindmapFlow() {
     );
 
     const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
-
     const { pathname } = useLocation();
-
     const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
+    const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
+
     const [
         templateMindmap,
         presentationMode,
@@ -65,7 +65,7 @@ function MindmapFlow() {
         setShowLogout,
         setPresentationMode,
         setShowAssistant,
-    ] = useDashboardStore(
+    ] = useUIStore(
         useShallow((s) => [
             s.currentMindmap,
             s.presentationMode,
@@ -75,8 +75,6 @@ function MindmapFlow() {
             s.setShowAssitant,
         ])
     );
-
-    const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
 
     useEffect(() => {
         if (mindmap) {
@@ -226,6 +224,7 @@ function MindmapFlow() {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onSelectionEnd={onSelectionEnd}
+            deleteKeyCode={"Delete"}
             onPaneClick={() => {
                 setShowColorPicker(false);
                 setShowLogout(false);

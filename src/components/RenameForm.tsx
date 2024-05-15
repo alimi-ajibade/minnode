@@ -2,7 +2,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRenameMindmap from "../hooks/useRenameMindmap";
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 import MindMap from "../entities/Mindmap";
 
 export const schema = z.object({
@@ -19,8 +19,8 @@ const RenameForm = () => {
         reset,
     } = useForm<FormData>({ resolver: zodResolver(schema) });
     const renameMindmap = useRenameMindmap();
-    const closeRenameFormModal = useDashboardStore((s) => s.setRenameFormModal);
-    const mindmap = useDashboardStore((s) => s.currentMindmap);
+    const closeRenameFormModal = useUIStore((s) => s.setRenameFormModal);
+    const mindmap = useUIStore((s) => s.currentMindmap);
 
     const onSubmit = async (data: FormData) => {
         renameMindmap.mutate({ ...mindmap, filename: data.name } as MindMap);

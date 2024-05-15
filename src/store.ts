@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import MindMap, { PartialMindmap } from "./entities/Mindmap";
 
-interface DashboardStore {
+interface UIStore {
     currentMindmap: MindMap | PartialMindmap;
     isRenameFormModalOpen: boolean;
     showLogout: boolean;
@@ -19,7 +19,7 @@ interface DashboardStore {
     toggleDropdown: (id: string) => void;
 }
 
-const useDashboardStore = create<DashboardStore>((set, get) => ({
+const useUIStore = create<UIStore>((set, get) => ({
     currentMindmap: {} as MindMap | PartialMindmap,
     isRenameFormModalOpen: false,
     showLogout: false,
@@ -63,4 +63,4 @@ const useDashboardStore = create<DashboardStore>((set, get) => ({
     },
 }));
 
-export default useDashboardStore;
+export default useUIStore;

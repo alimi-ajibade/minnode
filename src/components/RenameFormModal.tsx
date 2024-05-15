@@ -1,13 +1,11 @@
-import useDashboardStore from "../store";
+import useUIStore from "../store";
 import Modal from "./Modal";
 import RenameForm from "./RenameForm";
 
 const RenameFormModal = () => {
-    const isRenameFormModalOpen = useDashboardStore(
-        (s) => s.isRenameFormModalOpen
-    );
+    const isRenameFormModalOpen = useUIStore((s) => s.isRenameFormModalOpen);
 
-    const resetRenameFormModal = useDashboardStore((s) => s.setRenameFormModal);
+    const resetRenameFormModal = useUIStore((s) => s.setRenameFormModal);
 
     return (
         <Modal

@@ -1,5 +1,5 @@
 import { useShallow } from "zustand/react/shallow";
-import useDashboardStore from "../../store";
+import useUIStore from "../../store";
 import Button from "./Button";
 import { PiPresentationDuotone } from "react-icons/pi";
 import { SiGooglegemini } from "react-icons/si";
@@ -12,7 +12,7 @@ const TopRightPanel = () => {
         showAssistant,
         setShowAssistant,
         fetchingAIResponse,
-    ] = useDashboardStore(
+    ] = useUIStore(
         useShallow((s) => [
             s.setPresentationMode,
             s.showAssitant,
