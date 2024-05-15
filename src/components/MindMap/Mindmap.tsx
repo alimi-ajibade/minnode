@@ -38,6 +38,8 @@ function MindmapFlow() {
         edges,
         onNodesChange,
         onEdgesChange,
+        setSelectedEdge,
+        setSelectedNodes,
         onConnect,
         onSelectionEnd,
         resetAll,
@@ -47,6 +49,8 @@ function MindmapFlow() {
             s.edges,
             s.onNodesChange,
             s.onEdgesChange,
+            s.setSelectedEdge,
+            s.setSelectedNodes,
             s.onConnect,
             s.onSelectionEnd,
             s.resetAll,
@@ -94,7 +98,10 @@ function MindmapFlow() {
     }, [mindmap]);
 
     useOnSelectionChange({
-        onChange: () => {
+        onChange: ({ nodes, edges }) => {
+            setSelectedNodes(nodes);
+            setSelectedEdge(edges);
+
             socket.emit("save", {
                 nodes: getNodes(),
                 edges: getEdges(),
