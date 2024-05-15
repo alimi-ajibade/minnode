@@ -17,7 +17,7 @@ const ColorPicker = () => {
         <>
             <Button
                 dataTooltipId="color-button"
-                onCLick={() => setShowColorPicker(!showColorPicker)}
+                onClick={() => setShowColorPicker(!showColorPicker)}
                 tooltipContent="change color"
                 disabled={selectedNodes ? false : true}>
                 <LuPaintbrush2 />

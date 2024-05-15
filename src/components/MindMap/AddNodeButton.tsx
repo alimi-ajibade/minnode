@@ -7,7 +7,7 @@ const AddNodeButton = () => {
     return (
         <Button
             dataTooltipId="add-button"
-            onCLick={addNode}
+            onClick={addNode}
             tooltipContent="add a new node">
             <RiFunctionAddLine />
         </Button>

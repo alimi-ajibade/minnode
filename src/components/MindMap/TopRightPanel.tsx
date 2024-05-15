@@ -28,7 +28,7 @@ const TopRightPanel = () => {
                 <Button
                     dataTooltipId="ask-gemini"
                     tooltipContent="Ask Gemini for help"
-                    onCLick={() => setShowAssistant(!showAssistant)}>
+                    onClick={() => setShowAssistant(!showAssistant)}>
                     <div className="relative">
                         <SiGooglegemini
                             className={`text-blue-500 row-span-2 ${
@@ -56,7 +56,7 @@ const TopRightPanel = () => {
                 <Button
                     dataTooltipId="presentation-mode"
                     tooltipContent="Presentation Mode"
-                    onCLick={() => setPresentationMode()}>
+                    onClick={() => setPresentationMode()}>
                     <PiPresentationDuotone />
                 </Button>
                 <UserProfilePicture />

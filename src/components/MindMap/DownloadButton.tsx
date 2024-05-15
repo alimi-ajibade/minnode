@@ -49,7 +49,7 @@ const DownloadButton = () => {
     return (
         <Button
             dataTooltipId="download-button"
-            onCLick={onClick}
+            onClick={onClick}
             tooltipContent="download mind map">
             <TbCloudDownload />
         </Button>

@@ -8,13 +8,13 @@ const LayoutButtons = () => {
         <>
             <Button
                 dataTooltipId="horizontal-button"
-                onCLick={() => onLayout("LR")}
+                onClick={() => onLayout("LR")}
                 tooltipContent="layout nodes horizontally">
                 <TbHierarchy3 className="  -rotate-90" />
             </Button>
             <Button
                 dataTooltipId="vertical-button"
-                onCLick={() => onLayout("TB")}
+                onClick={() => onLayout("TB")}
                 tooltipContent="layout nodes vertically">
                 <TbHierarchy3 />
             </Button>

@@ -2,21 +2,23 @@ import { ReactNode, useRef } from "react";
 import { Tooltip, VariantType, TooltipRefProps } from "react-tooltip";
 
 interface Props {
+    className?: string;
     dataTooltipId: string;
     disabled?: boolean;
     children: ReactNode;
     tooltipVariant?: VariantType;
     tooltipContent: string;
-    onCLick: () => void;
+    onClick: () => void;
 }
 
 const Button = ({
+    className,
     dataTooltipId,
     disabled,
     children,
     tooltipContent,
     tooltipVariant,
-    onCLick,
+    onClick: onClick,
 }: Props) => {
     const toolTipRef = useRef<TooltipRefProps>(null);
 
@@ -35,9 +37,9 @@ const Button = ({
     return (
         <div className="px-1 my-3">
             <button
-                className={`flex justify-center item-center px-[1.9px] py-1 rounded-md text-gray-500 w-full text-xl lg:text-3xl focus:border-none disabled:text-gray-200 hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out`}
+                className={`${className} flex justify-center item-center px-[1.9px] py-1 rounded-md text-gray-500 w-full text-xl lg:text-3xl focus:border-none disabled:text-gray-200 hover:text-blue-700 hover:bg-blue-200 transition duration-300 ease-in-out`}
                 data-tooltip-id={dataTooltipId}
-                onClick={onCLick}
+                onClick={onClick}
                 disabled={disabled}>
                 {children}
             </button>

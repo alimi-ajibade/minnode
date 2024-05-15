@@ -17,12 +17,14 @@ import {
 } from "reactflow";
 import { create } from "zustand";
 import { NodeData } from "../../entities/NodeData";
+import DragMode from "../../entities/DragMode";
 
 interface State {
     nodes: Node<NodeData>[];
     selectedNodes: Node<NodeData>[];
     edges: Edge[];
     selectedEdges: Edge[];
+    dragMode: DragMode;
 }
 
 const initialStates: State = {
@@ -37,6 +39,7 @@ const initialStates: State = {
     edges: [],
     selectedNodes: [] as Node<NodeData>[],
     selectedEdges: [] as Edge[],
+    dragMode: DragMode.Select,
 };
 
 export interface RFState {
@@ -44,6 +47,7 @@ export interface RFState {
     selectedNodes: Node<NodeData>[];
     edges: Edge[];
     selectedEdges: Edge[];
+    dragMode: DragMode;
     onNodesChange: OnNodesChange;
     setSelectedNodes: (nodes: Node<NodeData>[]) => void;
     addNodeUsingForm: (label: string, note?: string, color?: string) => void;
@@ -57,6 +61,7 @@ export interface RFState {
     deleteEdge: () => void;
     setSelectedEdge: (edges: Edge[]) => void;
     onSelectionEnd: () => void;
+    setDragMode: (mode: DragMode) => void;
     resetAll: () => void;
 }
 
@@ -217,6 +222,10 @@ const useRFStore = create<RFState>((set, get) => ({
     onSelectionEnd: () => {
         get().setSelectedNodes(get().nodes);
         get().setSelectedEdge(get().edges);
+    },
+
+    setDragMode: (mode) => {
+        set({ dragMode: mode });
     },
 
     resetAll: () => {
