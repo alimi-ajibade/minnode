@@ -36,6 +36,7 @@ function MindmapFlow() {
     const [
         nodes,
         edges,
+        dragMode,
         onNodesChange,
         onEdgesChange,
         setSelectedEdge,
@@ -47,6 +48,7 @@ function MindmapFlow() {
         useShallow((s) => [
             s.nodes,
             s.edges,
+            s.dragMode,
             s.onNodesChange,
             s.onEdgesChange,
             s.setSelectedEdge,
@@ -198,7 +200,7 @@ function MindmapFlow() {
                         <Button
                             dataTooltipId="presentation-mode"
                             tooltipContent="Presentation Mode"
-                            onCLick={() => setPresentationMode()}>
+                            onClick={() => setPresentationMode()}>
                             <PiPresentationDuotone />
                         </Button>
                     </div>
@@ -217,8 +219,8 @@ function MindmapFlow() {
             onConnect={onConnect}
             onSelectionEnd={onSelectionEnd}
             deleteKeyCode={"Delete"}
-            // selectionOnDrag={true}
-            // panOnDrag={false}
+            selectionOnDrag={dragMode === "select" ? true : false}
+            panOnDrag={dragMode === "pan" ? true : false}
             connectionMode={connectionMode}
             onConnectStart={() => setShowNodeHandles(true)}
             onConnectEnd={() => setShowNodeHandles(false)}
