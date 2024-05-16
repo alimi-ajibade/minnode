@@ -3,12 +3,16 @@ import { useCallback } from "react";
 import { Edge, Node, useReactFlow } from "reactflow";
 import { Node as DagreNode } from "@dagrejs/dagre";
 import useRFStore from "../components/MindMap/store";
+import { useShallow } from "zustand/react/shallow";
+import _ from "lodash";
 
 const g = new Dagre.graphlib.Graph<Node>().setDefaultEdgeLabel(() => ({}));
 
 const useLayoutNodes = () => {
     const { setEdges, setNodes, fitView } = useReactFlow();
-    const { nodes, edges } = useRFStore();
+    const [allNodes, allEdges, _selectedNodes, _selectedEdges] = useRFStore(
+        useShallow((s) => [s.nodes, s.edges, s.selectedNodes, s.selectedEdges])
+    );
 
     const getLayoutedElements = (
         nodes: Node[],
@@ -36,7 +40,39 @@ const useLayoutNodes = () => {
 
     const onLayout = useCallback(
         (direction: string) => {
-            const layouted = getLayoutedElements(nodes, edges, { direction });
+            // if (selectedNodes.length > 1) {
+            //     const nodes = selectedNodes;
+            //     const edges = selectedEdges;
+
+            //     const layouted = getLayoutedElements([...nodes], [...edges], {
+            //         direction,
+            //     });
+
+            //     const unselectedNodes = [...allNodes].filter(
+            //         (n) => !n.selected
+            //     );
+            //     const unselectedEdges = [...allEdges].filter(
+            //         (e) => !e.selected
+            //     );
+
+            //     setNodes([...layouted.nodes, ...unselectedNodes]);
+            //     setEdges([...layouted.edges, ...unselectedEdges]);
+            // } else {
+            //     const nodes = allNodes;
+            //     const edges = allEdges;
+            //     const layouted = getLayoutedElements([...nodes], [...edges], {
+            //         direction,
+            //     });
+
+            //     setNodes([...layouted.nodes]);
+            //     setEdges([...layouted.edges]);
+            // }
+
+            const nodes = allNodes;
+            const edges = allEdges;
+            const layouted = getLayoutedElements([...nodes], [...edges], {
+                direction,
+            });
 
             setNodes([...layouted.nodes]);
             setEdges([...layouted.edges]);
@@ -45,7 +81,7 @@ const useLayoutNodes = () => {
                 fitView();
             });
         },
-        [nodes, edges]
+        [allNodes, allEdges]
     );
 
     return onLayout;
