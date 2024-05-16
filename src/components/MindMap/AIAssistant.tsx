@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import useUIStore from "../../store";
 import { useShallow } from "zustand/react/shallow";
 import { useReactFlow } from "reactflow";
-import useLayoutNodes from "../../hooks/useLayoutNodes";
+import alignNodes from "../../utils/alignGeneratedMindmap";
 
 const schema = z.object({
     prompt: z
@@ -28,8 +28,15 @@ const AIAssistant = () => {
     const [setShowAssistant, setFetchAIResponse] = useUIStore(
         useShallow((s) => [s.setShowAssitant, s.setFetchingAIResponse])
     );
-    const { addNodes, addEdges } = useReactFlow();
-    const arrangeNodes = useLayoutNodes();
+    const {
+        addNodes,
+        addEdges,
+        setNodes,
+        setEdges,
+        getNodes,
+        getEdges,
+        fitView,
+    } = useReactFlow();
 
     const onSubmit = async (data: FormData) => {
         setShowAssistant(false);
@@ -53,7 +60,14 @@ const AIAssistant = () => {
                 addNodes(data.nodes);
                 addEdges(data.edges);
 
-                arrangeNodes("LR");
+                const { nodes, edges } = alignNodes(data.nodes, data.edges);
+                setNodes([...getNodes(), ...nodes]);
+                setEdges([...getEdges(), ...edges]);
+
+                window.requestAnimationFrame(() => {
+                    fitView();
+                });
+
                 if (toast.isActive("ai")) toast.dismiss("ai");
             })
             .catch((err) => {
