@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef, useLayoutEffect } from "react";
 import _ from "lodash";
 import { Handle, NodeProps, Position } from "reactflow";
 import useRFStore from "./store";
@@ -8,25 +8,31 @@ import useUIStore from "../../store";
 
 function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
     const labelRef = useRef<HTMLInputElement>(null);
-
-    const [nodes, updateNodeLabel, updateNode, setSelectedNodes] = useRFStore(
-        useShallow((s) => [
-            s.nodes,
-            s.updateNodeLabel,
-            s.updateNodeData,
-            s.setSelectedNodes,
-        ])
-    );
-
+    const [nodes, dragMode, updateNodeLabel, updateNode, setSelectedNodes] =
+        useRFStore(
+            useShallow((s) => [
+                s.nodes,
+                s.dragMode,
+                s.updateNodeLabel,
+                s.updateNodeData,
+                s.setSelectedNodes,
+            ])
+        );
     const showNodeHandles = useUIStore((s) => s.showNodeHandles);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const node = nodes.find((node) => node.id === id);
 
-        if (labelRef.current !== null && node?.data.label) {
+        if (labelRef.current && node?.data.label) {
             labelRef.current.value = node?.data.label;
         }
-    }, [nodes, updateNode]);
+
+        if (labelRef.current) {
+            labelRef.current.style.backgroundColor = data.backgroundColor!;
+            labelRef.current.style.width =
+                data.label.length > 4 ? `${data.label.length + 4}ch` : "w-36";
+        }
+    }, [data, updateNode, dragMode]);
 
     return (
         <>
@@ -36,18 +42,26 @@ function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
                         ? `outline outline-[#66A9FF] outline-2 outline-offset-1`
                         : ""
                 }>
-                <input
-                    ref={labelRef}
-                    defaultValue={data.label}
-                    style={{
-                        backgroundColor: data.backgroundColor,
-                    }}
-                    className="p-2 text-center border focus:outline-none"
-                    onChange={(event) => {
-                        updateNodeLabel(event.target.value);
-                        setSelectedNodes(nodes);
-                    }}
-                />
+                {dragMode === "text" && (
+                    <input
+                        ref={labelRef}
+                        defaultValue={data.label}
+                        className={`p-2 text-center border focus:outline-none`}
+                        onChange={(event) => {
+                            updateNodeLabel(event.target.value);
+                            setSelectedNodes(nodes);
+                        }}
+                    />
+                )}
+
+                {dragMode !== "text" && (
+                    <div
+                        ref={labelRef}
+                        className={`p-2 text-center border focus:outline-none bg-white`}>
+                        {data.label}
+                    </div>
+                )}
+
                 <Handle
                     type="target"
                     position={Position.Top}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import ReactFlow, {
     Background,
     Controls,
@@ -23,6 +23,7 @@ import Button from "./Button";
 import TopLeftPanel from "./TopLeftPanel";
 import TopRightPanel from "./TopRightPanel";
 import "reactflow/dist/style.css";
+import DragMode from "../../entities/DragMode";
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -58,13 +59,6 @@ function MindmapFlow() {
             s.resetAll,
         ])
     );
-
-    const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
-    const { pathname } = useLocation();
-    const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
-    const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
-    const connectionMode = ConnectionMode.Loose;
-
     const [
         templateMindmap,
         presentationMode,
@@ -84,6 +78,12 @@ function MindmapFlow() {
             s.setShowNodeHandles,
         ])
     );
+
+    const { setNodes, setEdges, getNodes, getEdges } = useReactFlow();
+    const { pathname } = useLocation();
+    const { data: mindmap, isLoading } = useMindmap(pathname.slice(-10));
+    const user = JSON.parse(sessionStorage.getItem("current_user")!)?.email;
+    const connectionMode = ConnectionMode.Loose;
 
     useEffect(() => {
         if (mindmap) {
@@ -138,7 +138,8 @@ function MindmapFlow() {
         };
     }, []);
 
-    useEffect(() => {
+    // changes based on socket connection state
+    useLayoutEffect(() => {
         function onDisconnect() {
             if (!toast.isActive("disconnect")) {
                 toast(
@@ -173,6 +174,20 @@ function MindmapFlow() {
             socket.off("connect", onConnect);
         };
     }, []);
+
+    // change cursor layout based on dragMode
+    useLayoutEffect(() => {
+        const panElement = document.getElementsByClassName(
+            "react-flow__pane"
+        )[0] as HTMLDivElement;
+
+        if (panElement) {
+            if (dragMode === DragMode.Select)
+                panElement.style.cursor = "default";
+            if (dragMode === DragMode.Pan) panElement.style.cursor = "grab";
+            if (dragMode === DragMode.Text) panElement.style.cursor = "text";
+        }
+    }, [dragMode]);
 
     if (isLoading)
         return (
