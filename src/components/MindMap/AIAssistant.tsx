@@ -93,7 +93,7 @@ const AIAssistant = () => {
                         type="text"
                         placeholder="Topic"
                         id="prompt"
-                        className="border px-3 py-1 focus:outline-none rounded-md"
+                        className="border px-3 py-1 w-64 focus:outline-none rounded-md"
                     />
 
                     <button
