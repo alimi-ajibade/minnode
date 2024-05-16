@@ -232,11 +232,12 @@ function MindmapFlow() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            connectionMode={connectionMode}
             onSelectionEnd={onSelectionEnd}
             deleteKeyCode={"Delete"}
+            minZoom={0}
             selectionOnDrag={dragMode === "select" ? true : false}
             panOnDrag={dragMode === "pan" ? true : false}
-            connectionMode={connectionMode}
             onConnectStart={() => setShowNodeHandles(true)}
             onConnectEnd={() => setShowNodeHandles(false)}
             onPaneClick={() => {
