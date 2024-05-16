@@ -41,7 +41,7 @@ const UserProfilePicture = () => {
                 </button>
 
                 {showLogout && (
-                    <div className="absolute w-72 top-10 -right-3 bg-white p-3 rounded-md text-sm lg:text-base shadow-md animate-in fade-in zoom-in">
+                    <div className="absolute w-72 top-12 -right-3 bg-white p-3 rounded-md text-sm lg:text-base shadow-md animate-in fade-in zoom-in">
                         <div className="flex flex-row items-center justify-start gap-2 mb-4">
                             {current_user.picture ? (
                                 <img
