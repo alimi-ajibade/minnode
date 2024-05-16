@@ -7,6 +7,7 @@ import ReactFlow, {
     useReactFlow,
     Panel,
     ConnectionMode,
+    BackgroundVariant,
 } from "reactflow";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
@@ -22,8 +23,8 @@ import socket from "../../services/socket-client";
 import Button from "./Button";
 import TopLeftPanel from "./TopLeftPanel";
 import TopRightPanel from "./TopRightPanel";
-import "reactflow/dist/style.css";
 import DragMode from "../../entities/DragMode";
+import "reactflow/dist/style.css";
 
 const nodeTypes = {
     mindmap: CustomNode,
@@ -246,10 +247,15 @@ function MindmapFlow() {
                 setShowAssistant(false);
             }}
             fitView>
-            <Background gap={18} />
-            <Controls showInteractive={false} />
-            <ControlPanel />
-            <Panel position="top-left">
+            <Background gap={18} variant={BackgroundVariant.Cross} />
+
+            <Controls />
+
+            <Panel position="top-left" className="h-full flex items-center">
+                <ControlPanel />
+            </Panel>
+
+            <Panel position="top-left" className="">
                 <TopLeftPanel
                     filename={
                         templateMindmap.filename
