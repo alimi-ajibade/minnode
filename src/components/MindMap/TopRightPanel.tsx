@@ -8,16 +8,16 @@ import AIAssistant from "./AIAssistant";
 
 const TopRightPanel = () => {
     const [
-        setPresentationMode,
         showAssistant,
-        setShowAssistant,
         fetchingAIResponse,
+        setPresentationMode,
+        setShowAssistant,
     ] = useUIStore(
         useShallow((s) => [
-            s.setPresentationMode,
             s.showAssitant,
-            s.setShowAssitant,
             s.fetchingAIResponse,
+            s.setPresentationMode,
+            s.setShowAssitant,
         ])
     );
 
@@ -28,6 +28,7 @@ const TopRightPanel = () => {
                 <Button
                     dataTooltipId="ask-gemini"
                     tooltipContent="Ask Gemini for help"
+                    disabled={fetchingAIResponse}
                     onClick={() => setShowAssistant(!showAssistant)}>
                     <div className="relative">
                         <SiGooglegemini
