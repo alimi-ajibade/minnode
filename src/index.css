@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.prevent-select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.react-flow__pane {
+    cursor: default;
+}
+
+.react-flow__attribution {
+    opacity: 0;
+}
+
 /* .react-flow__handle-top,
 .react-flow__handle-bottom {
     width: 100%;
