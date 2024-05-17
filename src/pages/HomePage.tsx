@@ -7,7 +7,7 @@ const HomePage = () => {
     const navigate = useNavigate();
     return (
         <>
-            <section className="flex flex-col lg:flex-row items-center min-h-[700px] h-screen lg:h-[50vh] pt-16 lg:pt-20">
+            <section className="flex flex-col lg:flex-row items-center min-h-[700px] h-full lg:h-[50vh] pt-16 lg:pt-20">
                 <div className="lg:flex-1 grow-0">
                     <p className="text-4xl lg:text-7xl  font-bold">
                         Transform your ideas into structured brilliance.

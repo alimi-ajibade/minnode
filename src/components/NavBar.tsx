@@ -13,7 +13,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     return (
-        <nav className={`flex flex-row items-center justify-between pt-2`}>
+        <nav className={`flex flex-row items-center justify-between py-2`}>
             <div className="text-2xl flex flex-row gap-2 items-center">
                 {pathname === "/" && (
                     <button
@@ -42,7 +42,7 @@ const NavBar = () => {
 
             {/* Mobile */}
             <div
-                className={`lg:hidden absolute inset-0 h-screen w-2/3 bg-purple-50 text-xl duration-300 ease-out transition-all ${
+                className={`lg:hidden absolute inset-0 h-full w-2/3 bg-purple-50 text-xl duration-300 ease-out transition-all ${
                     showMenu ? "translate-x-0" : "-translate-x-full"
                 }`}>
                 <ul className="p-5">
