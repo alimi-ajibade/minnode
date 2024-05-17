@@ -73,6 +73,7 @@ const CardFlow = ({ mindmap }: Props) => {
                 edges={edges}
                 nodeTypes={nodeTypes}
                 edgeTypes={edgeTypes}
+                minZoom={0}
                 fitView={true}>
                 <Background />
             </ReactFlow>

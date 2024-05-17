@@ -32,7 +32,7 @@ const MindmapCard = ({ mindmap }: Props) => {
                 </div>
             </div>
 
-            <div className="bg-pink-100 basis-48 overflow-hidden rounded-md">
+            <div className="bg-pink-100 basis-48 overflow-hidden rounded-md p-2">
                 <CardFlow mindmap={mindmap} key={mindmap._id} />
             </div>
 
