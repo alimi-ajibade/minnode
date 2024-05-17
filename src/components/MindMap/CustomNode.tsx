@@ -46,7 +46,7 @@ function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
                     <input
                         ref={labelRef}
                         defaultValue={data.label}
-                        className={`p-2 text-center border focus:outline-none`}
+                        className={`p-2 text-center border focus:outline-none w-36`}
                         onChange={(event) => {
                             updateNodeLabel(event.target.value);
                             setSelectedNodes(nodes);
@@ -57,7 +57,7 @@ function CustomNode({ id, data, selected }: NodeProps<NodeData>) {
                 {dragMode !== "text" && (
                     <div
                         ref={labelRef}
-                        className={`p-2 text-center border focus:outline-none bg-white`}>
+                        className={`p-2 text-center border focus:outline-none bg-white w-36 h-[2.6rem]`}>
                         {data.label}
                     </div>
                 )}
