@@ -29,6 +29,7 @@ function Flow() {
                 nodesFocusable={false}
                 draggable={false}
                 panOnDrag={false}
+                zoomOnPinch={false}
                 fitView>
                 <Background />
             </ReactFlow>

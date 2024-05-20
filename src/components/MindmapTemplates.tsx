@@ -1,4 +1,4 @@
-import mindmapTemplates from "../entities/templateMindmaps";
+import mindmapTemplates from "../entities/MindmapTemplates";
 import MindmapTemplateCard from "./MindmapTemplateCard";
 
 const MindmapTemplates = () => {

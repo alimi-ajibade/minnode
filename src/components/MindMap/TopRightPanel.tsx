@@ -34,7 +34,7 @@ const TopRightPanel = () => {
                         <SiGooglegemini
                             className={`text-blue-500 row-span-2 ${
                                 fetchingAIResponse
-                                    ? "animate-pulse duration-[1.5]"
+                                    ? "animate-pulse duration-&lsqb;1.5&rsqb;"
                                     : ""
                             }`}
                         />

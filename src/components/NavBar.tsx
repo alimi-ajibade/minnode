@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import SignupButton from "./SignupButton";
 import LoginButton from "./LoginButton";
 import UserProfilePicture from "./UserProfilePicture";
+import icon from "../assets/mindmap.png";
 
 const NavBar = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -22,13 +23,12 @@ const NavBar = () => {
                         <IoMdMenu size={25} />
                     </button>
                 )}
-
                 <div
-                    className="w-10 h-10 hover:cursor-pointer"
+                    className="flex flex-row items-center gap-2 hover:cursor-pointer"
                     onClick={() => navigate("/")}>
-                    <img src="/images/icon.png" className="object-contain" />
+                    <img src={icon} className="object-contain size-10" />
+                    <span className="font-bold">SimpleMind</span>
                 </div>
-                <span className="font-bold">SimpleMind</span>
             </div>
 
             {pathname === "/" && (

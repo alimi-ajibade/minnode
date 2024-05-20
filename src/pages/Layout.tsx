@@ -5,15 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Layout = () => {
     const { pathname } = useLocation();
-    const background =
-        pathname === "/"
-            ? "bg-gradient-to-r from-purple-50 to-pink-50"
-            : "bg-gray-100";
+    const background = pathname === "/" ? "" : "bg-gray-50";
     const height = pathname === "/" ? "h-auto" : "h-screen";
     const navbarBg =
-        pathname === "/"
-            ? "border-b border-gray-700 bg-gray-50"
-            : "bg-gray-100";
+        pathname === "/" ? "border-b border-gray-700 bg-gray-50" : "bg-gray-50";
 
     return (
         <>
@@ -26,7 +21,7 @@ const Layout = () => {
                     </div>
                 )}
 
-                <main className="basis-full w-full px-5 lg:px-0">
+                <main className="px-5 lg:px-0 basis-full w-full">
                     <Outlet />
                 </main>
 
