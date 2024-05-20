@@ -249,8 +249,6 @@ function MindmapFlow() {
             fitView>
             <Background gap={18} variant={BackgroundVariant.Cross} />
 
-            <Controls />
-
             <Panel position="top-left" className="h-full flex items-center">
                 <ControlPanel />
             </Panel>
@@ -268,6 +266,7 @@ function MindmapFlow() {
             <Panel position="top-right">
                 <TopRightPanel />
             </Panel>
+            <Controls />
         </ReactFlow>
     );
 }

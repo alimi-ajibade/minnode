@@ -25,7 +25,7 @@ const ColorPicker = () => {
 
             {showColorPicker && (
                 <div
-                    className={`absolute top-[85%] left-16 ${
+                    className={`absolute top-[65%] left-16 ${
                         showColorPicker ? "animate-in fade-in zoom-in" : ""
                     }`}>
                     <OutsideClickHander
