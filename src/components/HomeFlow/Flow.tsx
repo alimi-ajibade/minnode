@@ -1,21 +1,13 @@
 import ReactFlow, { Background, ReactFlowProvider } from "reactflow";
+import exampleMindmap from "./ExampleMindmap";
+import CustomNode from "./CustomNode";
 import "reactflow/dist/style.css";
 
-const edges = [{ id: "1-2", source: "1", target: "2" }];
-
-const nodes = [
-    {
-        id: "1",
-        data: { label: "Hello" },
-        position: { x: 0, y: 0 },
-        type: "input",
-    },
-    {
-        id: "2",
-        data: { label: "World" },
-        position: { x: 100, y: 100 },
-    },
-];
+const edges = exampleMindmap.edges;
+const nodes = exampleMindmap.nodes;
+const nodeTypes = {
+    mindmap: CustomNode,
+};
 
 function Flow() {
     return (
@@ -23,6 +15,7 @@ function Flow() {
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
+                nodeTypes={nodeTypes}
                 edgesUpdatable={false}
                 edgesFocusable={false}
                 nodesDraggable={false}
