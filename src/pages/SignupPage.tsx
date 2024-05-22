@@ -12,8 +12,8 @@ const SignupPage = () => {
     const { googleAuth, googleIsLoading } = useGoogle(); // google authentication
 
     return (
-        <div className="h-lvh flex flex-col columns-1 justify-center items-center px-3">
-            <div className="p-5 mx-auto border border-gray-800 rounded-md min-h-96 min-w-xl max-w-xl bg-white">
+        <div className="h-[93vh] flex flex-col columns-1 justify-start items-center px-3">
+            <div className="p-5 mx-auto my-10 border border-gray-800 rounded-md min-h-96 min-w-xl max-w-xl bg-white">
                 <h1 className="text-3xl font-medium mb-4">Sign Up</h1>
                 <SignUpForm />
 

@@ -12,8 +12,8 @@ const LoginPage = () => {
     const { googleAuth, googleIsLoading } = useGoogle(); // google authentication
 
     return (
-        <div className="flex flex-col columns-1 justify-center items-center h-[93vh] p-3">
-            <div className="p-5 mx-auto border border-gray-800 rounded-md min-h-96 w-11/12 max-w-xl bg-white">
+        <div className="flex flex-col columns-1 justify-start items-center h-[93vh] p-3">
+            <div className="p-5 mx-auto my-10 border border-gray-800 rounded-md min-h-96 w-11/12 max-w-xl bg-white">
                 <h1 className="text-3xl font-medium mb-4">Login</h1>
                 <LoginForm />
 
