@@ -8,6 +8,7 @@ import tipsAndTricks from "../entities/TipsTricks";
 
 const HomePage = () => {
     const navigate = useNavigate();
+
     return (
         <div>
             <section className="flex flex-col lg:flex-row items-center h-[700px] mt-10">
