@@ -24,6 +24,7 @@ import Button from "./Button";
 import TopLeftPanel from "./TopLeftPanel";
 import TopRightPanel from "./TopRightPanel";
 import DragMode from "../../entities/DragMode";
+import icon from "../../assets/mindmap.png";
 import "reactflow/dist/style.css";
 
 const nodeTypes = {
@@ -193,7 +194,7 @@ function MindmapFlow() {
     if (isLoading)
         return (
             <div className="w-full h-full flex item-center justify-center animate-pulse">
-                <img src="/images/icon.png" className="object-contain w-20" />
+                <img src={icon} className="object-contain w-20" />
             </div>
         );
 
