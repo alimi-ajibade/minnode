@@ -20,11 +20,11 @@ const HomepageSection = ({
         <section
             className={`flex lg:flex-row flex-col gap-3 items-center justify-center lg:max-h-[500px] mt-10 lg:mt-10`}>
             <div className={`self-center lg:flex-1 ${flex_order[flexOrder]}`}>
-                <h2 className="lg:text-4xl text-2xl text-gray-800">
+                <h2 className="lg:text-4xl text-xl font-semibold text-gray-700">
                     {sectionHeader}
                 </h2>
 
-                <p className="text-lg lg:text-xl mt-3 text-gray-500">
+                <p className="lg:text-xl text-basis text-gray-500 mt-3 pr-8">
                     {sectionDetail}
                 </p>
             </div>

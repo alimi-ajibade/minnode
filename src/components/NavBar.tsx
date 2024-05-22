@@ -14,7 +14,7 @@ const NavBar = () => {
 
     return (
         <nav
-            className={`flex flex-row items-center justify-between py-2 lg:px-0 px-2`}>
+            className={`flex flex-row items-center justify-between py-2 lg:px-0 px-2 text-gray-700`}>
             <div className="text-2xl flex flex-row gap-2 items-center justify-between w-full z-10">
                 <div
                     className="flex flex-row items-center gap-2 hover:cursor-pointer"

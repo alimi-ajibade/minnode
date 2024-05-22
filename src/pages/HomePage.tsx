@@ -35,11 +35,11 @@ const HomePage = () => {
 
             <section className="flex lg:flex-row flex-col gap-3 items-center justify-center lg:max-h-[500px] mt-20">
                 <div className="flex-1 self-center lg:order-last lg:ml-5">
-                    <h2 className="lg:text-4xl text-2xl text-gray-800">
+                    <h2 className="lg:text-4xl text-xl font-semibold text-gray-700">
                         Effortless AI-Powered Mind Map Creation
                     </h2>
 
-                    <p className="text-l lg:text-xl text-gray-500 mt-3 pr-8">
+                    <p className="lg:text-xl text-basis text-gray-500 mt-3 pr-8">
                         Utilize our AI tool to effortlessly generate mind maps.
                         With a focus on simplicity and user-friendliness, you
                         can easily customize your mind map to achieve a
