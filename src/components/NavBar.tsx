@@ -20,7 +20,7 @@ const NavBar = () => {
                     className="flex flex-row items-center gap-2 hover:cursor-pointer"
                     onClick={() => navigate("/")}>
                     <img src={icon} className="object-contain size-10" />
-                    <span className="font-bold">SimpleMind</span>
+                    <span className="font-bold">Minnode</span>
                 </div>
 
                 {pathname === "/" && (
@@ -44,10 +44,10 @@ const NavBar = () => {
 
             {/* Mobile */}
             <div
-                className={`lg:hidden absolute inset-x-0 inset-y-14 w-full bg-gray-50 text-xl overflow-hidden duration-300 ease-out transition-all ${
-                    showMenu ? "h-[50vh]" : "h-[0vh]"
+                className={`lg:hidden absolute inset-x-0 inset-y-14 w-full text-xl overflow-hidden duration-300 ease-out transition-all ${
+                    showMenu ? "h-[100vh]" : "h-[0vh]"
                 }`}>
-                <ul className={`p-5`}>
+                <ul className={`p-5 bg-gray-50 h-[50%] rounded-md`}>
                     <li>
                         <LoginButton
                             className="p-2 mt-5 w-full font-bold border-1 rounded-md outline outline-1 outline-neutral-700 hover:bg-purple-400 active:bg-purple-600 transition duration-500 ease-in-out"
