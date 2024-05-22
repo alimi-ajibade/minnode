@@ -26,9 +26,9 @@ const Dashboard = () => {
                 transition={Slide}
                 className={"text-center rounded-md text-sm w-fit"}
             />
-            <div className="mt-14 pb-3">
-                <div className="mt-14">
-                    <h1 className="pt-10 lg:text-4xl text-2xl font-semibold">
+            <div className="pb-3">
+                <div>
+                    <h1 className="pt-5 lg:pt-10 lg:text-4xl text-2xl font-semibold">
                         Create a Mindmap
                     </h1>
 

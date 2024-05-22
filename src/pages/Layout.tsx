@@ -10,6 +10,8 @@ const Layout = () => {
     const navbarBg =
         pathname === "/" ? "border-b border-gray-700 bg-gray-50" : "bg-gray-50";
 
+    const mobilePadding = pathname.includes("mindmap") ? "" : "px-5";
+
     return (
         <>
             <div
@@ -21,7 +23,7 @@ const Layout = () => {
                     </div>
                 )}
 
-                <main className="px-5 lg:px-0 basis-full w-full">
+                <main className={`lg:px-0 basis-full w-full ${mobilePadding}`}>
                     <Outlet />
                 </main>
 
