@@ -1,12 +1,11 @@
 import { Handle, NodeProps, Position } from "reactflow";
 import { NodeData as AppNodeData } from "../../entities/NodeData";
-import earth from "../../assets/planetIcons/icons8-earth-96.png";
 
 interface NodeData extends AppNodeData {
     icon: string;
 }
 
-const CustomNode = ({ id, data }: NodeProps<NodeData>) => {
+const CustomNode = ({ data }: NodeProps<NodeData>) => {
     return (
         <div
             className={`flex flex-row items-center justify-center gap-2 p-2 text-center border focus:outline-none w-36 h-[2.6rem] bg-gray-50`}>

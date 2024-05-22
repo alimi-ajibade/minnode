@@ -96,6 +96,7 @@ const exampleMindmap = {
                 strokeWidth: 1.5,
                 stroke: "#FF0072",
             },
+            animated: true,
         },
         {
             id: "reactflow__edge-Rqo6YfGkbJsourceR-VPmvlzzc_PtargetL",
@@ -113,6 +114,7 @@ const exampleMindmap = {
                 strokeWidth: 1.5,
                 stroke: "#FF0072",
             },
+            animated: true,
         },
         {
             id: "reactflow__edge-Rqo6YfGkbJsourceR-MPrnotqNlStargetL",
@@ -130,6 +132,7 @@ const exampleMindmap = {
                 strokeWidth: 1.5,
                 stroke: "#FF0072",
             },
+            animated: true,
         },
         {
             id: "reactflow__edge-Rqo6YfGkbJsourceR-QPKAAvj2QGtargetL",
@@ -147,6 +150,7 @@ const exampleMindmap = {
                 strokeWidth: 1.5,
                 stroke: "#FF0072",
             },
+            animated: true,
         },
     ],
 };
