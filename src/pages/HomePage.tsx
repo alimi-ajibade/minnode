@@ -33,7 +33,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="flex lg:flex-row flex-col gap-3 items-center justify-center lg:max-h-[500px] mt-20">
+            <section className="flex lg:flex-row flex-col gap-3 items-center justify-center lg:min-h-[500px] mt-20">
                 <div className="flex-1 self-center lg:order-last lg:ml-5">
                     <h2 className="lg:text-4xl text-xl font-semibold text-gray-700">
                         Effortless AI-Powered Mind Map Creation
