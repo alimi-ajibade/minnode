@@ -46,7 +46,7 @@ const Button = ({
             <Tooltip
                 ref={toolTipRef}
                 id={dataTooltipId}
-                place="bottom"
+                place="right"
                 variant={tooltipVariant ? tooltipVariant : "dark"}
                 content={tooltipContent}
                 afterShow={afterShow}

@@ -39,7 +39,7 @@ const initialStates: State = {
     edges: [],
     selectedNodes: [] as Node<NodeData>[],
     selectedEdges: [] as Edge[],
-    dragMode: DragMode.Select,
+    dragMode: DragMode.Pan,
 };
 
 export interface RFState {
